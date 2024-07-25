@@ -6,7 +6,7 @@ import { HiInformationCircle } from "react-icons/hi";
 const UserTopProgress: React.FC = () => {
   return (
     <div className="flex flex-row justify-between gap-5 px-2 mt-2">
-      <div className="w-full font-bold flex flex-col gap-1 flex-1 text-sm">
+      <div className="w-full font-bold flex flex-col gap-1 flex-1 text-xs">
         <p>
           Brooze &gt; <span className="text-slate-400">1/10</span>
         </p>
