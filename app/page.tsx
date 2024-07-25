@@ -1,16 +1,19 @@
-import BodyContainer from "@/components/body_container/BodyContainer";
+"use client";
+import Boost from "@/components/boost/Boost";
+import Dashboard from "@/components/dashboard/Dashboard";
 import FootNavigator from "@/components/foot_nav/FootNavigator";
-import UserTopProgress from "@/components/user_progress/UserTopProgress";
-import Image from "next/image";
+import Friends from "@/components/friends/Friends";
+import Mine from "@/components/mine/Mine";
+import { useGlobal } from "@/context/global_context/GlobalContext";
 
 export default function Home() {
+  const { currentLocation } = useGlobal();
   return (
     <main className="min-h-screen pt-3">
-      <p className="ps-2 font-bold">Nicholas Emenike (CEO)</p>
-      <div className="flex flex-col gap-10">
-        <UserTopProgress />
-        <BodyContainer />
-      </div>
+      {currentLocation === "dashboard" && <Dashboard />}
+      {currentLocation === "boost" && <Boost />}
+      {currentLocation === "mine" && <Mine />}
+      {currentLocation === "friends" && <Friends />}
       <FootNavigator />
     </main>
   );
