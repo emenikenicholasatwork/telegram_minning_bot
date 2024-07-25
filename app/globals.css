@@ -31,3 +31,18 @@ body {
     text-wrap: balance;
   }
 }
+
+@keyframes moveToCoin {
+  0% {
+    opacity: 1;
+    transform: translate(0, 0) scale(1);
+  }
+  100% {
+    opacity: 0;
+    transform: translate(var(--delta-x), var(--delta-y)) scale(0);
+  }
+}
+
+.animation-move {
+  animation: moveToCoin 1s forwards;
+}
