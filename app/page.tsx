@@ -1,6 +1,7 @@
 "use client";
 import Boost from "@/components/boost/Boost";
 import Dashboard from "@/components/dashboard/Dashboard";
+import Earn from "@/components/earn/Earn";
 import FootNavigator from "@/components/foot_nav/FootNavigator";
 import Friends from "@/components/friends/Friends";
 import Mine from "@/components/mine/Mine";
@@ -14,6 +15,7 @@ export default function Home() {
       {currentLocation === "boost" && <Boost />}
       {currentLocation === "mine" && <Mine />}
       {currentLocation === "friends" && <Friends />}
+      {currentLocation === "earn" && <Earn />}
       <FootNavigator />
     </main>
   );

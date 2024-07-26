@@ -15,6 +15,9 @@ const config: Config = {
       },
       boxShadow: {
         "top-green": "0 -15px 6px rgba(0, 128, 0, .5)",
+        "round-blue-shadow1": "0px 0px 30px 10px rgba(0, 0, 60, 1)",
+        "round-blue-shadow2": "0px 0px 50px 40px rgba(0, 0, 140, 1)",
+        "round-blue-shadow3": "0px 0px 80px 45px rgba(0, 0, 180, 1)",
       },
     },
   },

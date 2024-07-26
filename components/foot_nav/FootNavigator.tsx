@@ -61,7 +61,10 @@ const FootNavigator = () => {
           className={`flex flex-col items-center flex-1 duration-200 ${
             activeNav === "earn" ? "text-white bg-slate-950" : "text-slate-400"
           }   py-2 rounded-xl px-3`}
-          onClick={() => setActiveNav("earn")}
+          onClick={() => {
+            setActiveNav("earn");
+            changeCurrentLocation("earn");
+          }}
         >
           <GiTwoCoins className="w-9 h-9" />
           <p className="text-sm">Earn</p>

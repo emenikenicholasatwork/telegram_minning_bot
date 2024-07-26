@@ -36,7 +36,6 @@ const Dashboard: React.FC = () => {
     number.className = "absolute text-5xl font-bold text-white animation-move";
     const tapImage = document.getElementById("tap_image");
     tapImage?.classList.add("scale-105");
-    const total_coin = document.getElementById("total_coin_icon");
     document.getElementById("coin_div")?.appendChild(number);
     const clickX = event.clientX;
     const clickY = event.clientY;
@@ -45,14 +44,9 @@ const Dashboard: React.FC = () => {
     setTimeout(() => {
       tapImage?.classList.remove("scale-105");
     }, 100);
-    if (coinRef.current && total_coin) {
-      const elementRect = total_coin.getBoundingClientRect();
-      const elementX = elementRect.left + elementRect.width / 2;
-      const elementY = elementRect.top;
-      const deltaX = elementX - clickX;
-      const deltaY = elementY - clickY;
-      number.style.setProperty("--delta-x", `${deltaX}px`);
-      number.style.setProperty("--delta-y", `${deltaY}px`);
+    if (coinRef.current) {
+      number.style.setProperty("--delta-x", `${-10}px`);
+      number.style.setProperty("--delta-y", `${-200}px`);
       number.addEventListener("animationend", () => {
         number.remove();
       });
