@@ -9,7 +9,7 @@ const Mine: React.FC = () => {
   const { dailyCombo, formattedBalance } = useGlobal();
   const [activetab, setActivetab] = useState("pr&team");
   return (
-    <div className="flex flex-col gap-10">
+    <div className="flex flex-col gap-10 pb-52">
       <UserTopProgress />
       <div className="h-full w-full flex flex-col rounded-t-3xl shadow-top-green py-5 px-3 gap-8">
         <div className="flex flex-col gap-5">
@@ -91,7 +91,7 @@ const Mine: React.FC = () => {
           <div className="w-full flex flex-row justify-between items-center bg-slate-800 h-16 px-1 rounded-lg">
             <div
               onClick={() => setActivetab("pr&team")}
-              className={`flex items-center duration-100 ${
+              className={`flex flex-1 items-center duration-100 ${
                 activetab === "pr&team" ? "bg-slate-950" : ""
               } py-4 px-2 rounded-lg`}
             >
@@ -99,7 +99,7 @@ const Mine: React.FC = () => {
             </div>
             <div
               onClick={() => setActivetab("markets")}
-              className={`flex items-center duration-100 ${
+              className={`flex flex-1 items-center duration-100 ${
                 activetab === "markets" ? "bg-slate-950" : ""
               } py-4 px-2 rounded-lg`}
             >
@@ -107,7 +107,7 @@ const Mine: React.FC = () => {
             </div>
             <div
               onClick={() => setActivetab("legals")}
-              className={`flex items-center duration-100 ${
+              className={`flex flex-1 items-center duration-100 ${
                 activetab === "legals" ? "bg-slate-950" : ""
               } py-4 px-2 rounded-lg`}
             >
@@ -115,22 +115,57 @@ const Mine: React.FC = () => {
             </div>
             <div
               onClick={() => setActivetab("web3")}
-              className={`flex items-center duration-100 ${
+              className={`flex flex-1 items-center duration-100 ${
                 activetab === "web3" ? "bg-slate-950" : ""
               } py-4 px-2 rounded-lg`}
             >
               <p className="font-bold">Web3</p>
             </div>
-            <div
-              onClick={() => setActivetab("specials")}
-              className={`flex items-center duration-100 ${
-                activetab === "specials" ? "bg-slate-950" : ""
-              } py-4 px-2 rounded-lg`}
-            >
-              <p className="font-bold">Specials</p>
+          </div>
+          <div className="w-full h-full grid grid-cols-2">
+            <div className="bg-slate-800 rounded-xl flex flex-col py-2 gap-3">
+              <div className="flex flex-row items-center px-2 gap-2">
+                <Image
+                  className="w-20 h-20"
+                  src={"/images/item_images/ceo.png"}
+                  width={100}
+                  height={100}
+                  alt="ceo image"
+                />
+                <div className="flex flex-col">
+                  <p className="font-bold">CEO</p>
+                  <div className="flex flex-col">
+                    <p className="text-slate-400 text-sm">Quick per hour</p>
+                    <div className="flex flex-row items-center gap-1">
+                      <Image
+                        className="w-5 h-5"
+                        src={"/images/quick_coin.png"}
+                        width={100}
+                        height={100}
+                        alt="quick icon"
+                      />
+                      <p className="font-bold">+2,00k</p>
+                    </div>
+                  </div>
+                </div>
+              </div>
+              <div className="bg-slate-600 h-[1px] w-full"></div>
+              <div className="flex flex-row items-center px-2 gap-2">
+                <p className="flex flex-1">lvl 0</p>
+                <div className="h-full w-[1px] bg-slate-600"></div>
+                <div className="flex flex-row items-center flex-[3] gap-2">
+                  <Image
+                    className="w-7 h-7"
+                    src={"/images/quick_coin.png"}
+                    width={100}
+                    height={100}
+                    alt="quick icon"
+                  />
+                  <p className="font-bold">8K</p>
+                </div>
+              </div>
             </div>
           </div>
-          <div className="w-full h-full"></div>
         </div>
       </div>
     </div>

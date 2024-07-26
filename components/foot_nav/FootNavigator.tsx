@@ -24,7 +24,7 @@ const FootNavigator = () => {
         >
           <Image
             className="w-9 h-9"
-            src={"/images/binance.png"}
+            src={"/images/exchange_images/binance.png"}
             width={100}
             height={100}
             alt="binance icon"

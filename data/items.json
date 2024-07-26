@@ -1,0 +1,28 @@
+[
+  {
+    "id": 1,
+    "name": "Anonymous transaction ban",
+    "category": "pr&team",
+    "quick_per_hour": 300,
+    "image": "/images/items_images/anonymous-transaction-ban.png",
+    "condition": "Invite 1 friend"
+  },
+  {
+    "id": 2,
+    "name": "Antihacking shield",
+    "category": "pr&team",
+    "image": "/images/items_images/antihacking-shield.png"
+  },
+  {
+    "id": 3,
+    "name": "BisDev Team",
+    "category": "pr&team",
+    "image": "/images/items_images/bisdev-team.png"
+  },
+  {
+    "id": 4,
+    "name": "Anonymous transaction ban",
+    "category": "pr&team",
+    "image": "/images/items_images/block-suspicious-account.png"
+  }
+]

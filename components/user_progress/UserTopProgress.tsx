@@ -18,7 +18,7 @@ const UserTopProgress: React.FC = () => {
         <div className="flex flex-1 items-center justify-center">
           <Image
             className="w-7 h-7"
-            src={"/images/binance.png"}
+            src={"/images/exchange_images/binance.png"}
             width={100}
             height={100}
             alt="binance icon"
@@ -36,7 +36,7 @@ const UserTopProgress: React.FC = () => {
               alt="quick coin icon"
             />
             <p className="font-bold text-[13px]">+ 1.4M</p>
-            <HiInformationCircle className="text" />
+            <HiInformationCircle className="text-slate-400" />
           </div>
         </div>
         <div className="h-6 w-[1px] bg-slate-600"></div>
