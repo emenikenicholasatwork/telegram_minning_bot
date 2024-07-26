@@ -26,7 +26,7 @@ export const GlobalProvider: React.FC<GlobalProviderProps> = ({ children }) => {
   const [isDailyComboCompleted, setIsDailyComboCompleted] = useState(false);
   const [isDailyCodeCompleted, setIsDailyCodeCompleted] = useState(false);
   const [currentLocation, setCurrentLocation] = useState("dashboard");
-  const [currentBalance, setCurrentBalance] = useState(999);
+  const [currentBalance, setCurrentBalance] = useState(0);
   const [dailyCombo, setDailyCombo] = useState(0);
 
   const addDailyCombo = () => {
@@ -49,6 +49,15 @@ export const GlobalProvider: React.FC<GlobalProviderProps> = ({ children }) => {
     minimumFractionDigits: 0,
     maximumFractionDigits: 0,
   }).format(currentBalance);
+
+  function formatNumber(num: number) {
+    if (num >= 1000000) {
+      return (num / 1000000).toFixed(2) + "m";
+    } else if (num >= 1000) {
+      return (num / 1000).toFixed(2) + "k";
+    }
+    return num.toString();
+  }
 
   const changeDailyRewardState = () => {};
   const changeCurrentLocation = (location: string) => {
