@@ -52,7 +52,7 @@ body {
     transform: scale(1);
   }
   50% {
-    transform: scale(1.02); /* Scales up */
+    transform: scale(1.02);
   }
   100% {
     transform: scale(1);
@@ -73,5 +73,5 @@ body {
 }
 
 .rotating-icon {
-  animation: rotate 0.5s linear infinite; /* Adjust time as needed */
+  animation: rotate 0.5s linear infinite;
 }
