@@ -8,9 +8,10 @@ import Legal from "./legal/Legal";
 import Prteam from "./prteam/Prteam";
 import Markets from "./markets/Markets";
 import Web3 from "./web3/Web3";
+import { AiFillCheckCircle } from "react-icons/ai";
 
 const Mine: React.FC = () => {
-  const { dailyCombo, formattedBalance } = useGlobal();
+  const { dailyCombo, formattedBalance, isDailyComboCompleted } = useGlobal();
   const [activetab, setActivetab] = useState("prteam");
   return (
     <div className="flex flex-col gap-10 pb-20">
@@ -40,7 +41,7 @@ const Mine: React.FC = () => {
                 }`}
               ></div>
             </div>
-            <div className="flex flex-row items-center gap-2 bg-emerald-500 rounded-lg p-2">
+            <div className="flex flex-row items-center gap-2 bg-slate-700 rounded-lg p-2">
               <Image
                 className="w-7 h-7"
                 src={"/images/quick_coin.png"}
@@ -49,6 +50,9 @@ const Mine: React.FC = () => {
                 alt="quick coin icon"
               />
               <p className="font-bold">+10,000,000</p>
+              {isDailyComboCompleted && (
+                <AiFillCheckCircle className="text-xl text-green-500" />
+              )}
             </div>
           </div>
           <div className="w-full px-2 flex flex-row justify-between items-center gap-3">

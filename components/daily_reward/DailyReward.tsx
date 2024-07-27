@@ -8,11 +8,11 @@ const DailyReward = () => {
   const { changeCurrentLocation, currentLocation, formatNumber } = useGlobal();
   return (
     <div
-      className={`fixed flex bottom-0 left-0 right-0 bg-black flex-col duration-200 z-10  rounded-t-3xl overflow-hidden  shadow-top-green items-center${
+      className={` duration-300 ${
         currentLocation === "daily_coin"
-          ? "h-[80%] px-5 gap-10 pt-10 pb-20 "
-          : "h-0"
-      }`}
+          ? "h-[90%] px-5 gap-2 pt-2 pb-20 "
+          : "h-0 overflow-hidden"
+      } fixed flex bottom-0 left-0 right-0 bg-black flex-col z-10  rounded-t-3xl  shadow-top-green items-center `}
     >
       <div className="relative w-full flex justify-end">
         <GiCancel
@@ -20,7 +20,7 @@ const DailyReward = () => {
           onClick={() => changeCurrentLocation("earn")}
         />
       </div>
-      <div className="flex flex-col items-center gap-10">
+      <div className="flex flex-col items-center gap-2">
         <Image
           className="w-32 h-32 rounded-3xl"
           src={"/images/daily_coin.png"}
@@ -53,7 +53,11 @@ const DailyReward = () => {
           </div>
         ))}
       </div>
-      <button className="fixed bottom-16 p-4 bg-blue-600 w-full">Claim</button>
+      <div className="w-full absolute bottom-5 px-2">
+        <button className="  p-5 bg-blue-600 text-lg w-full rounded-xl font-bold">
+          Claim
+        </button>
+      </div>
     </div>
   );
 };

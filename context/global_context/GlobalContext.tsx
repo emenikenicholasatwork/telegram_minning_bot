@@ -28,6 +28,8 @@ interface GlobalContextProps {
   reduceTapLeft: (num: number) => void;
   tapLimit: number;
   profitPerHour: number;
+  isOpenCipherArea: boolean;
+  changeOpenCipher: () => void;
 }
 
 const GlobalContext = createContext<GlobalContextProps | undefined>(undefined);
@@ -38,6 +40,7 @@ interface GlobalProviderProps {
 
 export const GlobalProvider: React.FC<GlobalProviderProps> = ({ children }) => {
   const [isDailyRewardCollected, setIsDailyRewardCollected] = useState(false);
+  const [isOpenCipherArea, setIsOpenCipherArea] = useState(false);
   const [isDailyComboCompleted, setIsDailyComboCompleted] = useState(false);
   const [isDailyCodeCompleted, setIsDailyCodeCompleted] = useState(false);
   const [currentLocation, setCurrentLocation] = useState("dashboard");
@@ -50,6 +53,10 @@ export const GlobalProvider: React.FC<GlobalProviderProps> = ({ children }) => {
   const [profitPerHour, setProfitPerHour] = useState(0);
   const intervalRef = useRef<number | null>(null);
   const [increasePerSecond, setIncreasePerSecond] = useState(3);
+
+  const changeOpenCipher = () => {
+    setIsOpenCipherArea(!isOpenCipherArea);
+  };
 
   useEffect(() => {
     intervalRef.current = window.setInterval(() => {
@@ -147,6 +154,8 @@ export const GlobalProvider: React.FC<GlobalProviderProps> = ({ children }) => {
         reduceTapLeft,
         tapLimit,
         profitPerHour,
+        changeOpenCipher,
+        isOpenCipherArea,
       }}
     >
       {children}
