@@ -1,0 +1,182 @@
+[
+  {
+    "id": 18,
+    "name": "KYB",
+    "category": "legal",
+    "quick_per_hour": 60,
+    "image": "/images/item_images/kyb.png",
+    "condition": "",
+    "price": 500,
+    "level": 0
+  },
+  {
+    "id": 19,
+    "name": "KYC",
+    "category": "legal",
+    "quick_per_hour": 10,
+    "image": "/images/item_images/kyc.png",
+    "condition": "",
+    "price": 100,
+    "level": 0
+  },
+  {
+    "id": 23,
+    "name": "Legal opinion",
+    "category": "legal",
+    "quick_per_hour": 60,
+    "image": "/images/item_images/legal-opinion.png",
+    "condition": "",
+    "price": 1000,
+    "level": 0
+  },
+  {
+    "id": 24,
+    "name": "Licence Asia",
+    "category": "legal",
+    "quick_per_hour": 370,
+    "image": "/images/item_images/legal-asia.png",
+    "condition": "KYC lvl 5",
+    "price": 2000,
+    "level": 0
+  },
+  {
+    "id": 25,
+    "name": "Licence Australia",
+    "category": "legal",
+    "quick_per_hour": 680,
+    "image": "/images/item_images/licence-australia.png",
+    "condition": "KYC lvl 5",
+    "price": 2000,
+    "level": 0
+  },
+  {
+    "id": 26,
+    "name": "Licence Bangladesh",
+    "category": "legal",
+    "quick_per_hour": 3500,
+    "image": "/images/item_images/licence-bangladesh.png",
+    "condition": "Invite 4 friend",
+    "price": 7000,
+    "level": 0
+  },
+  {
+    "id": 27,
+    "name": "Licence Ethiopia",
+    "category": "legal",
+    "quick_per_hour": 1800,
+    "image": "/images/item_images/licence-ethiopia.png",
+    "condition": "Invite 2 friend",
+    "price": 3800,
+    "level": 0
+  },
+  {
+    "id": 28,
+    "name": "Licence Europe",
+    "category": "legal",
+    "quick_per_hour": 720,
+    "image": "/images/item_images/licence-europe.png",
+    "condition": "KYC lvl 5",
+    "price": 3300,
+    "level": 0
+  },
+  {
+    "id": 29,
+    "name": "Licence India",
+    "category": "legal",
+    "quick_per_hour": 2500,
+    "image": "/images/item_images/licence-india.png",
+    "condition": "Invite 3 friend",
+    "price": 6800,
+    "level": 0
+  },
+  {
+    "id": 30,
+    "name": "Licence Indonesia",
+    "category": "legal",
+    "quick_per_hour": 5000,
+    "image": "/images/item_images/licence-indonesia.png",
+    "condition": "Invite 4 friend",
+    "price": 11000,
+    "level": 0
+  },
+  {
+    "id": 31,
+    "name": "Licence Japa",
+    "category": "legal",
+    "quick_per_hour": 2600,
+    "image": "/images/item_images/licence-japan.png",
+    "condition": "Invite 1 friend",
+    "price": 5400,
+    "level": 0
+  },
+  {
+    "id": 32,
+    "name": "Licence Nigeria",
+    "category": "legal",
+    "quick_per_hour": 170,
+    "image": "/images/item_images/licence-nigeria.png",
+    "condition": "",
+    "price": 1500,
+    "level": 0
+  },
+  {
+    "id": 33,
+    "name": "Licence North America",
+    "category": "legal",
+    "quick_per_hour": 950,
+    "image": "/images/item_images/licence-north-america.png",
+    "condition": "",
+    "price": 2600,
+    "level": 0
+  },
+  {
+    "id": 34,
+    "name": "Licence Philippines",
+    "category": "legal",
+    "quick_per_hour": 6500,
+    "image": "/images/item_images/licence-philippines.png",
+    "condition": "",
+    "price": 15000,
+    "level": 0
+  },
+  {
+    "id": 35,
+    "name": "Licence South America",
+    "category": "legal",
+    "quick_per_hour": 300,
+    "image": "/images/item_images/licence-south-america.png",
+    "condition": "Invite 1 friend",
+    "price": 2000,
+    "level": 0
+  },
+  {
+    "id": 36,
+    "name": "Licence Turkey",
+    "category": "legal",
+    "quick_per_hour": 390,
+    "image": "/images/item_images/licence-turkey.png",
+    "condition": "KYC lvl 5",
+    "price": 1300,
+    "level": 0
+  },
+  {
+    "id": 37,
+    "name": "Licence UAE",
+    "category": "legal",
+    "quick_per_hour": 560,
+    "image": "/images/item_images/licence-uae.png",
+    "condition": "KYC lvl 5",
+    "price": 2200,
+    "level": 0
+  },
+  {
+    "id": 38,
+    "name": "Licence Vietnam",
+    "category": "legal",
+    "quick_per_hour": 4000,
+    "image": "/images/item_images/licence-vietnam.png",
+    "condition": "Invite 1 friend",
+    "price": 8100,
+    "level": 0
+  }
+]

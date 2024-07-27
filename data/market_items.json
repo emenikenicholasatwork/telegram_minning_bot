@@ -1,0 +1,222 @@
+[
+  {
+    "id": 39,
+    "name": "Margin trading X10",
+    "category": "markets",
+    "quick_per_hour": 275,
+    "image": "/images/item_images/margin10.png",
+    "condition": "Shit coin lvl 5",
+    "price": 2000,
+    "level": 0
+  },
+  {
+    "id": 40,
+    "name": "Margin trading X20",
+    "category": "markets",
+    "quick_per_hour": 350,
+    "image": "/images/item_images/margin20.png",
+    "condition": "Margin trading  X10 lvl 5",
+    "price": 2000,
+    "level": 0
+  },
+  {
+    "id": 41,
+    "name": "Margin trading X30",
+    "category": "markets",
+    "quick_per_hour": 500,
+    "image": "/images/item_images/margin30.png",
+    "condition": "Legal opinion lvl 6",
+    "price": 2000,
+    "level": 0
+  },
+  {
+    "id": 42,
+    "name": "Margin trading X50",
+    "category": "markets",
+    "quick_per_hour": 1100,
+    "image": "/images/item_images/margin50.png",
+    "condition": "Margin trading  X30 lvl 8",
+    "price": 5000,
+    "level": 0
+  },
+  {
+    "id": 43,
+    "name": "Margin trading X75",
+    "category": "markets",
+    "quick_per_hour": 1100,
+    "image": "/images/item_images/margin75.png",
+    "condition": "",
+    "price": 4000,
+    "level": 0
+  },
+  {
+    "id": 44,
+    "name": "Margin trading X100",
+    "category": "markets",
+    "quick_per_hour": 975,
+    "image": "/images/item_images/margin100.png",
+    "condition": "",
+    "price": 4000,
+    "level": 0
+  },
+  {
+    "id": 50,
+    "name": "P2P Trading",
+    "category": "markets",
+    "quick_per_hour": 390,
+    "image": "/images/item_images/p2p-trading.png",
+    "condition": "KYC lvl 7",
+    "price": 1900,
+    "level": 0
+  },
+  {
+    "id": 5,
+    "name": "BTC pairs",
+    "category": "markets",
+    "quick_per_hour": 40,
+    "image": "/images/item_images/btc-pairs.png",
+    "condition": "",
+    "price": 250,
+    "level": 0
+  },
+  {
+    "id": 9,
+    "name": "DAO",
+    "category": "markets",
+    "quick_per_hour": 230,
+    "image": "/images/item_images/dao.png",
+    "condition": "Invite 4 friend",
+    "price": 1680,
+    "level": 0
+  },
+  {
+    "id": 10,
+    "name": "Defi2.0 tokens",
+    "category": "markets",
+    "quick_per_hour": 40,
+    "image": "/images/item_images/defi-tokens.png",
+    "condition": "CEO lvl 2",
+    "price": 680,
+    "level": 0
+  },
+  {
+    "id": 11,
+    "name": "Derivatives",
+    "category": "markets",
+    "quick_per_hour": 495,
+    "image": "/images/item_images/derivatives.png",
+    "condition": "Margin trading  X20 lvl 9",
+    "price": 2400,
+    "level": 0
+  },
+  {
+    "id": 14,
+    "name": "ETH pairs",
+    "category": "markets",
+    "quick_per_hour": 40,
+    "image": "/images/item_images/eth-pairs.png",
+    "condition": "",
+    "price": 300,
+    "level": 0
+  },
+  {
+    "id": 15,
+    "name": "Fan tokens",
+    "category": "markets",
+    "quick_per_hour": 950,
+    "image": "/images/item_images/fan-tokens.png",
+    "condition": "",
+    "price": 10000,
+    "level": 0
+  },
+  {
+    "id": 16,
+    "name": "Gamefi token",
+    "category": "markets",
+    "quick_per_hour": 70,
+    "image": "/images/item_images/gamefi-tokens.png",
+    "condition": "",
+    "price": 500,
+    "level": 0
+  },
+  {
+    "id": 21,
+    "name": "Layer zero listing",
+    "category": "markets",
+    "quick_per_hour": 900,
+    "image": "/images/item_images/layer-zero-listing.png",
+    "condition": "",
+    "price": 10000,
+    "level": 0
+  },
+  {
+    "id": 46,
+    "name": "Meme coin",
+    "category": "markets",
+    "quick_per_hour": 110,
+    "image": "/images/item_images/meme-coin.png",
+    "condition": "",
+    "price": 1000,
+    "level": 0
+  },
+  {
+    "id": 52,
+    "name": "Prediction market",
+    "category": "markets",
+    "quick_per_hour": 345,
+    "image": "/images/item_images/prediction-market.png",
+    "condition": "Invite 2 friend",
+    "price": 2000,
+    "level": 0
+  },
+  {
+    "id": 57,
+    "name": "Shit coin",
+    "category": "markets",
+    "quick_per_hour": 590,
+    "image": "/images/item_images/shit-coin.png",
+    "condition": "KYB lvl 3",
+    "price": 2000,
+    "level": 0
+  },
+  {
+    "id": 58,
+    "name": "SocialFi tokens",
+    "category": "markets",
+    "quick_per_hour": 50,
+    "image": "/images/item_images/social-tokens.png",
+    "condition": "GameFi tokens lvl 11",
+    "price": 900,
+    "level": 0
+  },
+  {
+    "id": 59,
+    "name": "Staking",
+    "category": "markets",
+    "quick_per_hour": 600,
+    "image": "/images/item_images/staking.png",
+    "condition": "KYC lvl 7",
+    "price": 1800,
+    "level": 0
+  },
+  {
+    "id": 63,
+    "name": "Trading Bots",
+    "category": "markets",
+    "quick_per_hour": 195,
+    "image": "/images/item_images/trading-bots.png",
+    "condition": "IT team lvl 9",
+    "price": 1400,
+    "level": 0
+  },
+  {
+    "id": 68,
+    "name": "Web3 Integration",
+    "category": "markets",
+    "quick_per_hour": 790,
+    "image": "/images/item_images/web-integration.png",
+    "condition": "",
+    "price": 6300,
+    "level": 0
+  }
+]

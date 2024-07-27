@@ -7,8 +7,8 @@ import UserTopProgress from "../user_progress/UserTopProgress";
 
 const Dashboard: React.FC = () => {
   const coinRef = useRef<HTMLDivElement>(null);
-  const [tapLeft, setTapLeft] = useState(9000);
-  const [perTap, setPerTap] = useState(17);
+  const [tapLeft, setTapLeft] = useState(500);
+
   const {
     isDailyRewardCollected,
     isDailyCodeCompleted,
@@ -16,6 +16,8 @@ const Dashboard: React.FC = () => {
     changeCurrentLocation,
     formattedBalance,
     addToCurrentBalance,
+    activateTurbo,
+    perTap,
   } = useGlobal();
   const [isVisible, setIsVisible] = useState(true);
 
@@ -27,7 +29,7 @@ const Dashboard: React.FC = () => {
     return () => clearInterval(interval);
   }, []);
 
-  const userTap = (event: React.MouseEvent<HTMLDivElement, MouseEvent>) => {
+  const userTap = (event?: React.MouseEvent<HTMLDivElement, MouseEvent>) => {
     if (tapLeft < perTap) return;
     setTapLeft((pre) => pre - perTap);
     addToCurrentBalance(perTap);
@@ -37,8 +39,8 @@ const Dashboard: React.FC = () => {
     const tapImage = document.getElementById("tap_image");
     tapImage?.classList.add("scale-105");
     document.getElementById("coin_div")?.appendChild(number);
-    const clickX = event.clientX;
-    const clickY = event.clientY;
+    const clickX = event?.clientX;
+    const clickY = event?.clientY;
     number.style.left = `${clickX}px`;
     number.style.top = `${clickY}px`;
     setTimeout(() => {
@@ -164,7 +166,11 @@ const Dashboard: React.FC = () => {
                 <div ref={coinRef} onClick={userTap}>
                   <Image
                     id="tap_image"
-                    className="w-72 h-72 duration-200"
+                    className={`w-72 h-72 duration-200 ${
+                      activateTurbo
+                        ? "filter invert hue-rotate-30 saturate-150 rotating-icon"
+                        : ""
+                    }`}
                     src={"/images/quick_coin.png"}
                     width={500}
                     height={500}
@@ -181,7 +187,7 @@ const Dashboard: React.FC = () => {
                     width={100}
                     alt="flash icon"
                   />
-                  <p className="font-bold text-lg">{tapLeft} / 9000</p>
+                  <p className="font-bold text-lg">{tapLeft} / 500</p>
                 </div>
                 <div
                   className="flex flex-row items-center gap-2"

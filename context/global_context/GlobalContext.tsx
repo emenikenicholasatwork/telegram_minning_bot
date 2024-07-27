@@ -13,6 +13,10 @@ interface GlobalContextProps {
   dailyCombo: number;
   addDailyCombo: () => void;
   clearDailyCombo: () => void;
+  formatNumber: (num: number) => string;
+  activateTurbo: boolean;
+  useTurbo: () => void;
+  perTap: number;
 }
 
 const GlobalContext = createContext<GlobalContextProps | undefined>(undefined);
@@ -28,6 +32,17 @@ export const GlobalProvider: React.FC<GlobalProviderProps> = ({ children }) => {
   const [currentLocation, setCurrentLocation] = useState("dashboard");
   const [currentBalance, setCurrentBalance] = useState(0);
   const [dailyCombo, setDailyCombo] = useState(0);
+  const [activateTurbo, setActivateTurbo] = useState(false);
+  const [perTap, setPerTap] = useState(1);
+
+  const useTurbo = () => {
+    setActivateTurbo(true);
+    setCurrentLocation("dashboard");
+    setPerTap((pre) => pre * 10);
+    setTimeout(() => {
+      setActivateTurbo(false);
+    }, 10000);
+  };
 
   const addDailyCombo = () => {
     setDailyCombo((pre) => pre + 1);
@@ -78,6 +93,10 @@ export const GlobalProvider: React.FC<GlobalProviderProps> = ({ children }) => {
         dailyCombo,
         addDailyCombo,
         clearDailyCombo,
+        formatNumber,
+        activateTurbo,
+        useTurbo,
+        perTap,
       }}
     >
       {children}

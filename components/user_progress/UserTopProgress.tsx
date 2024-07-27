@@ -1,9 +1,11 @@
+import { useGlobal } from "@/context/global_context/GlobalContext";
 import Image from "next/image";
 import React from "react";
 import { FaGear } from "react-icons/fa6";
 import { HiInformationCircle } from "react-icons/hi";
 
 const UserTopProgress: React.FC = () => {
+  const { changeCurrentLocation } = useGlobal();
   return (
     <div className="flex flex-row justify-between gap-5 px-2 mt-2">
       <div className="w-full font-bold flex flex-col gap-1 flex-1 text-xs">
@@ -15,7 +17,10 @@ const UserTopProgress: React.FC = () => {
         </div>
       </div>
       <div className="bg-slate-800 h-10 w-full flex flex-row items-center rounded-3xl flex-[1.5] px-3">
-        <div className="flex flex-1 items-center justify-center">
+        <div
+          className="flex flex-1 items-center justify-center"
+          onClick={() => changeCurrentLocation("exchange")}
+        >
           <Image
             className="w-7 h-7"
             src={"/images/exchange_images/binance.png"}

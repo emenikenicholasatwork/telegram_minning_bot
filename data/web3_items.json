@@ -1,0 +1,52 @@
+[
+  {
+    "id": 48,
+    "name": "NFT Marketplace",
+    "category": "web3",
+    "quick_per_hour": 300,
+    "image": "/images/item_images/nft-marketplace.png",
+    "condition": "",
+    "price": 1900,
+    "level": 0
+  },
+  {
+    "id": 49,
+    "name": "Oracle",
+    "category": "web3",
+    "quick_per_hour": 800,
+    "image": "/images/item_images/oracle.png",
+    "condition": "Web3 Integration lvl 5",
+    "price": 4100,
+    "level": 0
+  },
+  {
+    "id": 13,
+    "name": "DEX",
+    "category": "web3",
+    "quick_per_hour": 3000,
+    "image": "/images/item_images/dex.png",
+    "condition": "BTC pairs lvl 10",
+    "price": 2000,
+    "level": 0
+  },
+  {
+    "id": 20,
+    "name": "Launchpad",
+    "category": "web3",
+    "quick_per_hour": 3000,
+    "image": "/images/item_images/launchpad.png",
+    "condition": "VC Labs lvl 15",
+    "price": 7500,
+    "level": 0
+  },
+  {
+    "id": 66,
+    "name": "Vesting smartcontracts",
+    "category": "web3",
+    "quick_per_hour": 1200,
+    "image": "/images/item_images/vesting-smartcontracts.png",
+    "condition": "Web3 Integration lvl 7",
+    "price": 8000,
+    "level": 0
+  }
+]

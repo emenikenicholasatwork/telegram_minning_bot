@@ -4,12 +4,16 @@ import UserTopProgress from "../user_progress/UserTopProgress";
 import { HiInformationCircle } from "react-icons/hi";
 import Image from "next/image";
 import { useGlobal } from "@/context/global_context/GlobalContext";
+import Legal from "./legal/Legal";
+import Prteam from "./prteam/Prteam";
+import Markets from "./markets/Markets";
+import Web3 from "./web3/Web3";
 
 const Mine: React.FC = () => {
   const { dailyCombo, formattedBalance } = useGlobal();
-  const [activetab, setActivetab] = useState("pr&team");
+  const [activetab, setActivetab] = useState("prteam");
   return (
-    <div className="flex flex-col gap-10 pb-52">
+    <div className="flex flex-col gap-10 pb-20">
       <UserTopProgress />
       <div className="h-full w-full flex flex-col rounded-t-3xl shadow-top-green py-5 px-3 gap-8">
         <div className="flex flex-col gap-5">
@@ -90,9 +94,9 @@ const Mine: React.FC = () => {
           </div>
           <div className="w-full flex flex-row justify-between items-center bg-slate-800 h-16 px-1 rounded-lg">
             <div
-              onClick={() => setActivetab("pr&team")}
+              onClick={() => setActivetab("prteam")}
               className={`flex flex-1 items-center duration-100 ${
-                activetab === "pr&team" ? "bg-slate-950" : ""
+                activetab === "prteam" ? "bg-slate-950" : ""
               } py-4 px-2 rounded-lg`}
             >
               <p className="font-bold">PR&Team</p>
@@ -122,49 +126,11 @@ const Mine: React.FC = () => {
               <p className="font-bold">Web3</p>
             </div>
           </div>
-          <div className="w-full h-full grid grid-cols-2">
-            <div className="bg-slate-800 rounded-xl flex flex-col py-2 gap-3">
-              <div className="flex flex-row items-center px-2 gap-2">
-                <Image
-                  className="w-20 h-20"
-                  src={"/images/item_images/ceo.png"}
-                  width={100}
-                  height={100}
-                  alt="ceo image"
-                />
-                <div className="flex flex-col">
-                  <p className="font-bold">CEO</p>
-                  <div className="flex flex-col">
-                    <p className="text-slate-400 text-sm">Quick per hour</p>
-                    <div className="flex flex-row items-center gap-1">
-                      <Image
-                        className="w-5 h-5"
-                        src={"/images/quick_coin.png"}
-                        width={100}
-                        height={100}
-                        alt="quick icon"
-                      />
-                      <p className="font-bold">+2,00k</p>
-                    </div>
-                  </div>
-                </div>
-              </div>
-              <div className="bg-slate-600 h-[1px] w-full"></div>
-              <div className="flex flex-row items-center px-2 gap-2">
-                <p className="flex flex-1">lvl 0</p>
-                <div className="h-full w-[1px] bg-slate-600"></div>
-                <div className="flex flex-row items-center flex-[3] gap-2">
-                  <Image
-                    className="w-7 h-7"
-                    src={"/images/quick_coin.png"}
-                    width={100}
-                    height={100}
-                    alt="quick icon"
-                  />
-                  <p className="font-bold">8K</p>
-                </div>
-              </div>
-            </div>
+          <div className="w-full h-full grid grid-cols-2 p-2 gap-2">
+            {activetab === "legals" && <Legal />}
+            {activetab === "prteam" && <Prteam />}
+            {activetab === "markets" && <Markets />}
+            {activetab === "web3" && <Web3 />}
           </div>
         </div>
       </div>

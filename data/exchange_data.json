@@ -1,0 +1,37 @@
+[
+  {
+    "id": 1,
+    "name": "Binance",
+    "image": "/images/exchange_images/binance.png"
+  },
+  {
+    "id": 2,
+    "name": "Bybit",
+    "image": "/images/exchange_images/bybit.svg"
+  },
+  {
+    "id": 3,
+    "name": "Crypto.com",
+    "image": "/images/exchange_images/crypto.com-logo.png"
+  },
+  {
+    "id": 4,
+    "name": "Gate.io",
+    "image": "/images/exchange_images/gate.io-logo.png"
+  },
+  {
+    "id": 5,
+    "name": "Kucoin",
+    "image": "/images/exchange_images/kucoin-logo.png"
+  },
+  {
+    "id": 6,
+    "name": "MEXC",
+    "image": "/images/exchange_images/mexc-logo.png"
+  },
+  {
+    "id": 7,
+    "name": "Bitget",
+    "image": "/images/exchange_images/bitget-logo.png"
+  }
+]
