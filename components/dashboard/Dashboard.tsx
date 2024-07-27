@@ -65,6 +65,7 @@ const Dashboard: React.FC = () => {
           <div className="flex flex-col gap-8 pt-5">
             <div className="flex flex-row justify-between px-5 gap-2">
               <div
+                onClick={() => changeCurrentLocation("earn")}
                 className={`flex flex-col items-center relative bg-slate-900 pt-3  ${
                   isDailyRewardCollected
                     ? "shadow-green-500 shadow-[rgba(0,0,0,0.5)_0px_0px_0px_1px]"

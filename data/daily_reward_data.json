@@ -1,0 +1,52 @@
+[
+  {
+    "id": 1,
+    "name": "Day 1",
+    "price": "500"
+  },
+  {
+    "id": 2,
+    "name": "Day 2",
+    "price": "1K"
+  },
+  {
+    "id": 3,
+    "name": "Day 3",
+    "price": "2.5K"
+  },
+  {
+    "id": 4,
+    "name": "Day 4",
+    "price": "5K"
+  },
+  {
+    "id": 5,
+    "name": "Day 5",
+    "price": "15K"
+  },
+  {
+    "id": 6,
+    "name": "Day 6",
+    "price": "25K"
+  },
+  {
+    "id": 7,
+    "name": "Day 7",
+    "price": "100K"
+  },
+  {
+    "id": 8,
+    "name": "Day 8",
+    "price": "500K"
+  },
+  {
+    "id": 9,
+    "name": "Day 9",
+    "price": "1M"
+  },
+  {
+    "id": 10,
+    "name": "Day 10",
+    "price": "5M"
+  }
+]

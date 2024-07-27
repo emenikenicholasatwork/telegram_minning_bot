@@ -1,5 +1,6 @@
 "use client";
 import Boost from "@/components/boost/Boost";
+import DailyReward from "@/components/daily_reward/DailyReward";
 import Dashboard from "@/components/dashboard/Dashboard";
 import Exchange from "@/components/dashboard/exchange/Exchange";
 import Earn from "@/components/earn/Earn";
@@ -19,6 +20,7 @@ export default function Home() {
       {currentLocation === "earn" && <Earn />}
       <FootNavigator />
       <Exchange />
+      <DailyReward />
     </main>
   );
 }

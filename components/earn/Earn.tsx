@@ -1,8 +1,10 @@
+import { useGlobal } from "@/context/global_context/GlobalContext";
 import Image from "next/image";
 import React from "react";
 import { CgChevronRight } from "react-icons/cg";
 
 const Earn: React.FC = () => {
+  const { changeCurrentLocation } = useGlobal();
   return (
     <div className="flex flex-col items-center pt-20 gap-10 pb-52">
       <div className="flex flex-col items-center gap-40">
@@ -48,7 +50,10 @@ const Earn: React.FC = () => {
         </div>
         <div className="flex flex-col gap-3">
           <p className="font-bold text-2xl">Daily Tasks</p>
-          <div className="flex flex-row items-center gap-5 p-3 bg-slate-800 w-full rounded-3xl relative">
+          <div
+            onClick={() => changeCurrentLocation("daily_coin")}
+            className="flex flex-row items-center gap-5 p-3 bg-slate-800 w-full rounded-3xl relative"
+          >
             <Image
               className="w-16 h-16"
               src={"/images/day.png"}
