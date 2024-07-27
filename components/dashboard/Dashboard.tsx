@@ -7,7 +7,6 @@ import UserTopProgress from "../user_progress/UserTopProgress";
 
 const Dashboard: React.FC = () => {
   const coinRef = useRef<HTMLDivElement>(null);
-  const [tapLeft, setTapLeft] = useState(500);
 
   const {
     isDailyRewardCollected,
@@ -18,6 +17,9 @@ const Dashboard: React.FC = () => {
     addToCurrentBalance,
     activateTurbo,
     perTap,
+    tapLeft,
+    tapLimit,
+    reduceTapLeft,
   } = useGlobal();
   const [isVisible, setIsVisible] = useState(true);
 
@@ -31,7 +33,7 @@ const Dashboard: React.FC = () => {
 
   const userTap = (event?: React.MouseEvent<HTMLDivElement, MouseEvent>) => {
     if (tapLeft < perTap) return;
-    setTapLeft((pre) => pre - perTap);
+    reduceTapLeft(perTap);
     addToCurrentBalance(perTap);
     const number = document.createElement("div");
     number.textContent = `+${perTap}`;
@@ -163,14 +165,15 @@ const Dashboard: React.FC = () => {
                   />
                   <p className="text-3xl font-bold">{formattedBalance}</p>
                 </div>
-                <div ref={coinRef} onClick={userTap}>
+                <div
+                  ref={coinRef}
+                  onClick={(e) => (tapLeft > perTap ? userTap(e) : "")}
+                >
                   <Image
                     id="tap_image"
                     className={`w-72 h-72 duration-200 ${
-                      activateTurbo
-                        ? "filter invert hue-rotate-30 saturate-150 rotating-icon"
-                        : ""
-                    }`}
+                      tapLeft > perTap ? "" : "filter saturate-50"
+                    } ${activateTurbo ? "filter invert " : ""}`}
                     src={"/images/quick_coin.png"}
                     width={500}
                     height={500}
@@ -187,7 +190,9 @@ const Dashboard: React.FC = () => {
                     width={100}
                     alt="flash icon"
                   />
-                  <p className="font-bold text-lg">{tapLeft} / 500</p>
+                  <p className="font-bold text-lg">
+                    {tapLeft} / {tapLimit}
+                  </p>
                 </div>
                 <div
                   className="flex flex-row items-center gap-2"

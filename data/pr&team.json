@@ -98,7 +98,7 @@
     "name": "IT team",
     "category": "pr&team",
     "quick_per_hour": 240,
-    "image": "/images/item_images/it-team.png",
+    "image": "/images/item_images/it_team.png",
     "condition": "",
     "price": 2000,
     "level": 0
@@ -204,7 +204,7 @@
     "name": "Tiktok",
     "category": "pr&team",
     "quick_per_hour": 100,
-    "image": "/images/item_images/tiktok.png",
+    "image": "/images/item_images/tik-tok.png",
     "condition": "",
     "price": 200,
     "level": 0

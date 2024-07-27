@@ -5,7 +5,7 @@ import { FaGear } from "react-icons/fa6";
 import { HiInformationCircle } from "react-icons/hi";
 
 const UserTopProgress: React.FC = () => {
-  const { changeCurrentLocation } = useGlobal();
+  const { changeCurrentLocation, formatNumber, profitPerHour } = useGlobal();
   return (
     <div className="flex flex-row justify-between gap-5 px-2 mt-2">
       <div className="w-full font-bold flex flex-col gap-1 flex-1 text-xs">
@@ -40,7 +40,9 @@ const UserTopProgress: React.FC = () => {
               height={100}
               alt="quick coin icon"
             />
-            <p className="font-bold text-[13px]">+ 1.4M</p>
+            <p className="font-bold text-[13px]">
+              + {formatNumber(profitPerHour)}
+            </p>
             <HiInformationCircle className="text-slate-400" />
           </div>
         </div>

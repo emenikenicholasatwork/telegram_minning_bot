@@ -12,13 +12,13 @@ export default function Home() {
   const { currentLocation } = useGlobal();
   return (
     <main className="min-h-screen pt-3">
-      {currentLocation === "exchange" && <Exchange />}
       {currentLocation === "dashboard" && <Dashboard />}
       {currentLocation === "boost" && <Boost />}
       {currentLocation === "mine" && <Mine />}
       {currentLocation === "friends" && <Friends />}
       {currentLocation === "earn" && <Earn />}
       <FootNavigator />
+      <Exchange />
     </main>
   );
 }

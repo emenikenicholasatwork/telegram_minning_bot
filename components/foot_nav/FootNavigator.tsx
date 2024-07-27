@@ -9,7 +9,7 @@ const FootNavigator = () => {
   const [activeNav, setActiveNav] = useState("exchange");
   const { changeCurrentLocation } = useGlobal();
   return (
-    <div className="w-full absolute bottom-0 h-24 px-5 py-2">
+    <div className="w-full fixed bottom-0 h-24 px-5 py-2">
       <div className="bg-slate-800 flex flex-row gap-3 items-center p-3 h-20 w-full justify-between rounded-2xl">
         <div
           className={`flex flex-col items-center flex-1 duration-200 ${

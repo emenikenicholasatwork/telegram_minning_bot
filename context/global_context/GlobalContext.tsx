@@ -1,4 +1,11 @@
-import { createContext, ReactNode, useContext, useState } from "react";
+import {
+  createContext,
+  ReactNode,
+  useContext,
+  useEffect,
+  useRef,
+  useState,
+} from "react";
 
 interface GlobalContextProps {
   isDailyRewardCollected: boolean;
@@ -17,6 +24,10 @@ interface GlobalContextProps {
   activateTurbo: boolean;
   useTurbo: () => void;
   perTap: number;
+  tapLeft: number;
+  reduceTapLeft: (num: number) => void;
+  tapLimit: number;
+  profitPerHour: number;
 }
 
 const GlobalContext = createContext<GlobalContextProps | undefined>(undefined);
@@ -33,13 +44,44 @@ export const GlobalProvider: React.FC<GlobalProviderProps> = ({ children }) => {
   const [currentBalance, setCurrentBalance] = useState(0);
   const [dailyCombo, setDailyCombo] = useState(0);
   const [activateTurbo, setActivateTurbo] = useState(false);
-  const [perTap, setPerTap] = useState(1);
+  const [perTap, setPerTap] = useState(2);
+  const [tapLimit, setTapLimit] = useState(1500);
+  const [tapLeft, setTapLeft] = useState(tapLimit);
+  const [profitPerHour, setProfitPerHour] = useState(0);
+  const intervalRef = useRef<number | null>(null);
+  const [increasePerSecond, setIncreasePerSecond] = useState(3);
+
+  useEffect(() => {
+    intervalRef.current = window.setInterval(() => {
+      setTapLeft((prevTapLeft) => {
+        if (prevTapLeft + increasePerSecond <= tapLimit) {
+          return prevTapLeft + increasePerSecond;
+        } else {
+          if (prevTapLeft < tapLimit) {
+            return tapLimit;
+          }
+          if (intervalRef.current) {
+            clearInterval(intervalRef.current);
+            intervalRef.current = null;
+          }
+          return prevTapLeft;
+        }
+      });
+    }, 1000);
+    return () => {
+      if (intervalRef.current) {
+        clearInterval(intervalRef.current);
+      }
+    };
+  }, [tapLimit, currentBalance, increasePerSecond]);
 
   const useTurbo = () => {
     setActivateTurbo(true);
     setCurrentLocation("dashboard");
+    const preTap = perTap;
     setPerTap((pre) => pre * 10);
     setTimeout(() => {
+      setPerTap(preTap);
       setActivateTurbo(false);
     }, 10000);
   };
@@ -57,6 +99,10 @@ export const GlobalProvider: React.FC<GlobalProviderProps> = ({ children }) => {
 
   const subtractFromCurrentBalance = (number: number) => {
     setCurrentBalance((pre) => pre - number);
+  };
+
+  const reduceTapLeft = (num: number) => {
+    setTapLeft((pre) => pre - num);
   };
 
   const formattedBalance = new Intl.NumberFormat("en-US", {
@@ -97,6 +143,10 @@ export const GlobalProvider: React.FC<GlobalProviderProps> = ({ children }) => {
         activateTurbo,
         useTurbo,
         perTap,
+        tapLeft,
+        reduceTapLeft,
+        tapLimit,
+        profitPerHour,
       }}
     >
       {children}

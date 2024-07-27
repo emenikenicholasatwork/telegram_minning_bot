@@ -2,9 +2,16 @@ import React from "react";
 import exchange from "../../../data/exchange_data.json";
 import Image from "next/image";
 import { RiArrowRightSLine } from "react-icons/ri";
+import { useGlobal } from "@/context/global_context/GlobalContext";
 const Exchange = () => {
+  const { currentLocation, changeCurrentLocation } = useGlobal();
   return (
-    <div className="pb-28 pt-16 flex flex-col w-full h-full items-center gap-10">
+    <div
+      onClick={() => changeCurrentLocation("dashboard")}
+      className={` absolute flex bottom-0 left-0 right-0 bg-black flex-col duration-200 z-10 ${
+        currentLocation === "exchange" ? "h-full pb-28 pt-16" : "h-0"
+      } overflow-hidden items-center gap-10`}
+    >
       <p className="font-bold text-2xl">Choose exchange</p>
       <div className="w-full h-full flex flex-col gap-2 px-3">
         {exchange.map((exch) => (
