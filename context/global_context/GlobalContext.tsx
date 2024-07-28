@@ -30,6 +30,7 @@ interface GlobalContextProps {
   profitPerHour: number;
   isOpenCipherArea: boolean;
   changeOpenCipher: () => void;
+  wordToFind: string;
 }
 
 const GlobalContext = createContext<GlobalContextProps | undefined>(undefined);
@@ -38,7 +39,60 @@ interface GlobalProviderProps {
   children: ReactNode;
 }
 
-export const GlobalProvider: React.FC<GlobalProviderProps> = ({ children }) => {
+const WORDS = [
+  "Block",
+  "Chain",
+  "Coins",
+  "Proof",
+  "Token",
+  "Stake",
+  "Miner",
+  "Trade",
+  "Dapps",
+  "Nodes",
+  "Bytes",
+  "Ether",
+  "Spend",
+  "Zcash",
+  "Swipe",
+  "Asset",
+  "Ledger",
+  "Trust",
+  "Valid",
+  "Hash",
+  "Curve",
+  "Claim",
+  "Split",
+  "Yield",
+  "Audit",
+  "Batch",
+  "Proof",
+  "Stake",
+  "Limit",
+  "Merge",
+  "Merge",
+  "Payer",
+  "Trace",
+  "Batch",
+  "Crypt",
+  "Proof",
+  "Audit",
+  "Trust",
+  "Wager",
+  "Chain",
+  "Block",
+  "Limit",
+  "Valid",
+  "Trace",
+  "Ether",
+  "Merge",
+  "Token",
+  "Spend",
+  "Yield",
+  "Curve",
+];
+
+export const GlobalProvider: React.FC<GlobalProviderProps> = ({ children }) => {                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                        
   const [isDailyRewardCollected, setIsDailyRewardCollected] = useState(false);
   const [isOpenCipherArea, setIsOpenCipherArea] = useState(false);
   const [isDailyComboCompleted, setIsDailyComboCompleted] = useState(false);
@@ -53,9 +107,19 @@ export const GlobalProvider: React.FC<GlobalProviderProps> = ({ children }) => {
   const [profitPerHour, setProfitPerHour] = useState(0);
   const intervalRef = useRef<number | null>(null);
   const [increasePerSecond, setIncreasePerSecond] = useState(3);
+  const [wordToFind, setWordToFind] = useState<string>("");
+  const getRandomWord = () => {
+    const randomIndex = Math.floor(Math.random() * WORDS.length);
+    setWordToFind(WORDS[randomIndex]);
+  };
 
   const changeOpenCipher = () => {
-    setIsOpenCipherArea(!isOpenCipherArea);
+    if (isOpenCipherArea) {
+      setIsOpenCipherArea(false);
+    } else {
+      setIsOpenCipherArea(true);
+      getRandomWord();
+    }
   };
 
   useEffect(() => {
@@ -156,6 +220,7 @@ export const GlobalProvider: React.FC<GlobalProviderProps> = ({ children }) => {
         profitPerHour,
         changeOpenCipher,
         isOpenCipherArea,
+        wordToFind,
       }}
     >
       {children}

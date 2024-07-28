@@ -6,20 +6,11 @@ import { GiMiner, GiTwoCoins } from "react-icons/gi";
 import { IoIosPeople } from "react-icons/io";
 
 const FootNavigator = () => {
-  const [activeNav, setActiveNav] = useState("exchange");
-  const { changeCurrentLocation } = useGlobal();
+  const { changeCurrentLocation, currentLocation } = useGlobal();
   return (
     <div className="w-full fixed bottom-0 h-24 px-5 py-2">
       <div className="bg-slate-800 flex flex-row gap-3 items-center p-3 h-20 w-full justify-between rounded-2xl">
-        <div
-          className={`flex flex-col items-center flex-1 duration-200 ${
-            activeNav === "exchange"
-              ? "text-white bg-slate-950"
-              : "text-slate-400"
-          }   py-2 rounded-xl px-3`}
-          onClick={() => {
-            setActiveNav("exchange");
-            changeCurrentLocation("dashboard");
+        <div className={`flex flex-col items-center flex-1 duration-200 ${currentLocation === "dashboard"? "text-white bg-slate-950": "text-slate-400"}   py-2 rounded-xl px-3`}onClick={() => {changeCurrentLocation("dashboard");
           }}
         >
           <Image
@@ -33,10 +24,11 @@ const FootNavigator = () => {
         </div>
         <div
           className={`flex flex-col items-center flex-1 duration-200 ${
-            activeNav === "mine" ? "text-white bg-slate-950" : "text-slate-400"
+            currentLocation === "mine"
+              ? "text-white bg-slate-950"
+              : "text-slate-400"
           }   py-2 rounded-xl px-3`}
           onClick={() => {
-            setActiveNav("mine");
             changeCurrentLocation("mine");
           }}
         >
@@ -45,12 +37,11 @@ const FootNavigator = () => {
         </div>
         <div
           className={`flex flex-col items-center flex-1 duration-200 ${
-            activeNav === "friends"
+            currentLocation === "friends"
               ? "text-white bg-slate-950"
               : "text-slate-400"
           }   py-2 rounded-xl px-3`}
           onClick={() => {
-            setActiveNav("friends");
             changeCurrentLocation("friends");
           }}
         >
@@ -59,10 +50,11 @@ const FootNavigator = () => {
         </div>
         <div
           className={`flex flex-col items-center flex-1 duration-200 ${
-            activeNav === "earn" ? "text-white bg-slate-950" : "text-slate-400"
+            currentLocation === "earn"
+              ? "text-white bg-slate-950"
+              : "text-slate-400"
           }   py-2 rounded-xl px-3`}
           onClick={() => {
-            setActiveNav("earn");
             changeCurrentLocation("earn");
           }}
         >
