@@ -31,6 +31,8 @@ interface GlobalContextProps {
   isOpenCipherArea: boolean;
   changeOpenCipher: () => void;
   wordToFind: string;
+  toggleCipherTakePrice:()=>void;
+  isOpenCipherPrice: boolean;
 }
 
 const GlobalContext = createContext<GlobalContextProps | undefined>(undefined);
@@ -105,6 +107,7 @@ export const GlobalProvider: React.FC<GlobalProviderProps> = ({ children }) => {
   const [tapLimit, setTapLimit] = useState(1500);
   const [tapLeft, setTapLeft] = useState(tapLimit);
   const [profitPerHour, setProfitPerHour] = useState(0);
+  const [isOpenCipherPrice, setIsOpenCipherPrice] = useState(true);
   const intervalRef = useRef<number | null>(null);
   const [increasePerSecond, setIncreasePerSecond] = useState(3);
   const [wordToFind, setWordToFind] = useState<string>("");
@@ -112,6 +115,10 @@ export const GlobalProvider: React.FC<GlobalProviderProps> = ({ children }) => {
     const randomIndex = Math.floor(Math.random() * WORDS.length);
     setWordToFind(WORDS[randomIndex]);
   };
+
+  function toggleCipherTakePrice(){
+    setIsOpenCipherPrice(!isOpenCipherPrice);
+  }
 
   const changeOpenCipher = () => {
     if (isOpenCipherArea) {
@@ -221,6 +228,8 @@ export const GlobalProvider: React.FC<GlobalProviderProps> = ({ children }) => {
         changeOpenCipher,
         isOpenCipherArea,
         wordToFind,
+        isOpenCipherPrice,
+        toggleCipherTakePrice
       }}
     >
       {children}

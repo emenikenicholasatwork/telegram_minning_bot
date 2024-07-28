@@ -1,5 +1,6 @@
 "use client";
 import Boost from "@/components/boost/Boost";
+import CollectCipherReward from "@/components/daily_reward/collect_reward/CollectCipherReward";
 import DailyReward from "@/components/daily_reward/DailyReward";
 import Dashboard from "@/components/dashboard/Dashboard";
 import Exchange from "@/components/dashboard/exchange/Exchange";
@@ -10,7 +11,7 @@ import Mine from "@/components/mine/Mine";
 import { useGlobal } from "@/context/global_context/GlobalContext";
 
 export default function Home() {
-  const { currentLocation } = useGlobal();
+  const { currentLocation, isOpenCipherPrice } = useGlobal();
   return (
     <main className="min-h-screen pt-3">
       {currentLocation === "dashboard" && <Dashboard />}
@@ -21,6 +22,7 @@ export default function Home() {
       <FootNavigator />
       <Exchange />
       <DailyReward />
+      {isOpenCipherPrice&&<CollectCipherReward/>}
     </main>
   );
 }

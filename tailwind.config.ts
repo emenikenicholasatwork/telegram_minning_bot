@@ -10,6 +10,7 @@ const config: Config = {
     extend: {
       backgroundColor: {
         blurBackgroud: "rgba(0, 0, 0, 0.8)",
+        blurBlack: "rgba(0, 0, 0, 0.2)",
       },
       backgroundImage: {
         "gradient-radial": "radial-gradient(var(--tw-gradient-stops))",
