@@ -2,51 +2,61 @@
   {
     "id": 1,
     "name": "Day 1",
-    "price": "500"
+    "price": "500",
+    "reward": 500
   },
   {
     "id": 2,
     "name": "Day 2",
-    "price": "1K"
+    "price": "1K",
+    "reward":1000
   },
   {
     "id": 3,
     "name": "Day 3",
-    "price": "2.5K"
+    "price": "2.5K",
+    "reward":2500
   },
   {
     "id": 4,
     "name": "Day 4",
-    "price": "5K"
+    "price": "5K",
+    "reward":5000
   },
   {
     "id": 5,
     "name": "Day 5",
-    "price": "15K"
+    "price": "15K",
+    "reward":15000
   },
   {
     "id": 6,
     "name": "Day 6",
-    "price": "25K"
+    "price": "25K",
+    "reward":25000
   },
   {
     "id": 7,
     "name": "Day 7",
-    "price": "100K"
+    "price": "100K",
+    "reward":100000
   },
   {
     "id": 8,
     "name": "Day 8",
-    "price": "500K"
+    "price": "500K",
+    "reward":500000
   },
   {
     "id": 9,
     "name": "Day 9",
-    "price": "1M"
+    "price": "1M",
+    "reward":1000000
   },
   {
     "id": 10,
     "name": "Day 10",
-    "price": "5M"
+    "price": "5M",
+    "reward":5000000
   }
 ]

@@ -59,7 +59,9 @@ const Dashboard: React.FC = () => {
     reduceTapLeft,
     isOpenCipherArea,
     changeOpenCipher,
-    wordToFind
+    wordToFind,
+    toggleCipherTakePrice,
+    toggleCipherCompleted
   } = useGlobal();
 
   const handleTap = () => {
@@ -117,26 +119,20 @@ const Dashboard: React.FC = () => {
   }
 
   const decodeMorse = () => {
-    console.log(wordToFind)
     const letter = MORSE_CODE[morseInputRef.current];
-    console.log(morseInputRef.current)
-    console.log("letter", letter)
     morseInputRef.current = '';
      if (letter) {
       const currentIndex = indexRef.current;
       const expectedLetter = wordToFind[currentIndex].toUpperCase();
-      console.log("current index", currentIndex)
-      console.log("expected letter", expectedLetter)
       
       if (letter === expectedLetter) {
         decodedLettersRef.current += letter;
         indexRef.current += 1;
         if (indexRef.current === wordToFind.length) {
-          console.log('You found the word!');
-
+          toggleCipherCompleted()
+          toggleCipherTakePrice()
         }
       } else {
-        console.log('Incorrect letter, resetting game...');
        morseInputRef.current = '';
       decodedLettersRef.current ='';
       indexRef.current = 0
@@ -210,11 +206,7 @@ const Dashboard: React.FC = () => {
                 </div>
                 <p className=" text-sm ">31:44</p>
               </div>
-              <div
-                onClick={() => changeCurrentLocation('mine')}
-                className={`flex flex-col items-center relative bg-slate-900 pt-3 ${
-                  isDailyComboCompleted
-                    ? 'shadow-green-500 shadow-[rgba(0,0,0,0.5)_0px_0px_0px_1px]'
+              <div onClick={() => changeCurrentLocation('mine')} className={`flex flex-col items-center relative bg-slate-900 pt-3 ${isDailyComboCompleted? 'shadow-green-500 shadow-[rgba(0,0,0,0.5)_0px_0px_0px_1px]'
                     : ''
                 } rounded-md px-2 py-1 gap-3 w-full`}
               >
@@ -239,11 +231,7 @@ const Dashboard: React.FC = () => {
                 </div>
                 <p className=" text-sm ">31:44</p>
               </div>
-              <div
-                onClick={changeOpenCipher}
-                className={`flex flex-col items-center relative bg-slate-900 pt-3${
-                  isDailyCodeCompleted
-                    ? 'shadow-green-500 shadow-[rgba(0,0,0,0.5)_0px_0px_0px_1px]'
+               <div onClick={changeOpenCipher} className={`flex flex-col items-center relative bg-slate-900 pt-3 ${isDailyCodeCompleted? 'shadow-green-500 shadow-[rgba(0,0,0,0.5)_0px_0px_0px_1px]'
                     : ''
                 } rounded-md px-2 py-1 gap-3 w-full`}
               >
@@ -295,7 +283,7 @@ const Dashboard: React.FC = () => {
                           height={100}
                           alt="quick coin icon"
                         />
-                        <p className="font-bold">+1,000,000</p>
+                        <p className="font-bold">+5,000,000</p>
                         {isDailyCodeCompleted && (
                           <AiFillCheckCircle className="text-xl text-green-500" />
                         )}
