@@ -28,4 +28,8 @@
   "window.commandCenter": false,
   "window.zoomLevel": 1,
   "workbench.activityBar.location": "default",
+  "eslint.format.enable": true,
+  "solidity.formatter": "prettier",
+  "typescript.format.semicolons": "insert",
+  "javascript.format.semicolons": "insert",
 }

@@ -9,12 +9,12 @@ interface UnlockedItemsInterface {
 
 interface MultitapInterface {
     price: number,
-    level: number
+    level: number;
 }
 
 interface RechargeLimitInterface {
     price: number,
-    level: number
+    level: number;
 }
 
 
@@ -31,6 +31,7 @@ export interface UserInterface extends Document {
     selectedExchangeID: number;
     multitap: MultitapInterface;
     rechargeLimit: RechargeLimitInterface;
+    comboCollected: number[];
 }
 
 const UnlockItemSchema: Schema<UnlockedItemsInterface> = new Schema({

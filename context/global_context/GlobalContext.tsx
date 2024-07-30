@@ -43,7 +43,7 @@ interface ComboInterface {
   time: number,
   firstItemID: number,
   secondItemID: number,
-  thirdItemID: number
+  thirdItemID: number;
 }
 
 const GlobalContext = createContext<GlobalContextProps | undefined>(undefined);
@@ -52,58 +52,17 @@ interface GlobalProviderProps {
   children: ReactNode;
 }
 
-const WORDS = [
-  "Block",
-  "Chain",
-  "Coins",
-  "Proof",
-  "Token",
-  "Stake",
-  "Miner",
-  "Trade",
-  "Dapps",
-  "Nodes",
-  "Bytes",
-  "Ether",
-  "Spend",
-  "Zcash",
-  "Swipe",
-  "Asset",
-  "Ledger",
-  "Trust",
-  "Valid",
-  "Hash",
-  "Curve",
-  "Claim",
-  "Split",
-  "Yield",
-  "Audit",
-  "Batch",
-  "Proof",
-  "Stake",
-  "Limit",
-  "Merge",
-  "Merge",
-  "Payer",
-  "Trace",
-  "Batch",
-  "Crypt",
-  "Proof",
-  "Audit",
-  "Trust",
-  "Wager",
-  "Chain",
-  "Block",
-  "Limit",
-  "Valid",
-  "Trace",
-  "Ether",
-  "Merge",
-  "Token",
-  "Spend",
-  "Yield",
-  "Curve",
-];
+async function fetchCombo() {
+  const response = await fetch('/api/FetchCombo');
+  const data = await response.json();
+  return data;
+}
+
+async function fetchCipher() {
+  const response = await fetch('/api/FetchCipher');
+  const data = await response.json();
+  return data;
+}
 
 export const GlobalProvider: React.FC<GlobalProviderProps> = ({ children }) => {
   const [isDailyRewardCollected, setIsDailyRewardCollected] = useState(false);
@@ -123,68 +82,16 @@ export const GlobalProvider: React.FC<GlobalProviderProps> = ({ children }) => {
   const [increasePerSecond, setIncreasePerSecond] = useState(3);
   const [wordToFind, setWordToFind] = useState<string>("");
 
-  function checkDailyActivities() {
-    const MILLISECONDS_IN_A_DAY = 86400000;
-    const RANGE_MIN = 0;
-    const RANGE_MAX = 68;
-
-    const hiddenComboDuration = Date.now() - hiddenDailyCombo.time;
-
-    if (hiddenComboDuration > MILLISECONDS_IN_A_DAY) {
-      const uniqueRandomNumbers: any = randomNumberGenerator(3, RANGE_MIN, RANGE_MAX);
-
-      const newCombo: ComboInterface = {
-        time: Date.now(),
-        firstItemID: uniqueRandomNumbers[0],
-        secondItemID: uniqueRandomNumbers[1],
-        thirdItemID: uniqueRandomNumbers[2],
-      };
-      const filePath = path.join(__dirname, "dailyCombo.json");
-      fs.writeFile(filePath, JSON.stringify(newCombo, null, 2), (error) => {
-        if (error) {
-          console.error('Error writing to file: ', error)
-        } else {
-          console.log("New Combo written to file")
-        }
-      })
-    }
-  }
-
-  function randomNumberGenerator(count: number, min: number, max: number): number[] {
-    const numbers: Set<number> = new Set<number>();
-
-    while (numbers.size < count) {
-      const randomNumber = Math.floor(Math.random() * (max - min + 1)) + min;
-      numbers.add(randomNumber);
-    }
-
-    return Array.from(numbers);
-  }
-
-  useEffect(() => {
-    checkDailyActivities();
-  }, [])
-
   function toggleCipherCompleted() {
-    setIsDailyCodeCompleted(!isDailyCodeCompleted)
+    setIsDailyCodeCompleted(!isDailyCodeCompleted);
   }
-
-  const getRandomWord = () => {
-    const randomIndex = Math.floor(Math.random() * WORDS.length);
-    setWordToFind(WORDS[randomIndex]);
-  };
 
   function toggleCipherTakePrice() {
     setIsOpenCipherPrice(!isOpenCipherPrice);
   }
 
   const changeOpenCipher = () => {
-    if (isOpenCipherArea) {
-      setIsOpenCipherArea(false);
-    } else {
-      setIsOpenCipherArea(true);
-      getRandomWord();
-    }
+    setIsOpenCipherArea(!isOpenCipherArea);
   };
 
   useEffect(() => {
@@ -258,7 +165,7 @@ export const GlobalProvider: React.FC<GlobalProviderProps> = ({ children }) => {
 
   const changeDailyRewardState = () => { };
   const changeCurrentLocation = (location: string) => {
-    checkDailyActivities();
+    // checkDailyActivities();
     setCurrentLocation(location);
   };
   return (
