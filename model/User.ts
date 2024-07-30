@@ -7,6 +7,11 @@ interface UnlockedItemsInterface {
     profitPerHour: number;
 }
 
+interface DailyBoosterInterface {
+    name: string;
+    remains: number;
+}
+
 interface MultitapInterface {
     price: number,
     level: number;
@@ -17,13 +22,14 @@ interface RechargeLimitInterface {
     level: number;
 }
 
-
-
 export interface UserInterface extends Document {
+    id: number;
     telegramID: string;
     balance: number;
+    userLevel: string;
     unlockedItems: UnlockedItemsInterface[];
     profitPerHour: number;
+    tapLimit: number;
     dayOnDailyReward: number;
     collectedDailyReward: boolean;
     collectedDailyCombo: boolean;
@@ -32,6 +38,8 @@ export interface UserInterface extends Document {
     multitap: MultitapInterface;
     rechargeLimit: RechargeLimitInterface;
     comboCollected: number[];
+    dailyBoosters: DailyBoosterInterface[];
+    invitedFriendsList: number[];
 }
 
 const UnlockItemSchema: Schema<UnlockedItemsInterface> = new Schema({

@@ -20,9 +20,9 @@ interface GlobalContextProps {
   addToCurrentBalance: (pre: number) => void;
   subtractFromCurrentBalance: (pre: number) => void;
   formattedBalance: string;
-  dailyCombo: number;
-  addDailyCombo: () => void;
-  clearDailyCombo: () => void;
+  dailyComboCollected: number;
+  addDailyComboCollected: () => void;
+  clearDailyComboCollected: () => void;
   formatNumber: (num: number) => string;
   activateTurbo: boolean;
   useTurbo: () => void;
@@ -71,7 +71,7 @@ export const GlobalProvider: React.FC<GlobalProviderProps> = ({ children }) => {
   const [isDailyCodeCompleted, setIsDailyCodeCompleted] = useState(false);
   const [currentLocation, setCurrentLocation] = useState("dashboard");
   const [currentBalance, setCurrentBalance] = useState(0);
-  const [dailyCombo, setDailyCombo] = useState(0);
+  const [dailyComboCollected, setDailyComboCollected] = useState(0);
   const [activateTurbo, setActivateTurbo] = useState(false);
   const [perTap, setPerTap] = useState(2);
   const [tapLimit, setTapLimit] = useState(1500);
@@ -129,11 +129,11 @@ export const GlobalProvider: React.FC<GlobalProviderProps> = ({ children }) => {
     }, 10000);
   };
 
-  const addDailyCombo = () => {
-    setDailyCombo((pre) => pre + 1);
+  const addDailyComboCollected = () => {
+    setDailyComboCollected((pre) => pre + 1);
   };
-  const clearDailyCombo = () => {
-    setDailyCombo(0);
+  const clearDailyComboCollected = () => {
+    setDailyComboCollected(0);
   };
 
   const addToCurrentBalance = (number: number) => {
@@ -165,7 +165,6 @@ export const GlobalProvider: React.FC<GlobalProviderProps> = ({ children }) => {
 
   const changeDailyRewardState = () => { };
   const changeCurrentLocation = (location: string) => {
-    // checkDailyActivities();
     setCurrentLocation(location);
   };
   return (
@@ -180,9 +179,9 @@ export const GlobalProvider: React.FC<GlobalProviderProps> = ({ children }) => {
         formattedBalance,
         addToCurrentBalance,
         subtractFromCurrentBalance,
-        dailyCombo,
-        addDailyCombo,
-        clearDailyCombo,
+        addDailyComboCollected,
+        clearDailyComboCollected,
+        dailyComboCollected,
         formatNumber,
         activateTurbo,
         useTurbo,

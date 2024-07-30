@@ -11,7 +11,7 @@ import Web3 from "./web3/Web3";
 import { AiFillCheckCircle } from "react-icons/ai";
 
 const Mine: React.FC = () => {
-  const { dailyCombo, formattedBalance, isDailyComboCompleted } = useGlobal();
+  const { dailyComboCollected, formattedBalance, isDailyComboCompleted } = useGlobal();
   const [activetab, setActivetab] = useState("prteam");
   return (
     <div className="flex flex-col gap-10 pb-20">
@@ -26,19 +26,16 @@ const Mine: React.FC = () => {
             <p className="font-bold">Daily Combo</p>
             <div className="flex flex-row items-center gap-2">
               <div
-                className={`h-4 w-4 rounded-full ${
-                  dailyCombo > 0 ? "bg-blue-400" : "bg-slate-400"
-                }`}
+                className={`h-4 w-4 rounded-full ${dailyComboCollected > 0 ? "bg-blue-400" : "bg-slate-400"
+                  }`}
               ></div>
               <div
-                className={`h-4 w-4 rounded-full ${
-                  dailyCombo > 1 ? "bg-blue-400" : "bg-slate-400"
-                }`}
+                className={`h-4 w-4 rounded-full ${dailyComboCollected > 1 ? "bg-blue-400" : "bg-slate-400"
+                  }`}
               ></div>
               <div
-                className={`h-4 w-4 rounded-full ${
-                  dailyCombo > 2 ? "bg-blue-400" : "bg-slate-400"
-                }`}
+                className={`h-4 w-4 rounded-full ${dailyComboCollected > 2 ? "bg-blue-400" : "bg-slate-400"
+                  }`}
               ></div>
             </div>
             <div className="flex flex-row items-center gap-2 bg-slate-700 rounded-lg p-2">
@@ -99,33 +96,29 @@ const Mine: React.FC = () => {
           <div className="w-full flex flex-row justify-between items-center bg-slate-800 h-16 px-1 rounded-lg">
             <div
               onClick={() => setActivetab("prteam")}
-              className={`flex flex-1 items-center duration-100 ${
-                activetab === "prteam" ? "bg-slate-950" : ""
-              } py-4 px-2 rounded-lg`}
+              className={`flex flex-1 items-center duration-100 ${activetab === "prteam" ? "bg-slate-950" : ""
+                } py-4 px-2 rounded-lg`}
             >
               <p className="font-bold">PR&Team</p>
             </div>
             <div
               onClick={() => setActivetab("markets")}
-              className={`flex flex-1 items-center duration-100 ${
-                activetab === "markets" ? "bg-slate-950" : ""
-              } py-4 px-2 rounded-lg`}
+              className={`flex flex-1 items-center duration-100 ${activetab === "markets" ? "bg-slate-950" : ""
+                } py-4 px-2 rounded-lg`}
             >
               <p className="font-bold">Markets</p>
             </div>
             <div
               onClick={() => setActivetab("legals")}
-              className={`flex flex-1 items-center duration-100 ${
-                activetab === "legals" ? "bg-slate-950" : ""
-              } py-4 px-2 rounded-lg`}
+              className={`flex flex-1 items-center duration-100 ${activetab === "legals" ? "bg-slate-950" : ""
+                } py-4 px-2 rounded-lg`}
             >
               <p className="font-bold">Legal</p>
             </div>
             <div
               onClick={() => setActivetab("web3")}
-              className={`flex flex-1 items-center duration-100 ${
-                activetab === "web3" ? "bg-slate-950" : ""
-              } py-4 px-2 rounded-lg`}
+              className={`flex flex-1 items-center duration-100 ${activetab === "web3" ? "bg-slate-950" : ""
+                } py-4 px-2 rounded-lg`}
             >
               <p className="font-bold">Web3</p>
             </div>
