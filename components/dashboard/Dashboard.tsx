@@ -223,13 +223,13 @@ const Dashboard: React.FC = () => {
         <UserTopProgress />
         <div className="h-full w-full rounded-t-3xl shadow-top-green">
           <div className={`flex flex-col ${isOpenCipherArea ? 'pt-3 gap-5' : 'gap-8 pt-5'}`}>
-            <div className="flex flex-row justify-between px-5 gap-2">
+            <div className="flex flex-row justify-between px-2 gap-2">
               <div onClick={() => changeCurrentLocation('earn')} className={`flex flex-col items-center relative bg-slate-900 pt-3  ${isDailyRewardCollected ? 'shadow-green-500 shadow-[rgba(0,0,0,0.5)_0px_0px_0px_1px]' : ''}  rounded-md px-2 py-1 gap-3 w-full`}>
                 {isDailyRewardCollected ? (<FaCircleCheck className="absolute top-0 right-0 text-green-500" />) : (
-                  <div className={`w-4 h-4 rounded-full absolute right-1 top-2 bg-red-500 transition-opacity duration-300 ${isVisible ? 'opacity-100' : 'opacity-0'}`}></div>)}
+                  <div className={`w-2 h-2 rounded-full absolute right-1 top-2 bg-red-500 transition-opacity duration-300 ${isVisible ? 'opacity-100' : 'opacity-0'}`}></div>)}
                 <div className="flex flex-col items-center gap-2">
                   <Image
-                    className="w-10"
+                    className="w-8 h-8"
                     src={'/images/daily_reward.png'}
                     height={100}
                     width={100}
@@ -247,13 +247,13 @@ const Dashboard: React.FC = () => {
                   <FaCircleCheck className="absolute top-0 right-0 text-green-500" />
                 ) : (
                   <div
-                    className={`w-4 h-4 rounded-full absolute right-1 top-2 bg-red-500 transition-opacity duration-300 ${isVisible ? 'opacity-100' : 'opacity-0'
+                    className={`w-2 h-2 rounded-full absolute right-1 top-2 bg-red-500 transition-opacity duration-300 ${isVisible ? 'opacity-100' : 'opacity-0'
                       }`}
                   ></div>
                 )}
                 <div className="flex flex-col items-center gap-2">
                   <Image
-                    className="w-10"
+                    className="w-8 h-8"
                     src={'/images/daily_combo.png'}
                     height={100}
                     width={100}
@@ -270,11 +270,11 @@ const Dashboard: React.FC = () => {
                 {isDailyCodeCompleted ? (
                   <FaCircleCheck className="absolute top-0 right-0 text-green-500" />
                 ) : (
-                  <div className={`w-4 h-4 rounded-full absolute right-1 top-2 bg-red-500 transition-opacity duration-300 ${isVisible ? 'opacity-100' : 'opacity-0'}`}></div>
+                  <div className={`w-2 h-2 rounded-full absolute right-1 top-2 bg-red-500 transition-opacity duration-300 ${isVisible ? 'opacity-100' : 'opacity-0'}`}></div>
                 )}
                 <div className="flex flex-col items-center gap-2">
                   <Image
-                    className="w-10"
+                    className="w-8 h-8"
                     src={'/images/daily_code.png'}
                     height={100}
                     width={100}
@@ -287,20 +287,20 @@ const Dashboard: React.FC = () => {
             </div>
             <div className="w-full flex flex-col items-center gap-2" id="coin_div">
               <div
-                className={`w-full flex flex-col items-center ${isOpenCipherArea ? 'gap-5' : 'gap-14'
+                className={`w-full flex flex-col items-center ${isOpenCipherArea ? 'gap-5' : 'gap-5'
                   }`}
               >
                 <div className="flex flex-col items-center gap-2 w-full px-3">
                   <div className="flex flex-row items-center gap-2">
                     <Image
                       id="total_coin_icon"
-                      className="w-10 h-10"
+                      className="w-7 h-7"
                       src={'/images/quick_coin.png'}
                       width={100}
                       height={100}
                       alt="quick coin icon"
                     />
-                    <p className="text-3xl font-bold">{formattedBalance}</p>
+                    <p className="text-2xl font-bold">{formattedBalance}</p>
                   </div>
                   {isOpenCipherArea && (
                     <div className="flex flex-row items-center justify-between w-full px-3 bg-slate-600 rounded-lg p-2">
@@ -326,7 +326,7 @@ const Dashboard: React.FC = () => {
                   onClick={e => { if (!isOpenCipherArea) { tapLeft > perTap ? userTap(e) : ''; } }}
                   onTouchStart={() => { isOpenCipherArea ? handleTap() : ''; }}
                   onTouchEnd={(e) => { isOpenCipherArea ? handleLeave(e) : ''; }}>
-                  <Image id="tap_image" className={`w-72 h-72 duration-200 ${isOpenCipherArea ? 'filter -hue-rotate-180 sepia grayscale contrast-200' : ''} ${tapLeft > perTap ? '' : 'filter saturate-50'} ${activateTurbo ? 'filter invert ' : ''}`}
+                  <Image id="tap_image" className={`w-64 h-64 duration-200 ${isOpenCipherArea ? 'filter -hue-rotate-180 sepia grayscale contrast-200' : ''} ${tapLeft > perTap ? '' : 'filter saturate-50'} ${activateTurbo ? 'filter invert ' : ''}`}
                     src={'/images/quick_coin.png'}
                     width={500}
                     height={500}
@@ -334,31 +334,31 @@ const Dashboard: React.FC = () => {
                   />
                 </div>
               </div>
-              <div className="flex flex-row w-full justify-between px-3">
-                <div className="flex flex-row items-center gap-1">
+              <div className="flex flex-row w-full justify-between px-2">
+                <div className="flex flex-row items-center">
                   <Image
-                    className="w-8 h-8"
+                    className="w-7 h-7"
                     src={'/images/flash.png'}
                     height={100}
                     width={100}
                     alt="flash icon"
                   />
-                  <p className="font-bold text-lg">
+                  <p className="font-bold">
                     {tapLeft} / {tapLimit}
                   </p>
                 </div>
                 <div
-                  className="flex flex-row items-center gap-2"
+                  className="flex flex-row items-center"
                   onClick={() => changeCurrentLocation('boost')}
                 >
                   <Image
-                    className="w-8 h-8"
+                    className="w-7 h-7"
                     src={'/images/boost.png'}
                     width={100}
                     height={100}
                     alt="boost icon"
                   />
-                  <p className="font-bold text-lg">Boost</p>
+                  <p className="font-bold">Boost</p>
                 </div>
               </div>
             </div>

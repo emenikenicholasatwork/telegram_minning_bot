@@ -5,22 +5,22 @@ import React from "react";
 const Boost: React.FC = () => {
   const { formattedBalance, useTurbo } = useGlobal();
   return (
-    <div className="flex flex-col items-center w-full h-full pt-10  gap-16">
+    <div className="flex flex-col items-center w-full h-full pt-5  gap-5">
       <div className="flex flex-col items-center gap-3">
-        <p className="text-lg">Your Balance</p>
+        <p className="text-md">Your Balance</p>
         <div className="flex flex-row items-center gap-2">
           <Image
-            className="w-12 h-12"
+            className="w-8 h-8"
             src={"/images/quick_coin.png"}
             width={100}
             height={100}
             alt="quick coin icon"
           />
-          <p className="font-bold text-4xl">{formattedBalance}</p>
+          <p className="font-bold text-2xl">{formattedBalance}</p>
         </div>
       </div>
       <div className="flex flex-col w-full px-2 gap-4">
-        <p className="font-bold text-lg">Free daily boosters</p>
+        <p className="font-bold text-md">Free daily boosters</p>
         <div className="flex flex-col gap-2">
           <div className="flex flex-row items-center bg-slate-800 rounded-xl px-5 py-3 gap-3">
             <Image
@@ -54,7 +54,7 @@ const Boost: React.FC = () => {
         </div>
       </div>
       <div className="flex flex-col w-full px-2 gap-4">
-        <p className="font-bold text-lg">Boosters</p>
+        <p className="font-bold text-md">Boosters</p>
         <div className="flex flex-col gap-2">
           <div className="flex flex-row items-center bg-slate-800 rounded-xl px-5 py-3 gap-3">
             <Image

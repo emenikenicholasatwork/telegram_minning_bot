@@ -21,124 +21,124 @@ const Earn: React.FC = () => {
             />
           </div>
         </div>
-        <p className="font-bold text-4xl">Earn More Coins</p>
+        <p className="font-bold text-2xl">Earn More Coins</p>
       </div>
       <div className="flex flex-col w-full px-3 gap-10">
         <div className="flex flex-col gap-3">
-          <p className="font-bold text-2xl">Quick Youtube</p>
-          <div className="flex flex-row items-center gap-5 p-3 bg-slate-800 w-full rounded-3xl relative" onClick={() => toast.success("coming soon")}>
+          <p className="font-bold">Quick Youtube</p>
+          <div className="flex flex-row items-center gap-5 p-3 bg-slate-800 w-full rounded-xl relative" onClick={() => toast.success("coming soon")}>
             <Image
-              className="w-12 h-12"
+              className="w-8 h-8"
               src={"/images/youtube.png"}
               width={100}
               height={100}
               alt="youtube icon"
             />
             <div className="flex flex-col items-center">
-              <p className="font-bold text-md">Join the Channel</p>
+              <p className="font-bold text-sm">Join the Channel</p>
               <div className="flex flex-row items-center gap-2">
                 <Image
-                  className="w-6 h-6"
+                  className="w-5 h-5"
                   src={"/images/quick_coin.png"}
                   width={100}
                   height={100}
                   alt="quick coin icon"
                 />
-                <p className="font-bold text-md">+100,000</p>
+                <p className="font-bold text-sm">+100,000</p>
               </div>
             </div>
-            <CgChevronRight className="absolute  text-5xl right-5 text-slate-400" />
+            <CgChevronRight className="absolute  text-2xl right-5 text-slate-400" />
           </div>
         </div>
         <div className="flex flex-col gap-3">
-          <p className="font-bold text-2xl">Daily Tasks</p>
+          <p className="font-bold">Daily Tasks</p>
           <div
             onClick={() => changeCurrentLocation("daily_coin")}
-            className="flex flex-row items-center gap-5 p-3 bg-slate-800 w-full rounded-3xl relative"
+            className="flex flex-row items-center gap-5 p-3 bg-slate-800 w-full rounded-xl relative"
           >
             <Image
-              className="w-12 h-12"
+              className="w-8 h-8"
               src={"/images/day.png"}
               width={100}
               height={100}
               alt="youtube icon"
             />
             <div className="flex flex-col items-center">
-              <p className="font-bold text-md">Daily reward</p>
+              <p className="font-bold text-sm">Daily reward</p>
               <div className="flex flex-row items-center gap-2">
                 <Image
-                  className="w-6 h-6"
+                  className="w-5 h-5"
                   src={"/images/quick_coin.png"}
                   width={100}
                   height={100}
                   alt="quick coin icon"
                 />
-                <p className="font-bold text-md">+6,649,000</p>
+                <p className="font-bold text-sm">+6,649,000</p>
               </div>
             </div>
-            <CgChevronRight className="absolute  text-5xl right-5 text-slate-400" />
+            <CgChevronRight className="absolute  text-2xl right-5 text-slate-400" />
           </div>
           <div>
-            <p className="font-bold ">Tasks List</p>
+            <p className="font-bold">Tasks List</p>
             <div className="flex flex-col items-center gap-2">
               <div
                 onClick={() => toast.success("comming soon")}
-                className="flex flex-row items-center gap-5 p-3 bg-slate-800 w-full rounded-3xl relative"
+                className="flex flex-row items-center gap-5 p-3 bg-slate-800 w-full rounded-xl relative"
               >
                 <Image
-                  className="w-12 h-12"
+                  className="w-8 h-8"
                   src={"/images/twitter.png"}
                   width={100}
                   height={100}
                   alt="youtube icon"
                 />
                 <div className="flex flex-col items-start justify-center">
-                  <p className="font-bold text-md">Join the Twiiter Community</p>
-                  <div className="flex flex-row items-center gap-3">
+                  <p className="font-bold text-sm">Join the Twiiter Community</p>
+                  <div className="flex flex-row items-center gap-2">
                     <Image
-                      className="w-6 h-6"
+                      className="w-5 h-5"
                       src={"/images/quick_coin.png"}
                       width={100}
                       height={100}
                       alt="quick coin icon"
                     />
-                    <p className="font-bold text-md">+200,000</p>
+                    <p className="font-bold text-sm">+200,000</p>
                   </div>
                 </div>
-                <CgChevronRight className="absolute  text-5xl right-5 text-slate-400" />
+                <CgChevronRight className="absolute  text-2xl right-5 text-slate-400" />
               </div>
               <div
                 onClick={() => toast.success("comming soon")}
-                className="flex flex-row items-center gap-5 p-3 bg-slate-800 w-full rounded-3xl relative"
+                className="flex flex-row items-center gap-5 p-3 bg-slate-800 w-full rounded-xl relative"
               >
                 <Image
-                  className="w-12 h-12"
+                  className="w-8 h-8"
                   src={"/images/telegram.png"}
                   width={100}
                   height={100}
                   alt="youtube icon"
                 />
                 <div className="flex flex-col items-start justify-center">
-                  <p className="font-bold text-md">Join the Telegram Community</p>
-                  <div className="flex flex-row items-center gap-3">
+                  <p className="font-bold text-sm">Join the Telegram Community</p>
+                  <div className="flex flex-row items-center gap-2">
                     <Image
-                      className="w-6 h-6"
+                      className="w-5 h-5"
                       src={"/images/quick_coin.png"}
                       width={100}
                       height={100}
                       alt="quick coin icon"
                     />
-                    <p className="font-bold text-md">+200,000</p>
+                    <p className="font-bold text-sm">+200,000</p>
                   </div>
                 </div>
-                <CgChevronRight className="absolute  text-5xl right-5 text-slate-400" />
+                <CgChevronRight className="absolute  text-2xl right-5 text-slate-400" />
               </div>
               <div
                 onClick={openConfirmChangeExchange}
-                className="flex flex-row items-center gap-5 p-3 bg-slate-800 w-full rounded-3xl relative"
+                className="flex flex-row items-center gap-5 p-3 bg-slate-800 w-full rounded-xl relative"
               >
                 <Image
-                  className="w-12 h-12"
+                  className="w-8 h-8"
                   src={"/images/exchange.png"}
                   width={100}
                   height={100}
@@ -146,18 +146,18 @@ const Earn: React.FC = () => {
                 />
                 <div className="flex flex-col items-start justify-center">
                   <p className="font-bold text-md">Choose your exchange</p>
-                  <div className="flex flex-row items-center gap-3">
+                  <div className="flex flex-row items-center gap-2">
                     <Image
-                      className="w-6 h-6"
+                      className="w-5 h-5"
                       src={"/images/quick_coin.png"}
                       width={100}
                       height={100}
                       alt="quick coin icon"
                     />
-                    <p className="font-bold text-md">+200,000</p>
+                    <p className="font-bold text-sm">+200,000</p>
                   </div>
                 </div>
-                <CgChevronRight className="absolute  text-5xl right-5 text-slate-400" />
+                <CgChevronRight className="absolute  text-2xl right-5 text-slate-400" />
               </div>
             </div>
           </div>

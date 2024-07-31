@@ -1,5 +1,4 @@
 "use client";
-import ProgressAvater from "@/components/avater/ProgressAvater";
 import Boost from "@/components/boost/Boost";
 import ConfirmChangeExchange from "@/components/confirm/ConfirmChangeExchange";
 import CollectCipherReward from "@/components/daily_reward/collect_reward/CollectCipherReward";
@@ -15,7 +14,7 @@ import { useGlobal } from "@/context/global_context/GlobalContext";
 export default function Home() {
   const { currentLocation, isOpenCipherPrice } = useGlobal();
   return (
-    <main className="min-h-screen pt-3">
+    <main className="min-h-screen pt-3 pb-32 bg-black text-white">
       {currentLocation === "dashboard" && <Dashboard />}
       {currentLocation === "boost" && <Boost />}
       {currentLocation === "mine" && <Mine />}
@@ -25,7 +24,6 @@ export default function Home() {
       <Exchange />
       <DailyReward />
       <ConfirmChangeExchange />
-      <ProgressAvater />
       {isOpenCipherPrice && <CollectCipherReward />}
     </main>
   );

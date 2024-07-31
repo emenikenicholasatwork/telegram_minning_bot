@@ -8,13 +8,14 @@ import { IoIosPeople } from "react-icons/io";
 const FootNavigator = () => {
   const { changeCurrentLocation, currentLocation } = useGlobal();
   return (
-    <div className="w-full fixed bottom-0 h-24 px-5 py-2">
-      <div className="bg-slate-800 flex flex-row gap-3 items-center p-3 h-20 w-full justify-between rounded-2xl">
-        <div className={`flex flex-col items-center flex-1 duration-200 ${currentLocation === "dashboard"? "text-white bg-slate-950": "text-slate-400"}   py-2 rounded-xl px-3`}onClick={() => {changeCurrentLocation("dashboard");
-          }}
+    <div className="w-full bg-slate-800 fixed bottom-0 h-16 text-sm">
+      <div className=" flex flex-row gap-3 items-center h-16 w-full justify-between px-2">
+        <div className={`flex flex-col items-center duration-200 ${currentLocation === "dashboard" ? "text-white" : "text-slate-400"}`} onClick={() => {
+          changeCurrentLocation("dashboard");
+        }}
         >
           <Image
-            className="w-9 h-9"
+            className="w-8 h-8"
             src={"/images/exchange_images/binance.png"}
             width={100}
             height={100}
@@ -23,24 +24,22 @@ const FootNavigator = () => {
           <p className="text-sm">Exchange</p>
         </div>
         <div
-          className={`flex flex-col items-center flex-1 duration-200 ${
-            currentLocation === "mine"
-              ? "text-white bg-slate-950"
-              : "text-slate-400"
-          }   py-2 rounded-xl px-3`}
+          className={`flex flex-col items-center duration-200 ${currentLocation === "mine"
+            ? "text-white"
+            : "text-slate-400"
+            }`}
           onClick={() => {
             changeCurrentLocation("mine");
           }}
         >
-          <GiMiner className="w-9 h-9" />
+          <GiMiner className="w-8 h-8" />
           <p className="text-sm">Mine</p>
         </div>
         <div
-          className={`flex flex-col items-center flex-1 duration-200 ${
-            currentLocation === "friends"
-              ? "text-white bg-slate-950"
-              : "text-slate-400"
-          }   py-2 rounded-xl px-3`}
+          className={`flex flex-col items-center duration-200 ${currentLocation === "friends"
+            ? "text-white"
+            : "text-slate-400"
+            }`}
           onClick={() => {
             changeCurrentLocation("friends");
           }}
@@ -49,11 +48,10 @@ const FootNavigator = () => {
           <p className="text-sm">Friends</p>
         </div>
         <div
-          className={`flex flex-col items-center flex-1 duration-200 ${
-            currentLocation === "earn"
-              ? "text-white bg-slate-950"
-              : "text-slate-400"
-          }   py-2 rounded-xl px-3`}
+          className={`flex flex-col items-center duration-200 ${currentLocation === "earn"
+            ? "text-white"
+            : "text-slate-400"
+            }`}
           onClick={() => {
             changeCurrentLocation("earn");
           }}

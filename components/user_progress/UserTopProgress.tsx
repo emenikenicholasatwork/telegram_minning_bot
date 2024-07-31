@@ -4,17 +4,9 @@ import React from "react";
 import { HiInformationCircle } from "react-icons/hi";
 
 const UserTopProgress: React.FC = () => {
-  const { changeCurrentLocation, formatNumber, profitPerHour, toggleProgressPage } = useGlobal();
+  const { changeCurrentLocation, formatNumber, profitPerHour } = useGlobal();
   return (
     <div className="flex flex-row justify-between gap-5 px-2 mt-2">
-      <div className="w-full font-bold flex flex-col gap-1 flex-1 text-xs" onClick={toggleProgressPage}>
-        <p>
-          Brooze &gt; <span className="text-slate-400">1/10</span>
-        </p>
-        <div className="h-2 w-full bg-neutral-200 dark:bg-neutral-600 rounded-lg overflow-hidden">
-          <div className="h-2 bg-indigo-500" style={{ width: "29%" }}></div>
-        </div>
-      </div>
       <div className="bg-slate-800 h-10 w-full flex flex-row items-center rounded-3xl flex-[1.5] px-3">
         <div
           className="flex flex-1 items-center justify-center"
