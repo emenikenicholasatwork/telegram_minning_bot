@@ -99,7 +99,7 @@ const Dashboard: React.FC = () => {
   function handleLeave(e: any) {
     if (tapStartTime.current) {
       const tapDuration = Date.now() - tapStartTime.current;
-      if (tapDuration > 200) {
+      if (tapDuration > 500) {
         morseInputRef.current += '−';
         animateCipher("−");
       } else {

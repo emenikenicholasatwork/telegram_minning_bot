@@ -102,7 +102,7 @@ async function fetchCipher() {
   return data.cipher.word;
 }
 
-export const GlobalProvider: React.FC<GlobalProviderProps> = ({ children }) => {
+export const GlobalProvider: React.FC<GlobalProviderProps> = ({ children }: { children: ReactNode; }) => {
   const [isDailyRewardCollected, setIsDailyRewardCollected] = useState(false);
   const [isOpenCipherArea, setIsOpenCipherArea] = useState(false);
   const [isDailyComboCompleted, setIsDailyComboCompleted] = useState(false);
@@ -271,10 +271,10 @@ export const GlobalProvider: React.FC<GlobalProviderProps> = ({ children }) => {
   );
 };
 
-export function useGlobal(): GlobalContextProps {
+export const useGlobal = (): GlobalContextProps => {
   const context = useContext(GlobalContext);
-  if (!context) {
+  if (context === undefined) {
     throw new Error("useGlobal must be used within a GlobalProvider");
   }
-  return useContext(GlobalContext);
-}
+  return context;
+};
