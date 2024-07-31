@@ -1,4 +1,5 @@
 "use client";
+import ProgressAvater from "@/components/avater/ProgressAvater";
 import Boost from "@/components/boost/Boost";
 import ConfirmChangeExchange from "@/components/confirm/ConfirmChangeExchange";
 import CollectCipherReward from "@/components/daily_reward/collect_reward/CollectCipherReward";
@@ -19,11 +20,12 @@ export default function Home() {
       {currentLocation === "boost" && <Boost />}
       {currentLocation === "mine" && <Mine />}
       {currentLocation === "friends" && <Friends />}
-      <Earn />
+      {currentLocation === "earn" && <Earn />}
       <FootNavigator />
       <Exchange />
       <DailyReward />
       <ConfirmChangeExchange />
+      <ProgressAvater />
       {isOpenCipherPrice && <CollectCipherReward />}
     </main>
   );

@@ -5,9 +5,9 @@ import toast, { Toaster } from "react-hot-toast";
 import { CgChevronRight } from "react-icons/cg";
 
 const Earn: React.FC = () => {
-  const { changeCurrentLocation, openConfirmChangeExchange, currentLocation } = useGlobal();
+  const { changeCurrentLocation, openConfirmChangeExchange } = useGlobal();
   return (
-    <div className={`fixed bottom-0 top-0 right-0 duration-75 ${currentLocation === "earn" ? "left-0 overflow-auto" : "overflow-hidden left-full ease-in-out"} flex flex-col items-center pt-20 gap-10 pb-52`}>
+    <div className="flex flex-col items-center pt-20 gap-10 pb-52">
       <Toaster />
       <div className="flex flex-col items-center gap-40">
         <div className="p-5 rounded-full shadow-round-blue-shadow3 overflow-hidden">
@@ -146,32 +146,6 @@ const Earn: React.FC = () => {
                 />
                 <div className="flex flex-col items-start justify-center">
                   <p className="font-bold text-md">Choose your exchange</p>
-                  <div className="flex flex-row items-center gap-3">
-                    <Image
-                      className="w-6 h-6"
-                      src={"/images/quick_coin.png"}
-                      width={100}
-                      height={100}
-                      alt="quick coin icon"
-                    />
-                    <p className="font-bold text-md">+200,000</p>
-                  </div>
-                </div>
-                <CgChevronRight className="absolute  text-5xl right-5 text-slate-400" />
-              </div>
-              <div
-                onClick={() => changeCurrentLocation("exchange")}
-                className="flex flex-row items-center gap-5 p-3 bg-slate-800 w-full rounded-3xl relative"
-              >
-                <Image
-                  className="w-12 h-12"
-                  src={"/images/three-friends.png"}
-                  width={100}
-                  height={100}
-                  alt="youtube icon"
-                />
-                <div className="flex flex-col items-start justify-center">
-                  <p className="font-bold text-md">Invite 2 friends</p>
                   <div className="flex flex-row items-center gap-3">
                     <Image
                       className="w-6 h-6"

@@ -1,6 +1,6 @@
 import mongoose, { Model, Schema } from "mongoose";
 
-interface UnlockedItemsInterface {
+interface ItemCollectedInterface {
     id: string;
     price: number;
     level: number;
@@ -22,12 +22,20 @@ interface RechargeLimitInterface {
     level: number;
 }
 
+
+const UserItemsSchema: Schema<ItemCollectedInterface> = new Schema({
+    id: { type: String, required: true },
+    price: { type: Number, requird: true },
+    level: { type: Number, required: true },
+    profitPerHour: { type: Number, required: true }
+
+});
 export interface UserInterface extends Document {
     id: number;
     telegramID: string;
     balance: number;
     userLevel: string;
-    unlockedItems: UnlockedItemsInterface[];
+    userItems: ItemCollectedInterface[];
     profitPerHour: number;
     tapLimit: number;
     dayOnDailyReward: number;
@@ -42,20 +50,20 @@ export interface UserInterface extends Document {
     invitedFriendsList: number[];
 }
 
-const UnlockItemSchema: Schema<UnlockedItemsInterface> = new Schema({
-    id: { type: String, required: true },
-    price: { type: Number, requird: true },
-    level: { type: Number, required: true },
-    profitPerHour: { type: Number, required: true }
-
-});
-
 const UserSchema: Schema<UserInterface> = new Schema(
     {
         telegramID: { type: String, required: true, unique: true },
         balance: { type: Number, defualt: 0 },
         profitPerHour: { type: Number, default: 0 },
-        unlockedItems: [{ type: [UnlockItemSchema], default: [] }]
+        userItems: [{ type: [UserItemsSchema], default: [] }],
+        userLevel: { type: String, default: "Broonze" },
+        tapLimit: { type: Number, default: 1500 },
+        dayOnDailyReward: { type: Number, default: 1 },
+        collectedDailyCipher: { type: Boolean, default: false },
+        collectedDailyCombo: { type: Boolean, default: false },
+        collectedDailyReward: { type: Boolean, default: false },
+        comboCollected: [{ type: Number }],
+        multitap: { type: {} }
     },
     {
         timestamps: true

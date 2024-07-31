@@ -1,3 +1,46 @@
-{
-    
-}
+[
+    {
+        "id":1,
+        "name":"Bronze",
+        "image": "/images/avater_images/broonze.png",
+        "from":0,
+        "to":25000
+    },
+     {
+        "id":2,
+        "name":"Silver",
+        "image": "/images/avater_images/silver.png",
+        "from":25000,
+        "to":100000
+    }, {
+        "id":3,
+        "name":"Gold",
+        "image": "/images/avater_images/gold.png",
+        "from":25000,
+        "to":100000
+    }, {
+        "id":4,
+        "name":"Platinum",
+        "image": "/images/avater_images/platimun.png",
+        "from":100000,
+        "to":10000000
+    }, {
+        "id":5,
+        "name":"Diamond",
+        "image": "/images/avater_images/diamond.png",
+        "from":10000000,
+        "to":200000000
+    }, {
+        "id":6,
+        "name":"Epic",
+        "image": "/images/avater_images/epic.png",
+        "from":200000000,
+        "to":1000000000
+    }, {
+        "id":7,
+        "name":"Legendary",
+        "image": "/images/avater_images/legendary.png",
+        "from":1000000000,
+        "to":"unlimited"
+    }
+]

@@ -2,7 +2,6 @@ import React from "react";
 import items from "../../../data/web3_items.json";
 import Image from "next/image";
 import { useGlobal } from "@/context/global_context/GlobalContext";
-import { RiLock2Line } from "react-icons/ri";
 
 const Web3: React.FC = () => {
   const { formatNumber } = useGlobal();
@@ -11,12 +10,6 @@ const Web3: React.FC = () => {
       key={item.id}
       className="bg-slate-800 relative rounded-xl flex flex-col py-2 gap-3"
     >
-      {item.condition && (
-        <div className=" bottom-0 left-0 right-0 top-0 absolute h-full items-center  justify-center flex-col gap-3 flex bg-blurBackgroud rounded-xl px-5">
-          <RiLock2Line className="w-16 h-16" />
-          <p className="font-bold text-lg">{item.condition}</p>
-        </div>
-      )}
       <div className="flex flex-row items-center px-2 gap-2">
         <Image
           className="w-16 h-16"

@@ -73,6 +73,8 @@ interface GlobalContextProps {
   isConfirmChangeExchange: boolean;
   openConfirmChangeExchange: () => void;
   closeConfirmChangeExchange: () => void;
+  toggleProgressPage: () => void;
+  isShowProgressPage: boolean;
 }
 
 interface ComboInterface {
@@ -118,6 +120,12 @@ export const GlobalProvider: React.FC<GlobalProviderProps> = ({ children }) => {
   const [increasePerSecond, setIncreasePerSecond] = useState(3);
   const [wordToFind, setWordToFind] = useState<string>("");
   const [isConfirmChangeExchange, setIsConfirmChangeExchange] = useState(false);
+  const [isShowProgressPage, setIsShowProgressPage] = useState(false);
+
+  function toggleProgressPage() {
+    setIsShowProgressPage(!isShowProgressPage);
+  }
+  // const [];
 
   useEffect(() => {
     async function getCipherWord() {
@@ -208,10 +216,12 @@ export const GlobalProvider: React.FC<GlobalProviderProps> = ({ children }) => {
   }).format(currentBalance);
 
   function formatNumber(num: number) {
-    if (num >= 1000000) {
-      return (num / 1000000).toFixed(2) + "m";
+    if (num >= 1000000000) {
+      return (num / 1000000000).toFixed(2) + "B";
+    } else if (num >= 1000000) {
+      return (num / 1000000).toFixed(2) + "M";
     } else if (num >= 1000) {
-      return (num / 1000).toFixed(2) + "k";
+      return (num / 1000).toFixed(2) + "K";
     }
     return num.toString();
   }
@@ -251,7 +261,9 @@ export const GlobalProvider: React.FC<GlobalProviderProps> = ({ children }) => {
         toggleCipherCompleted,
         isConfirmChangeExchange,
         openConfirmChangeExchange,
-        closeConfirmChangeExchange
+        closeConfirmChangeExchange,
+        isShowProgressPage,
+        toggleProgressPage
       }}
     >
       {children}

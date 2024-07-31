@@ -1,14 +1,13 @@
 import { useGlobal } from "@/context/global_context/GlobalContext";
 import Image from "next/image";
 import React from "react";
-import { FaGear } from "react-icons/fa6";
 import { HiInformationCircle } from "react-icons/hi";
 
 const UserTopProgress: React.FC = () => {
-  const { changeCurrentLocation, formatNumber, profitPerHour } = useGlobal();
+  const { changeCurrentLocation, formatNumber, profitPerHour, toggleProgressPage } = useGlobal();
   return (
     <div className="flex flex-row justify-between gap-5 px-2 mt-2">
-      <div className="w-full font-bold flex flex-col gap-1 flex-1 text-xs">
+      <div className="w-full font-bold flex flex-col gap-1 flex-1 text-xs" onClick={toggleProgressPage}>
         <p>
           Brooze &gt; <span className="text-slate-400">1/10</span>
         </p>
@@ -45,10 +44,6 @@ const UserTopProgress: React.FC = () => {
             </p>
             <HiInformationCircle className="text-slate-400" />
           </div>
-        </div>
-        <div className="h-6 w-[1px] bg-slate-600"></div>
-        <div className="flex flex-1 items-center justify-center">
-          <FaGear className="w-5 h-5" />
         </div>
       </div>
     </div>
