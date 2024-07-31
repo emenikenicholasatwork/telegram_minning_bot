@@ -41,6 +41,6 @@
         "name":"Legendary",
         "image": "/images/avater_images/legendary.png",
         "from":1000000000,
-        "to":"unlimited"
+        "to":50000000000
     }
 ]

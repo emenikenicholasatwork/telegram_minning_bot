@@ -40,7 +40,7 @@ const ProgressAvater = () => {
             </div>
             <div className="w-full flex flex-col items-center gap-3 pt-20">
                 <p className="font-bold text-lg">{currentAvater.name}</p>
-                <p className="font-bold text-lg">{formatNumber(currentAvater.from)} ~ (currentAvater.to)</p>
+                <p className="font-bold text-lg">{formatNumber(currentAvater.from)} ~ {formatNumber(currentAvater.to)}</p>
             </div>
         </div>
     );
