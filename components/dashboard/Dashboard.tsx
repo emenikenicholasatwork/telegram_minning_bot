@@ -6,6 +6,7 @@ import { FaCircleCheck } from 'react-icons/fa6';
 import UserTopProgress from '../user_progress/UserTopProgress';
 import { AiFillCheckCircle } from 'react-icons/ai';
 import combo from "../../data/dailyCombo.json";
+import cipher from "../../data/dailyCipher.json";
 const MORSE_CODE: { [key: string]: string; } = {
   '•−': 'A',
   '−•••': 'B',
@@ -44,6 +45,7 @@ const Dashboard: React.FC = () => {
   const timeoutRef = useRef<NodeJS.Timeout | null>(null);
   const indexRef = useRef(0);
   const [dailyComboTime, setDailyComboTime] = useState('');
+  const [dailyCipherTime, setDailyCipherTime] = useState('');
   const {
     isDailyRewardCollected,
     isDailyCodeCompleted,
@@ -67,35 +69,45 @@ const Dashboard: React.FC = () => {
     tapStartTime.current = Date.now();
   };
 
-  function startCountdown(createdTime: Date, elementId: string) {
+  function startComboCountDown() {
     const creationTime = combo.time;
-    const recreationTime = 86400000;
-
-
     const updateCountdown = () => {
       const now = Date.now();
-      const remainingTime = now - creationTime;
-
-      // Convert the remaining time into days, hours, minutes, and seconds
+      const diff = now - creationTime;
+      const remainingTime = 86400000 - diff;
       const hours = Math.floor((remainingTime % (1000 * 60 * 60 * 24)) / (1000 * 60 * 60));
       const minutes = Math.floor((remainingTime % (1000 * 60 * 60)) / (1000 * 60));
-      const seconds = Math.floor((remainingTime % (1000 * 60)) / 1000);
-      setDailyComboTime(hours + " : " + minutes + " : " + seconds);
+      setDailyComboTime(hours + " : " + minutes);
     };
-
     updateCountdown();
-    const intervalId = setInterval(updateCountdown, 1000);
+    setInterval(updateCountdown, 1000);
+  }
+  function startCipherCountDown() {
+    const creationTime = cipher.time;
+    const updateCountdown = () => {
+      const now = Date.now();
+      const diff = now - creationTime;
+      const remainingTime = 86400000 - diff;
+      const hours = Math.floor((remainingTime % (1000 * 60 * 60 * 24)) / (1000 * 60 * 60));
+      const minutes = Math.floor((remainingTime % (1000 * 60 * 60)) / (1000 * 60));
+      setDailyCipherTime(hours + " : " + minutes);
+    };
+    updateCountdown();
+    setInterval(updateCountdown, 1000);
   }
 
   function handleLeave(e: any) {
     if (tapStartTime.current) {
       const tapDuration = Date.now() - tapStartTime.current;
-      if (tapDuration > 100) {
+      if (tapDuration > 200) {
         morseInputRef.current += '−';
         animateCipher("−");
       } else {
         morseInputRef.current += '•';
         animateCipher("•");
+      }
+      if (isDailyCodeCompleted) {
+        return;
       }
       restartTimeout();
     }
@@ -142,7 +154,7 @@ const Dashboard: React.FC = () => {
     morseInputRef.current = '';
     if (letter) {
       const currentIndex = indexRef.current;
-      const expectedLetter = wordToFind[currentIndex].toUpperCase();
+      const expectedLetter = wordToFind[currentIndex];
 
       if (letter === expectedLetter) {
         decodedLettersRef.current += letter;
@@ -188,8 +200,8 @@ const Dashboard: React.FC = () => {
   const [isVisible, setIsVisible] = useState(true);
 
   useEffect(() => {
-    const itemCreatedTime = new Date('2024-07-29T10:00:00');
-    startCountdown(itemCreatedTime, 'countdownElement');
+    startComboCountDown();
+    startCipherCountDown();
     const interval = setInterval(() => {
       setIsVisible(prev => !prev);
     }, 500);
@@ -270,7 +282,7 @@ const Dashboard: React.FC = () => {
                   />
                   <p className="text-sm font-bold">Daily Code</p>
                 </div>
-                <p className=" text-sm ">31:44</p>
+                <p className=" text-sm ">{dailyCipherTime}</p>
               </div>
             </div>
             <div className="w-full flex flex-col items-center gap-2" id="coin_div">

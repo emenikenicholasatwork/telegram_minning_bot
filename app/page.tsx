@@ -1,5 +1,6 @@
 "use client";
 import Boost from "@/components/boost/Boost";
+import ConfirmChangeExchange from "@/components/confirm/ConfirmChangeExchange";
 import CollectCipherReward from "@/components/daily_reward/collect_reward/CollectCipherReward";
 import DailyReward from "@/components/daily_reward/DailyReward";
 import Dashboard from "@/components/dashboard/Dashboard";
@@ -18,11 +19,12 @@ export default function Home() {
       {currentLocation === "boost" && <Boost />}
       {currentLocation === "mine" && <Mine />}
       {currentLocation === "friends" && <Friends />}
-      {currentLocation === "earn" && <Earn />}
+      <Earn />
       <FootNavigator />
       <Exchange />
       <DailyReward />
-      {isOpenCipherPrice&&<CollectCipherReward/>}
+      <ConfirmChangeExchange />
+      {isOpenCipherPrice && <CollectCipherReward />}
     </main>
   );
 }

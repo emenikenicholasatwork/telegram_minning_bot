@@ -8,12 +8,9 @@ const DailyReward = () => {
   const { changeCurrentLocation, currentLocation, formatNumber } = useGlobal();
   return (
     <div
-      className={` duration-300 ${
-        currentLocation === "daily_coin"
-          ? "h-[90%] px-5 gap-2 pt-2 pb-20 "
-          : "h-0 overflow-hidden"
-      } fixed flex bottom-0 left-0 right-0 bg-black flex-col z-10  rounded-t-3xl  shadow-top-green items-center `}
-    >
+      className={` duration-300 ${currentLocation === "daily_coin"
+        ? "h-[90%] px-5 gap-2 pt-2 pb-20 "
+        : "h-0 overflow-hidden"} fixed flex bottom-0 left-0 right-0 bg-black flex-col z-10  rounded-t-3xl  shadow-top-green items-center `}>
       <div className="relative w-full flex justify-end">
         <GiCancel
           className="absolute text-3xl text-gray-500"
@@ -37,10 +34,7 @@ const DailyReward = () => {
       </div>
       <div className="grid grid-cols-4 gap-3">
         {days.map((day) => (
-          <div
-            key={day.id}
-            className="flex flex-col items-center bg-slate-800 gap-2  p-3 rounded-xl"
-          >
+          <div key={day.id} className={`flex flex-col items-center bg-slate-800 border ${5 > day.id ? "border border-green-500" : ""} gap-2  p-3 rounded-xl`}>
             <p className="font-bold">{day.name}</p>
             <Image
               className="w-8 h-8"

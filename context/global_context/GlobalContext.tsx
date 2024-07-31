@@ -1,5 +1,3 @@
-import fs from "fs";
-import path from "path";
 import {
   createContext,
   ReactNode,
@@ -9,6 +7,41 @@ import {
   useState,
 } from "react";
 import hiddenDailyCombo from "../../data/dailyCombo.json";
+
+const WORDS = [
+  "BLOCK",
+  "CHAIN",
+  "COINS",
+  "PROOF",
+  "TOKEN",
+  "STAKE",
+  "MINER",
+  "TRADE",
+  "DAPPS",
+  "NODES",
+  "BYTES",
+  "ETHER",
+  "SPEND",
+  "ZCASH",
+  "SWIPE",
+  "ASSET",
+  "LEDGER",
+  "TRUST",
+  "VALID",
+  "HASH",
+  "CURVE",
+  "CLAIM",
+  "SPLIT",
+  "YIELD",
+  "AUDI",
+  "BATCH",
+  "LIMIT",
+  "MERGE",
+  "PAYER",
+  "TRACE",
+  "BATCH",
+  "CRYPTO",
+];
 
 interface GlobalContextProps {
   isDailyRewardCollected: boolean;
@@ -37,6 +70,9 @@ interface GlobalContextProps {
   toggleCipherTakePrice: () => void;
   isOpenCipherPrice: boolean;
   toggleCipherCompleted: () => void;
+  isConfirmChangeExchange: boolean;
+  openConfirmChangeExchange: () => void;
+  closeConfirmChangeExchange: () => void;
 }
 
 interface ComboInterface {
@@ -61,7 +97,7 @@ async function fetchCombo() {
 async function fetchCipher() {
   const response = await fetch('/api/FetchCipher');
   const data = await response.json();
-  return data;
+  return data.cipher.word;
 }
 
 export const GlobalProvider: React.FC<GlobalProviderProps> = ({ children }) => {
@@ -81,6 +117,23 @@ export const GlobalProvider: React.FC<GlobalProviderProps> = ({ children }) => {
   const intervalRef = useRef<number | null>(null);
   const [increasePerSecond, setIncreasePerSecond] = useState(3);
   const [wordToFind, setWordToFind] = useState<string>("");
+  const [isConfirmChangeExchange, setIsConfirmChangeExchange] = useState(false);
+
+  useEffect(() => {
+    async function getCipherWord() {
+      const cipherIndex = await fetchCipher();
+      setWordToFind(WORDS[cipherIndex]);
+    }
+    getCipherWord();
+  }, []);
+
+  function openConfirmChangeExchange() {
+    setIsConfirmChangeExchange(true);
+  }
+
+  function closeConfirmChangeExchange() {
+    setIsConfirmChangeExchange(false);
+  }
 
   function toggleCipherCompleted() {
     setIsDailyCodeCompleted(!isDailyCodeCompleted);
@@ -195,7 +248,10 @@ export const GlobalProvider: React.FC<GlobalProviderProps> = ({ children }) => {
         wordToFind,
         isOpenCipherPrice,
         toggleCipherTakePrice,
-        toggleCipherCompleted
+        toggleCipherCompleted,
+        isConfirmChangeExchange,
+        openConfirmChangeExchange,
+        closeConfirmChangeExchange
       }}
     >
       {children}
