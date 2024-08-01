@@ -171,29 +171,56 @@ const Dashboard: React.FC = () => {
     }
   };
   const animateClickItemMovement = (
-    event?: React.MouseEvent<HTMLDivElement, MouseEvent>,
+    event?: React.TouchEvent<HTMLDivElement>,
     item?: string
   ) => {
-    const text = document.createElement('p');
-    text.className = 'p-0 m-0';
-    text.textContent = `+${item}`;
-    text.className = 'absolute text-5xl font-bold text-white animation-move';
-    const tapImage = document.getElementById('tap_image');
-    tapImage?.classList.add('scale-105');
-    document.getElementById('coin_div')?.appendChild(text);
-    const clickX = event?.clientX;
-    const clickY = event?.clientY;
-    text.style.left = `${clickX}px`;
-    text.style.top = `${clickY}px`;
-    setTimeout(() => {
-      tapImage?.classList.remove('scale-105');
-    }, 100);
-    if (coinRef.current) {
-      text.style.setProperty('--delta-x', `${-10}px`);
-      text.style.setProperty('--delta-y', `${-200}px`);
-      text.addEventListener('animationend', () => {
-        text.remove();
+    if (event) {
+      Array.from(event.touches).forEach(touch => {
+        const number = document.createElement('div');
+        number.textContent = '+17';
+        number.className = 'absolute text-5xl font-bold text-slate-300 animation-move';
+        document.getElementById('coin_div')?.appendChild(number);
+        const clickX = touch.clientX;
+        const clickY = touch.clientY;
+        number.style.left = `${clickX}px`;
+        number.style.top = `${clickY}px`;
+
+        if (coinRef.current) {
+          const coinRect = coinRef.current.getBoundingClientRect();
+          const coinX = coinRect.left + coinRect.width / 2;
+          const coinY = coinRect.top;
+          const deltaX = coinX - clickX;
+          const deltaY = coinY - clickY;
+          number.style.setProperty('--delta-x', `${deltaX}px`);
+          number.style.setProperty('--delta-y', `${deltaY}px`);
+          number.addEventListener('animationend', () => {
+            number.remove();
+          });
+        }
       });
+    } else {
+      const text = document.createElement('p');
+      text.className = 'p-0 m-0';
+      text.textContent = `+${item}`;
+      text.className = 'absolute text-5xl font-bold text-white animation-move';
+      const tapImage = document.getElementById('tap_image');
+      tapImage?.classList.add('scale-105');
+      document.getElementById('coin_div')?.appendChild(text);
+      // const clickX = event?.clientX;
+      // const clickY = event?.clientY;
+      // text.style.left = `${clickX}px`;
+      // text.style.top = `${clickY}px`;
+      setTimeout(() => {
+        tapImage?.classList.remove('scale-105');
+      }, 100);
+      if (coinRef.current) {
+        text.style.setProperty('--delta-x', `${-10}px`);
+        text.style.setProperty('--delta-y', `${-200}px`);
+        text.addEventListener('animationend', () => {
+          text.remove();
+        });
+      }
+
     }
   };
 
@@ -209,7 +236,7 @@ const Dashboard: React.FC = () => {
     return () => clearInterval(interval);
   }, []);
 
-  const userTap = (event?: React.MouseEvent<HTMLDivElement, MouseEvent>) => {
+  const userTap = (event?: React.TouchEvent<HTMLDivElement>) => {
     if (tapLeft < perTap) return;
     reduceTapLeft(perTap);
     addToCurrentBalance(perTap);
@@ -323,8 +350,15 @@ const Dashboard: React.FC = () => {
                   )}
                 </div>
                 <div ref={coinRef}
-                  onClick={e => { if (!isOpenCipherArea) { tapLeft > perTap ? userTap(e) : ''; } }}
-                  onTouchStart={() => { isOpenCipherArea ? handleTap() : ''; }}
+                  onTouchStart={(e) => {
+                    if (isOpenCipherArea) {
+                      handleTap();
+                    } else {
+                      if (!isOpenCipherArea) {
+                        tapLeft > perTap ? userTap(e) : "";
+                      }
+                    }
+                  }}
                   onTouchEnd={(e) => { isOpenCipherArea ? handleLeave(e) : ''; }}>
                   <Image id="tap_image" className={`w-64 h-64 duration-200 ${isOpenCipherArea ? 'filter -hue-rotate-180 sepia grayscale contrast-200' : ''} ${tapLeft > perTap ? '' : 'filter saturate-50'} ${activateTurbo ? 'filter invert ' : ''}`}
                     src={'/images/quick_coin.png'}
