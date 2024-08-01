@@ -1,4 +1,4 @@
-import { useGlobal } from "@/context/global_context/GlobalContext";
+import { useGlobal } from "@/context/GlobalContext";
 import Image from "next/image";
 import React from "react";
 import toast, { Toaster } from "react-hot-toast";

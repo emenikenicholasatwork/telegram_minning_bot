@@ -1,7 +1,7 @@
 import React from "react";
 import items from "../../../data/web3_items.json";
 import Image from "next/image";
-import { useGlobal } from "@/context/global_context/GlobalContext";
+import { useGlobal } from "@/context/GlobalContext";
 
 const Web3: React.FC = () => {
   const { formatNumber } = useGlobal();

@@ -1,6 +1,6 @@
 import React from "react";
 import Image from "next/image";
-import { useGlobal } from "@/context/global_context/GlobalContext";
+import { useGlobal } from "@/context/GlobalContext";
 import days from ".././../data/daily_reward_data.json";
 import { GiCancel } from "react-icons/gi";
 

@@ -33,4 +33,5 @@
   "solidity.formatter": "prettier",
   "typescript.format.semicolons": "insert",
   "javascript.format.semicolons": "insert",
+  "editor.quickSuggestionsDelay": 10,
 }

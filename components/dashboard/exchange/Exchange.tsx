@@ -2,9 +2,10 @@ import React from "react";
 import exchange from "../../../data/exchange_data.json";
 import Image from "next/image";
 import { RiArrowRightSLine } from "react-icons/ri";
-import { useGlobal } from "@/context/global_context/GlobalContext";
+import { useGlobal } from "@/context/GlobalContext";
+import { FaCheck } from "react-icons/fa6";
 const Exchange = () => {
-  const { currentLocation, changeCurrentLocation } = useGlobal();
+  const { currentLocation, changeCurrentLocation, selectedExchange, changeSelectedExchange } = useGlobal();
   return (
     <div
       onClick={() => changeCurrentLocation("dashboard")}
@@ -16,6 +17,7 @@ const Exchange = () => {
         {exchange.map((exch) => (
           <div
             key={exch.id}
+            onClick={() => changeSelectedExchange(exch.id)}
             className="bg-slate-600 rounded-xl p-2 flex flex-row items-center justify-between"
           >
             <div className="flex flex-row items-center gap-5">
@@ -28,7 +30,11 @@ const Exchange = () => {
               />
               <p className="font-bold text-xl">{exch.name}</p>
             </div>
-            <RiArrowRightSLine className="text-3xl" />
+            {
+              selectedExchange === exch.id ?
+                <FaCheck className="text-1xl" /> :
+                <RiArrowRightSLine className="text-3xl" />
+            }
           </div>
         ))}
       </div>

@@ -1,7 +1,7 @@
 'use client';
-import { useGlobal } from '@/context/global_context/GlobalContext';
+import { useGlobal } from '@/context/GlobalContext';
 import Image from 'next/image';
-import React, { useState } from 'react';
+import React from 'react';
 import UserTopProgress from '../user_progress/UserTopProgress';
 
 const Dashboard: React.FC = () => {
@@ -12,13 +12,20 @@ const Dashboard: React.FC = () => {
     perTap,
     tapLeft,
     tapLimit,
+    reduceTapLeft
   } = useGlobal();
 
   function user_clicks() {
     if (tapLeft < perTap) {
       return;
     } else {
+      const tap_image = document.getElementById("tap_image");
+      tap_image?.classList.add("scale-110");
       addToCurrentBalance(perTap);
+      reduceTapLeft(perTap);
+      setTimeout(() => {
+        tap_image?.classList.remove("scale-110");
+      }, 100);
     }
   }
 

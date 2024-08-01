@@ -1,4 +1,4 @@
-import { useGlobal } from "@/context/global_context/GlobalContext";
+import { useGlobal } from "@/context/GlobalContext";
 import Image from "next/image";
 import React from "react";
 
@@ -57,7 +57,7 @@ const Boost: React.FC = () => {
                   height={100}
                   alt="quick coin icon"
                 />
-                <p className="font-bold text-sm">512K &#183; 10 lvl</p>
+                <p className="font-bold text-sm">5K &#183; 1 lvl</p>
               </div>
             </div>
           </div>
@@ -79,7 +79,7 @@ const Boost: React.FC = () => {
                   height={100}
                   alt="quick coin icon"
                 />
-                <p className="font-bold text-sm">512K &#183; 10 lvl</p>
+                <p className="font-bold text-sm">5K &#183; 1 lvl</p>
               </div>
             </div>
           </div>

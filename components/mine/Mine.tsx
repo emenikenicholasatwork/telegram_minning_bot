@@ -2,7 +2,7 @@
 import React, { useState } from "react";
 import UserTopProgress from "../user_progress/UserTopProgress";
 import Image from "next/image";
-import { useGlobal } from "@/context/global_context/GlobalContext";
+import { useGlobal } from "@/context/GlobalContext";
 import Legal from "./legal/Legal";
 import Prteam from "./prteam/Prteam";
 import Markets from "./markets/Markets";

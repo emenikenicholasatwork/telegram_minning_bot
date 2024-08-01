@@ -1,7 +1,7 @@
 import React from "react";
 import items from "../../../data/pr&team.json";
 import Image from "next/image";
-import { useGlobal } from "@/context/global_context/GlobalContext";
+import { useGlobal } from "@/context/GlobalContext";
 import { RiLock2Line } from "react-icons/ri";
 
 const Prteam: React.FC = () => {

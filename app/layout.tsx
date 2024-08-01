@@ -1,6 +1,7 @@
 "use client";
+import { TelegramProvider } from "@/context/TelegramContext";
 import "./globals.css";
-import { GlobalProvider } from "@/context/global_context/GlobalContext";
+import { GlobalProvider } from "@/context/GlobalContext";
 
 export default function RootLayout({
   children,
@@ -10,7 +11,13 @@ export default function RootLayout({
   return (
     <GlobalProvider>
       <html lang="en">
-        <body>{children}</body>
+        <body>
+          <TelegramProvider>
+            <main>
+              {children}
+            </main>
+          </TelegramProvider>
+        </body>
       </html>
     </GlobalProvider>
   );

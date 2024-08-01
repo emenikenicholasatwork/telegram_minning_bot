@@ -22,6 +22,8 @@ interface GlobalContextProps {
   isConfirmChangeExchange: boolean;
   openConfirmChangeExchange: () => void;
   closeConfirmChangeExchange: () => void;
+  selectedExchange: number;
+  changeSelectedExchange: (num: number) => void;
 }
 
 const GlobalContext = createContext<GlobalContextProps | undefined>(undefined);
@@ -40,6 +42,11 @@ export const GlobalProvider: React.FC<GlobalProviderProps> = ({ children }: { ch
   const intervalRef = useRef<number | null>(null);
   const [increasePerSecond, setIncreasePerSecond] = useState(3);
   const [isConfirmChangeExchange, setIsConfirmChangeExchange] = useState(false);
+  const [selectedExchange, setSelectedExchange] = useState(2);
+
+  function changeSelectedExchange(num: number) {
+    setSelectedExchange(num);
+  }
 
   function openConfirmChangeExchange() {
     setIsConfirmChangeExchange(true);
@@ -122,6 +129,8 @@ export const GlobalProvider: React.FC<GlobalProviderProps> = ({ children }: { ch
         isConfirmChangeExchange,
         openConfirmChangeExchange,
         closeConfirmChangeExchange,
+        selectedExchange,
+        changeSelectedExchange
       }}
     >
       {children}
