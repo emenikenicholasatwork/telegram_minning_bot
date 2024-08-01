@@ -3,7 +3,7 @@
     "id": 18,
     "name": "KYB",
     "category": "legal",
-    "quick_per_hour": 60,
+    "quick_per_hour": 2000,
     "image": "/images/item_images/kyb.png",
     "condition": "",
     "price": 500,
@@ -13,10 +13,10 @@
     "id": 19,
     "name": "KYC",
     "category": "legal",
-    "quick_per_hour": 10,
+    "quick_per_hour": 20000,
     "image": "/images/item_images/kyc.png",
     "condition": "",
-    "price": 100,
+    "price": 100000,
     "level": 0
   },
   {
@@ -113,10 +113,10 @@
     "id": 32,
     "name": "Licence Nigeria",
     "category": "legal",
-    "quick_per_hour": 170,
+    "quick_per_hour": 170000,
     "image": "/images/item_images/licence-nigeria.png",
     "condition": "",
-    "price": 1500,
+    "price": 150000000,
     "level": 0
   },
   {
@@ -133,20 +133,20 @@
     "id": 34,
     "name": "Licence Philippines",
     "category": "legal",
-    "quick_per_hour": 6500,
+    "quick_per_hour": 9500,
     "image": "/images/item_images/licence-philippines.png",
     "condition": "",
-    "price": 15000,
+    "price": 400000,
     "level": 0
   },
   {
     "id": 35,
     "name": "Licence South America",
     "category": "legal",
-    "quick_per_hour": 300,
+    "quick_per_hour": 300000,
     "image": "/images/item_images/licence-south-america.png",
     "condition": "Invite 1 friend",
-    "price": 2000,
+    "price": 200000000,
     "level": 0
   },
   {

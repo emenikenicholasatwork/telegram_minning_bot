@@ -3,7 +3,7 @@ import Image from "next/image";
 import React from "react";
 
 const Boost: React.FC = () => {
-  const { formattedBalance, useTurbo } = useGlobal();
+  const { formattedBalance } = useGlobal();
   return (
     <div className="flex flex-col items-center w-full h-full pt-5  gap-5">
       <div className="flex flex-col items-center gap-3">
@@ -32,23 +32,6 @@ const Boost: React.FC = () => {
             />
             <div>
               <p className="font-bold">Full energy</p>
-              <p className="text-sm">6/6 available</p>
-            </div>
-          </div>
-          <div
-            className="flex flex-row items-center bg-slate-800 rounded-xl px-5 py-3 gap-3"
-            onClick={useTurbo}
-          >
-            <Image
-              className="w-10 h-10"
-              src={"/images/boost.png"}
-              width={100}
-              height={100}
-              alt="flash icon"
-            />
-            <div>
-              <p className="font-bold">Turbo</p>
-              <p className="text-sm">6/6 available</p>
             </div>
           </div>
         </div>
