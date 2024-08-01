@@ -1,7 +1,6 @@
 "use client";
 import Boost from "@/components/boost/Boost";
 import ConfirmChangeExchange from "@/components/confirm/ConfirmChangeExchange";
-import CollectCipherReward from "@/components/daily_reward/collect_reward/CollectCipherReward";
 import DailyReward from "@/components/daily_reward/DailyReward";
 import Dashboard from "@/components/dashboard/Dashboard";
 import Exchange from "@/components/dashboard/exchange/Exchange";
