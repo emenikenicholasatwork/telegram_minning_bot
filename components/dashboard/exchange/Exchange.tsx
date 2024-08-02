@@ -4,11 +4,23 @@ import Image from "next/image";
 import { RiArrowRightSLine } from "react-icons/ri";
 import { useGlobal } from "@/context/GlobalContext";
 import { FaCheck } from "react-icons/fa6";
+import { doc, updateDoc } from "firebase/firestore";
+import { db } from "@/config/firebaseConfig";
+import toast from "react-hot-toast";
 const Exchange = () => {
-  const { currentLocation, changeCurrentLocation, selectedExchange, changeSelectedExchange } = useGlobal();
+  const { currentLocation, changeCurrentLocation, updateUser, mainUser } = useGlobal();
+  async function changeExchange(exchangeId: number) {
+    try {
+      const userDoc = doc(db, "users", mainUser.id);
+      await updateDoc(userDoc, { exchangeId: exchangeId });
+      updateUser();
+      toast.success("Successfully selected exchange");
+    } catch (error) {
+      toast.error("Error while changing exchange");
+    }
+  }
   return (
     <div
-      onClick={() => changeCurrentLocation("dashboard")}
       className={` absolute flex bottom-0 left-0 right-0 bg-black flex-col duration-75 z-10 ${currentLocation === "exchange" ? "h-full pb-28 pt-16 overflow-auto" : "h-0 overflow-hidden"
         } items-center gap-10`}
     >
@@ -17,7 +29,7 @@ const Exchange = () => {
         {exchange.map((exch) => (
           <div
             key={exch.id}
-            onClick={() => changeSelectedExchange(exch.id)}
+            onClick={() => { changeExchange(exch.id); changeCurrentLocation("dashboard"); }}
             className="bg-slate-600 rounded-xl p-2 flex flex-row items-center justify-between"
           >
             <div className="flex flex-row items-center gap-5">
@@ -31,7 +43,7 @@ const Exchange = () => {
               <p className="font-bold text-xl">{exch.name}</p>
             </div>
             {
-              selectedExchange === exch.id ?
+              mainUser.exchangedId === exch.id ?
                 <FaCheck className="text-1xl" /> :
                 <RiArrowRightSLine className="text-3xl" />
             }

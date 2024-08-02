@@ -3,9 +3,36 @@ import Image from "next/image";
 import { useGlobal } from "@/context/GlobalContext";
 import days from ".././../data/daily_reward_data.json";
 import { GiCancel } from "react-icons/gi";
+import toast from "react-hot-toast";
+import { doc, updateDoc } from "firebase/firestore";
+import { db } from "@/config/firebaseConfig";
 
 const DailyReward = () => {
-  const { changeCurrentLocation, currentLocation, formatNumber } = useGlobal();
+  const { changeCurrentLocation, currentLocation, updateUser, mainUser } = useGlobal();
+  async function claim_daily_reward() {
+    const timeDuration = Date.now() - mainUser.DailyReward.time;
+    if (timeDuration >= 86400000) {
+      const dayPrice = days.find(dy => mainUser.DailyReward.day + 1 === dy.id);
+      try {
+        const userDoc = doc(db, "users", mainUser.id);
+        if (mainUser.DailyReward.day = 10) {
+          await updateDoc(userDoc, { DailyReward: { day: 0, time: Date.now() }, balance: mainUser.balance + dayPrice });
+        } else {
+          await updateDoc(userDoc, { DailyReward: { day: mainUser.DailyReward.day + 1, time: Date.now() }, balance: mainUser.balance + dayPrice });
+        }
+        updateUser();
+        toast.success("Successfully claimed reward.");
+      } catch (error) {
+        toast.error("Error while claiming reward");
+      }
+    } else {
+      const timeLeft = 86400000 - timeDuration;
+      const hoursLeft = Math.floor(timeLeft / (60 * 60 * 1000));
+      const minutesLeft = Math.floor((timeLeft % (60 * 60 * 1000)) / (60 * 1000));
+      const secondsLeft = Math.floor((timeLeft % (60 * 1000)) / 1000);
+      toast.error(`come back in the next ${hoursLeft} : ${minutesLeft} : ${secondsLeft}`);
+    }
+  }
   return (
     <div
       className={` duration-100 ${currentLocation === "daily_coin"
@@ -34,7 +61,7 @@ const DailyReward = () => {
       </div>
       <div className="grid grid-cols-4 gap-3">
         {days.map((day) => (
-          <div key={day.id} className={`flex flex-col items-center bg-slate-800 border ${5 > day.id ? "border border-green-500" : ""} gap-2  p-3 rounded-xl`}>
+          <div key={day.id} className={`flex flex-col items-center bg-slate-800 border ${mainUser.DailyReward.day > day.id ? "border border-green-500" : ""} gap-2  p-3 rounded-xl`}>
             <p className="font-bold text-sm">{day.name}</p>
             <Image
               className="w-5 h-5"
@@ -47,7 +74,7 @@ const DailyReward = () => {
           </div>
         ))}
       </div>
-      <button className="  p-5 bg-blue-600 text-lg w-full rounded-xl font-bold">
+      <button className="p-5 bg-blue-600 text-lg w-full rounded-xl font-bold">
         Claim
       </button>
     </div>

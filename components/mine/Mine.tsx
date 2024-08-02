@@ -9,7 +9,7 @@ import Markets from "./markets/Markets";
 import Web3 from "./web3/Web3";
 
 const Mine: React.FC = () => {
-  const { formattedBalance } = useGlobal();
+  const { formattedBalance, mainUser } = useGlobal();
   const [activetab, setActivetab] = useState("prteam");
   return (
     <div className="flex flex-col gap-10 pb-20">
@@ -26,7 +26,7 @@ const Mine: React.FC = () => {
               height={500}
               alt="quick coin icon"
             />
-            <p className="text-2xl font-bold">{formattedBalance}</p>
+            <p className="text-2xl font-bold">{formattedBalance(mainUser.balacne)}</p>
           </div>
           <div className="w-full flex flex-row justify-between items-center bg-slate-800 h-16 px-1 rounded-lg">
             <div

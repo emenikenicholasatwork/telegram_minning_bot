@@ -1,9 +1,42 @@
+import { db } from "@/config/firebaseConfig";
 import { useGlobal } from "@/context/GlobalContext";
+import { doc, updateDoc } from "firebase/firestore";
 import Image from "next/image";
 import React from "react";
+import toast from "react-hot-toast";
 
 const Boost: React.FC = () => {
-  const { formattedBalance } = useGlobal();
+  const { formattedBalance, formatNumber, mainUser, updateUser } = useGlobal();
+  const userDoc = doc(db, "users", mainUser.id);
+  async function buyEnergyLimitBoost() {
+    if (mainUser.energyLimit.price > mainUser.balance) {
+      toast.error("Insufficient balance");
+      return;
+    } else {
+      try {
+        await updateDoc(userDoc, { energyLimit: { level: mainUser.energyLimit + 1, price: mainUser.price * 2, TapLimit: mainUser.TapLimit + 500, perTap: mainUser.perTap + 1 } });
+        toast.success("Successfully upgraded limit");
+        updateUser();
+      } catch (err) {
+        toast.error("Error while upgrading energy limit");
+      }
+    }
+  }
+
+  async function buyMultitap() {
+    if (mainUser.multitap.price > mainUser.balance) {
+      toast.error("Insufficient balance");
+      return;
+    } else {
+      try {
+        await updateDoc(userDoc, { multitap: { level: mainUser.multitap.level + 1, price: mainUser.multitap.price * 2 } });
+        toast.success("Successfully upgraded multitap");
+        updateUser();
+      } catch (err) {
+        toast.error("Error while upgrading multitap");
+      }
+    }
+  }
   return (
     <div className="flex flex-col items-center w-full h-full pt-5  gap-5">
       <div className="flex flex-col items-center gap-3">
@@ -16,7 +49,7 @@ const Boost: React.FC = () => {
             height={100}
             alt="quick coin icon"
           />
-          <p className="font-bold text-2xl">{formattedBalance}</p>
+          <p className="font-bold text-2xl">{formattedBalance(mainUser.balance)}</p>
         </div>
       </div>
       <div className="flex flex-col w-full px-2 gap-4">
@@ -39,7 +72,7 @@ const Boost: React.FC = () => {
       <div className="flex flex-col w-full px-2 gap-4">
         <p className="font-bold text-md">Boosters</p>
         <div className="flex flex-col gap-2">
-          <div className="flex flex-row items-center bg-slate-800 rounded-xl px-5 py-3 gap-3">
+          <div onClick={buyMultitap} className="flex flex-row items-center bg-slate-800 rounded-xl px-5 py-3 gap-3">
             <Image
               className="w-10 h-10"
               src={"/images/click.png"}
@@ -57,11 +90,11 @@ const Boost: React.FC = () => {
                   height={100}
                   alt="quick coin icon"
                 />
-                <p className="font-bold text-sm">5K &#183; 1 lvl</p>
+                <p className="font-bold text-sm">{formatNumber(mainUser.multitap.price)} &#183; {mainUser.multitap.level} lvl</p>
               </div>
             </div>
           </div>
-          <div className="flex flex-row items-center bg-slate-800 rounded-xl px-5 py-3 gap-3">
+          <div onClick={buyEnergyLimitBoost} className="flex flex-row items-center bg-slate-800 rounded-xl px-5 py-3 gap-3">
             <Image
               className="w-10 h-10"
               src={"/images/battery.png"}
@@ -79,7 +112,7 @@ const Boost: React.FC = () => {
                   height={100}
                   alt="quick coin icon"
                 />
-                <p className="font-bold text-sm">5K &#183; 1 lvl</p>
+                <p className="font-bold text-sm">{formatNumber(mainUser.energyLimit.price)} &#183; {mainUser.energyLimit.level} lvl</p>
               </div>
             </div>
           </div>

@@ -9,16 +9,16 @@ export default function RootLayout({
   children: React.ReactNode;
 }>) {
   return (
-    <GlobalProvider>
+    <TelegramProvider>
       <html lang="en">
         <body>
-          <TelegramProvider>
+          <GlobalProvider>
             <main>
               {children}
             </main>
-          </TelegramProvider>
+          </GlobalProvider>
         </body>
       </html>
-    </GlobalProvider>
+    </TelegramProvider>
   );
 }

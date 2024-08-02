@@ -6,24 +6,48 @@ import {
   useRef,
   useState,
 } from "react";
+import { useTelegram } from "./TelegramContext";
+import { addDoc, collection, doc, getDoc, setDoc } from "firebase/firestore";
+import { db } from "@/config/firebaseConfig";
 
 interface GlobalContextProps {
   currentLocation: string;
   changeCurrentLocation: (location: string) => void;
   addToCurrentBalance: (pre: number) => void;
   subtractFromCurrentBalance: (pre: number) => void;
-  formattedBalance: string;
+  formattedBalance: (bal: number) => string;
   formatNumber: (num: number) => string;
-  perTap: number;
   tapLeft: number;
   reduceTapLeft: (num: number) => void;
   tapLimit: number;
-  profitPerHour: number;
   isConfirmChangeExchange: boolean;
   openConfirmChangeExchange: () => void;
   closeConfirmChangeExchange: () => void;
-  selectedExchange: number;
-  changeSelectedExchange: (num: number) => void;
+  mainUser: any;
+  updateUser: () => void;
+}
+
+interface UserInterface {
+  createdAt: Date,
+  id: number,
+  exchangeId: 1,
+  quickPerHour: 0,
+  balance: 0,
+  TapLimit: 1500,
+  perTap: 2,
+  multitap: {
+    level: 1,
+    price: 25000;
+  },
+  energyLimit: {
+    level: 1,
+    price: 25000;
+  },
+  DailyReward: {
+    day: 0,
+    time: Date;
+  },
+  invitedFriends: [];
 }
 
 const GlobalContext = createContext<GlobalContextProps | undefined>(undefined);
@@ -33,20 +57,63 @@ interface GlobalProviderProps {
 }
 
 export const GlobalProvider: React.FC<GlobalProviderProps> = ({ children }: { children: ReactNode; }) => {
+  const { webApp } = useTelegram();
+  useEffect(() => {
+    if (webApp) {
+      checkAndCreateUser(webApp.initDataUnsafe.user.id);
+    }
+  }, [webApp]);
+  async function checkAndCreateUser(id: number) {
+    if (webApp) {
+      const userDoc = doc(db, "users", webApp.initDataUnsafe.user.id.toString());
+      const user = await getDoc(userDoc);
+      if (!user.exists()) {
+        await addDoc(userRef, {
+          createdAt: new Date(),
+          id: webApp.initDataUnsafe.user.id,
+          exchangeId: 1,
+          quickPerHour: 0,
+          balance: 0,
+          TapLimit: 1500,
+          perTap: 2,
+          multitap: {
+            level: 1,
+            price: 25000
+          },
+          energyLimit: {
+            level: 1,
+            price: 25000
+          },
+          DailyReward: {
+            day: 0,
+            time: Date.now()
+          },
+          invitedFriends: []
+        });
+      } else {
+        setMainUser(user);
+      }
+    }
+  }
+  const [mainUser, setMainUser] = useState<any>(undefined);
+  const userRef = collection(db, "users");
   const [currentLocation, setCurrentLocation] = useState("dashboard");
   const [currentBalance, setCurrentBalance] = useState(0);
-  const [perTap, setPerTap] = useState(2);
-  const [tapLimit, setTapLimit] = useState(1500);
+  const [tapLimit, setTapLimit] = useState(mainUser.TapLimit);
   const [tapLeft, setTapLeft] = useState(tapLimit);
-  const [profitPerHour, setProfitPerHour] = useState(0);
   const intervalRef = useRef<number | null>(null);
   const [increasePerSecond, setIncreasePerSecond] = useState(3);
   const [isConfirmChangeExchange, setIsConfirmChangeExchange] = useState(false);
-  const [selectedExchange, setSelectedExchange] = useState(2);
 
-  function changeSelectedExchange(num: number) {
-    setSelectedExchange(num);
+
+  async function updateUser() {
+    if (webApp) {
+      const userDoc = doc(db, "users", webApp.initDataUnsafe.user.id.toString());
+      const user = await getDoc(userDoc);
+      user.exists() ? setMainUser(user) : "";
+    }
   }
+
 
   function openConfirmChangeExchange() {
     setIsConfirmChangeExchange(true);
@@ -58,7 +125,7 @@ export const GlobalProvider: React.FC<GlobalProviderProps> = ({ children }: { ch
 
   useEffect(() => {
     intervalRef.current = window.setInterval(() => {
-      setTapLeft((prevTapLeft) => {
+      setTapLeft((prevTapLeft: any) => {
         if (prevTapLeft + increasePerSecond <= tapLimit) {
           return prevTapLeft + increasePerSecond;
         } else {
@@ -89,14 +156,14 @@ export const GlobalProvider: React.FC<GlobalProviderProps> = ({ children }: { ch
   };
 
   const reduceTapLeft = (num: number) => {
-    setTapLeft((pre) => pre - num);
+    setTapLeft((pre: any) => pre - num);
   };
 
-  const formattedBalance = new Intl.NumberFormat("en-US", {
+  const formattedBalance = (bal: number) => new Intl.NumberFormat("en-US", {
     style: "decimal",
     minimumFractionDigits: 0,
     maximumFractionDigits: 0,
-  }).format(currentBalance);
+  }).format(bal);
 
   function formatNumber(num: number) {
     if (num >= 1000000000) {
@@ -121,16 +188,14 @@ export const GlobalProvider: React.FC<GlobalProviderProps> = ({ children }: { ch
         addToCurrentBalance,
         subtractFromCurrentBalance,
         formatNumber,
-        perTap,
         tapLeft,
         reduceTapLeft,
         tapLimit,
-        profitPerHour,
         isConfirmChangeExchange,
         openConfirmChangeExchange,
         closeConfirmChangeExchange,
-        selectedExchange,
-        changeSelectedExchange
+        mainUser,
+        updateUser
       }}
     >
       {children}
