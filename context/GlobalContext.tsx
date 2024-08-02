@@ -28,26 +28,26 @@ interface GlobalContextProps {
 }
 
 interface UserInterface {
-  createdAt: Date,
-  id: number,
-  exchangeId: 1,
-  quickPerHour: 0,
-  balance: 0,
-  TapLimit: 1500,
-  perTap: 2,
+  createdAt: Date;
+  id: number;
+  exchangeId: number;
+  quickPerHour: number;
+  balance: number;
+  TapLimit: number;
+  perTap: number;
   multitap: {
-    level: 1,
-    price: 25000;
-  },
+    level: number;
+    price: number;
+  };
   energyLimit: {
-    level: 1,
-    price: 25000;
-  },
+    level: number;
+    price: number;
+  };
   DailyReward: {
-    day: 0,
-    time: Date;
-  },
-  invitedFriends: [];
+    day: number;
+    time: number;
+  };
+  invitedFriends: any[];
 }
 
 const GlobalContext = createContext<GlobalContextProps | undefined>(undefined);
@@ -56,76 +56,90 @@ interface GlobalProviderProps {
   children: ReactNode;
 }
 
-export const GlobalProvider: React.FC<GlobalProviderProps> = ({ children }: { children: ReactNode; }) => {
+export const GlobalProvider: React.FC<GlobalProviderProps> = ({ children }) => {
   const { webApp } = useTelegram();
+  const [mainUser, setMainUser] = useState<UserInterface | undefined>(undefined);
+  const userRef = collection(db, "users");
+  const [currentLocation, setCurrentLocation] = useState("dashboard");
+  const [currentBalance, setCurrentBalance] = useState(0);
+  const [tapLimit, setTapLimit] = useState<number>(1500);
+  const [tapLeft, setTapLeft] = useState<number>(tapLimit);
+  const intervalRef = useRef<number | null>(null);
+  const [increasePerSecond, setIncreasePerSecond] = useState(3);
+  const [isConfirmChangeExchange, setIsConfirmChangeExchange] = useState(false);
+
   useEffect(() => {
     if (webApp) {
       checkAndCreateUser(webApp.initDataUnsafe.user.id);
     }
   }, [webApp]);
+
   async function checkAndCreateUser(id: number) {
-    if (webApp) {
-      const userDoc = doc(db, "users", webApp.initDataUnsafe.user.id.toString());
-      const user = await getDoc(userDoc);
-      if (!user.exists()) {
-        await addDoc(userRef, {
-          createdAt: new Date(),
-          id: webApp.initDataUnsafe.user.id,
-          exchangeId: 1,
-          quickPerHour: 0,
-          balance: 0,
-          TapLimit: 1500,
-          perTap: 2,
-          multitap: {
-            level: 1,
-            price: 25000
-          },
-          energyLimit: {
-            level: 1,
-            price: 25000
-          },
-          DailyReward: {
-            day: 0,
-            time: Date.now()
-          },
-          invitedFriends: []
-        });
-      } else {
-        setMainUser(user);
-      }
+    const userDoc = doc(db, "users", id.toString());
+    const user = await getDoc(userDoc);
+    if (!user.exists()) {
+      await setDoc(userDoc, {
+        createdAt: new Date(),
+        id,
+        exchangeId: 1,
+        quickPerHour: 0,
+        balance: 0,
+        TapLimit: 1500,
+        perTap: 2,
+        multitap: {
+          level: 1,
+          price: 25000,
+        },
+        energyLimit: {
+          level: 1,
+          price: 25000,
+        },
+        DailyReward: {
+          day: 0,
+          time: Date.now(),
+        },
+        invitedFriends: [],
+      });
+      setMainUser({
+        createdAt: new Date(),
+        id,
+        exchangeId: 1,
+        quickPerHour: 0,
+        balance: 0,
+        TapLimit: 1500,
+        perTap: 2,
+        multitap: {
+          level: 1,
+          price: 25000,
+        },
+        energyLimit: {
+          level: 1,
+          price: 25000,
+        },
+        DailyReward: {
+          day: 0,
+          time: Date.now(),
+        },
+        invitedFriends: [],
+      });
+    } else {
+      setMainUser(user.data() as UserInterface);
     }
   }
-  const [mainUser, setMainUser] = useState<any>(undefined);
-  const userRef = collection(db, "users");
-  const [currentLocation, setCurrentLocation] = useState("dashboard");
-  const [currentBalance, setCurrentBalance] = useState(0);
-  const [tapLimit, setTapLimit] = useState(mainUser.TapLimit);
-  const [tapLeft, setTapLeft] = useState(tapLimit);
-  const intervalRef = useRef<number | null>(null);
-  const [increasePerSecond, setIncreasePerSecond] = useState(3);
-  const [isConfirmChangeExchange, setIsConfirmChangeExchange] = useState(false);
-
 
   async function updateUser() {
     if (webApp) {
       const userDoc = doc(db, "users", webApp.initDataUnsafe.user.id.toString());
       const user = await getDoc(userDoc);
-      user.exists() ? setMainUser(user) : "";
+      if (user.exists()) {
+        setMainUser(user.data() as UserInterface);
+      }
     }
-  }
-
-
-  function openConfirmChangeExchange() {
-    setIsConfirmChangeExchange(true);
-  }
-
-  function closeConfirmChangeExchange() {
-    setIsConfirmChangeExchange(false);
   }
 
   useEffect(() => {
     intervalRef.current = window.setInterval(() => {
-      setTapLeft((prevTapLeft: any) => {
+      setTapLeft((prevTapLeft) => {
         if (prevTapLeft + increasePerSecond <= tapLimit) {
           return prevTapLeft + increasePerSecond;
         } else {
@@ -156,14 +170,15 @@ export const GlobalProvider: React.FC<GlobalProviderProps> = ({ children }: { ch
   };
 
   const reduceTapLeft = (num: number) => {
-    setTapLeft((pre: any) => pre - num);
+    setTapLeft((pre) => pre - num);
   };
 
-  const formattedBalance = (bal: number) => new Intl.NumberFormat("en-US", {
-    style: "decimal",
-    minimumFractionDigits: 0,
-    maximumFractionDigits: 0,
-  }).format(bal);
+  const formattedBalance = (bal: number) =>
+    new Intl.NumberFormat("en-US", {
+      style: "decimal",
+      minimumFractionDigits: 0,
+      maximumFractionDigits: 0,
+    }).format(bal);
 
   function formatNumber(num: number) {
     if (num >= 1000000000) {
@@ -173,12 +188,21 @@ export const GlobalProvider: React.FC<GlobalProviderProps> = ({ children }: { ch
     } else if (num >= 1000) {
       return (num / 1000).toFixed(1) + "K";
     }
-    return num.toString();
+    return num?.toString();
   }
 
   const changeCurrentLocation = (location: string) => {
     setCurrentLocation(location);
   };
+
+  const openConfirmChangeExchange = () => {
+    setIsConfirmChangeExchange(true);
+  };
+
+  const closeConfirmChangeExchange = () => {
+    setIsConfirmChangeExchange(false);
+  };
+
   return (
     <GlobalContext.Provider
       value={{
@@ -195,7 +219,7 @@ export const GlobalProvider: React.FC<GlobalProviderProps> = ({ children }: { ch
         openConfirmChangeExchange,
         closeConfirmChangeExchange,
         mainUser,
-        updateUser
+        updateUser,
       }}
     >
       {children}

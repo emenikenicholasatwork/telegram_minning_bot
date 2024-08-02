@@ -43,7 +43,7 @@ const Exchange = () => {
               <p className="font-bold text-xl">{exch.name}</p>
             </div>
             {
-              mainUser.exchangedId === exch.id ?
+              mainUser?.exchangedId === exch.id ?
                 <FaCheck className="text-1xl" /> :
                 <RiArrowRightSLine className="text-3xl" />
             }

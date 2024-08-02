@@ -6,7 +6,7 @@ import exchange from "../../data/exchange_data.json";
 
 const UserTopProgress: React.FC = () => {
   const { changeCurrentLocation, formatNumber, mainUser } = useGlobal();
-  const exch = exchange.find((ex) => mainUser.exchangeId === ex.id);
+  const exch = exchange.find((ex) => mainUser?.exchangeId === ex.id);
 
   return (
     <div className="flex flex-row justify-between gap-5 px-2 mt-2">
@@ -35,7 +35,7 @@ const UserTopProgress: React.FC = () => {
               alt="quick coin icon"
             />
             <p className="font-bold text-[13px]">
-              + {formatNumber(mainUser.quickPerHour)}
+              + {formatNumber(mainUser?.quickPerHour)}
             </p>
             <HiInformationCircle className="text-slate-400" />
           </div>

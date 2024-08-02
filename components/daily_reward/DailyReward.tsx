@@ -61,7 +61,7 @@ const DailyReward = () => {
       </div>
       <div className="grid grid-cols-4 gap-3">
         {days.map((day) => (
-          <div key={day.id} className={`flex flex-col items-center bg-slate-800 border ${mainUser.DailyReward.day > day.id ? "border border-green-500" : ""} gap-2  p-3 rounded-xl`}>
+          <div key={day.id} className={`flex flex-col items-center bg-slate-800 border ${mainUser?.DailyReward.day > day.id ? "border border-green-500" : ""} gap-2  p-3 rounded-xl`}>
             <p className="font-bold text-sm">{day.name}</p>
             <Image
               className="w-5 h-5"

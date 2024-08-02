@@ -50,10 +50,10 @@ const Dashboard: React.FC = () => {
                   height={100}
                   alt="quick coin icon"
                 />
-                <p className="text-2xl font-bold">{formatNumber(mainUser.balance)}</p>
+                <p className="text-2xl font-bold">{formatNumber(mainUser?.balance)}</p>
               </div>
               <div>
-                <Image id="tap_image" className={`w-64 h-64 duration-200 ${tapLeft > mainUser.perTap ? '' : 'filter saturate-50'}`}
+                <Image id="tap_image" className={`w-64 h-64 duration-200 ${tapLeft > mainUser?.perTap ? '' : 'filter saturate-50'}`}
                   src={'/images/quick_coin.png'}
                   width={500}
                   height={500}
@@ -72,7 +72,7 @@ const Dashboard: React.FC = () => {
                   alt="flash icon"
                 />
                 <p className="font-bold">
-                  {tapLeft} / {mainUser.TapLimit}
+                  {tapLeft} / {mainUser?.TapLimit}
                 </p>
               </div>
               <div
