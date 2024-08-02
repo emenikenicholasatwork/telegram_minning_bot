@@ -6,7 +6,9 @@
     "dev": "next dev",
     "build": "next build",
     "start": "next start",
-    "lint": "next lint"
+    "lint": "next lint",
+      "build:firebase": "npm run build && firebase deploy"
+
   },
   "dependencies": {
     "firebase": "^10.12.4",
