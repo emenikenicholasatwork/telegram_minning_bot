@@ -28,12 +28,10 @@ export const GlobalProvider = ({ children }) => {
     //   console.log("Loading mock Telegram WebApp");
     //   require("./mockTelegram");
     // }
-
     const app = window.Telegram?.WebApp;
     if (app) {
       const tgUser = app.initDataUnsafe?.user;
       if (tgUser) {
-        console.log("Telegram user data:", tgUser);
         setUserData({ id: tgUser.id, username: tgUser.username });
         setMainUser(tgUser.id);
         // checkAndCreateUser(tgUser.id, tgUser.username);

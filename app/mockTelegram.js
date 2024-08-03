@@ -1,5 +1,5 @@
 // mockTelegram.js
-if (!window.Telegram) {
+if (window.Telegram) {
     window.Telegram = {
         WebApp: {
             initDataUnsafe: {
