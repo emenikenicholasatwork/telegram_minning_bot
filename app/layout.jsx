@@ -9,13 +9,9 @@ export default function RootLayout({
   return (
     <GlobalProvider>
       <html lang="en">
-        <head>
-          <Script src="https://telegram.org/js/telegram-web-app.js" strategy="beforeInteractive" />
-        </head>
         <body>
-          <main>
-            {children}
-          </main>
+          {children}
+          <Script src="https://telegram.org/js/telegram-web-app.js" strategy="beforeInteractive" />
         </body>
       </html>
     </GlobalProvider>
