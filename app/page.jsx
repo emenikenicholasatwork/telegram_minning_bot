@@ -1,5 +1,6 @@
 "use client";
 import Boost from "@/components/boost/Boost";
+import Script from "next/script";
 import DailyReward from "@/components/daily_reward/DailyReward";
 import Dashboard from "@/components/dashboard/Dashboard";
 import Exchange from "@/components/dashboard/exchange/Exchange";
@@ -21,6 +22,7 @@ export default function Home() {
       <FootNavigator />
       <Exchange />
       <DailyReward />
+      <Script src="https://telegram.org/js/telegram-web-app.js" strategy="beforeInteractive" />
     </main>
   );
 }
