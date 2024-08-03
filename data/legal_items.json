@@ -3,40 +3,40 @@
     "id": 18,
     "name": "KYB",
     "category": "legal",
-    "quick_per_hour": 2000,
+    "quick_per_hour": 270000,
     "image": "/images/item_images/kyb.png",
     "condition": "",
-    "price": 500,
+    "price": 50888080,
     "level": 0
   },
   {
     "id": 19,
     "name": "KYC",
     "category": "legal",
-    "quick_per_hour": 20000,
+    "quick_per_hour": 200000,
     "image": "/images/item_images/kyc.png",
     "condition": "",
-    "price": 100000,
+    "price": 100000000,
     "level": 0
   },
   {
     "id": 23,
     "name": "Legal opinion",
     "category": "legal",
-    "quick_per_hour": 60,
+    "quick_per_hour": 600000,
     "image": "/images/item_images/legal-opinion.png",
     "condition": "",
-    "price": 1000,
+    "price": 120000000,
     "level": 0
   },
   {
     "id": 24,
     "name": "Licence Asia",
     "category": "legal",
-    "quick_per_hour": 370,
+    "quick_per_hour": 370000,
     "image": "/images/item_images/licence-asia.png",
     "condition": "KYC lvl 5",
-    "price": 2000,
+    "price": 20000000,
     "level": 0
   },
   {

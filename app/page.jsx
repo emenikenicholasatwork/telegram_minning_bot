@@ -1,6 +1,5 @@
 "use client";
 import Boost from "@/components/boost/Boost";
-import ConfirmChangeExchange from "@/components/confirm/ConfirmChangeExchange";
 import DailyReward from "@/components/daily_reward/DailyReward";
 import Dashboard from "@/components/dashboard/Dashboard";
 import Exchange from "@/components/dashboard/exchange/Exchange";
@@ -22,7 +21,6 @@ export default function Home() {
       <FootNavigator />
       <Exchange />
       <DailyReward />
-      <ConfirmChangeExchange />
     </main>
   );
 }

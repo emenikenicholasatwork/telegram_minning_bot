@@ -43,6 +43,7 @@ export const GlobalProvider = ({ children }) => {
         balance: 0,
         TapLimit: 1500,
         perTap: 2,
+        increasePerSecond: 3,
         multitap: {
           level: 1,
           price: 25000,
@@ -65,13 +66,13 @@ export const GlobalProvider = ({ children }) => {
   }
 
   async function updateUser() {
-    if (userData.id) {
-      const userDoc = doc(db, "users", userData.id);
-      const user = await getDoc(userDoc);
-      if (user.exists()) {
-        setMainUser(user.data());
-      }
-    }
+    // if (userData.id) {
+    //   const userDoc = doc(db, "users", userData.id);
+    //   const user = await getDoc(userDoc);
+    //   if (user.exists()) {
+    //     setMainUser(user.data());
+    //   }
+    // }
   }
 
   useEffect(() => {
@@ -125,7 +126,7 @@ export const GlobalProvider = ({ children }) => {
     } else if (num >= 1000) {
       return (num / 1000).toFixed(1) + "K";
     }
-    return num?.toString();
+    return num.toString();
   }
 
   const changeCurrentLocation = (location) => {

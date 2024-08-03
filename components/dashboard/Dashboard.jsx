@@ -7,7 +7,7 @@ import UserTopProgress from '../user_progress/UserTopProgress';
 const Dashboard = () => {
   const {
     changeCurrentLocation,
-    formatNumber,
+    formattedBalance,
     addToCurrentBalance,
     tapLeft,
     reduceTapLeft,
@@ -19,7 +19,7 @@ const Dashboard = () => {
       return;
     } else {
       const tap_image = document.getElementById("tap_image");
-      tap_image?.classList.add("scale-110");
+      tap_image.classList.add("scale-110");
       addToCurrentBalance(mainUser.perTap);
       reduceTapLeft(mainUser.perTap);
       setTimeout(() => {
@@ -31,7 +31,7 @@ const Dashboard = () => {
 
   return (
     <div className="">
-      <p className="ps-2 font-bold">{userData.username} (CEO)</p>
+      <p className="ps-2 font-bold">{userData.id} (CEO)</p>
       <div className="flex flex-col gap-10">
         <UserTopProgress />
         <div className="h-full w-full rounded-t-3xl shadow-top-green pt-5">
@@ -49,10 +49,10 @@ const Dashboard = () => {
                   height={100}
                   alt="quick coin icon"
                 />
-                <p className="text-2xl font-bold">{formatNumber(mainUser?.balance)}</p>
+                <p className="text-2xl font-bold">{formattedBalance(80000)}</p>
               </div>
               <div>
-                <Image id="tap_image" className={`w-64 h-64 duration-200 ${tapLeft > mainUser?.perTap ? '' : 'filter saturate-50'}`}
+                <Image id="tap_image" className={`w-64 h-64 duration-200 ${tapLeft > 1500 ? '' : 'filter saturate-50'}`}
                   src={'/images/quick_coin.png'}
                   width={500}
                   height={500}
@@ -71,7 +71,7 @@ const Dashboard = () => {
                   alt="flash icon"
                 />
                 <p className="font-bold">
-                  {tapLeft} / {mainUser?.TapLimit}
+                  {tapLeft} / {1500}
                 </p>
               </div>
               <div

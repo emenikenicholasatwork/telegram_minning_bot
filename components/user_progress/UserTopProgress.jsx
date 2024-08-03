@@ -6,7 +6,7 @@ import exchange from "../../data/exchange_data.json";
 
 const UserTopProgress = () => {
   const { changeCurrentLocation, formatNumber, mainUser } = useGlobal();
-  const exch = exchange.find((ex) => mainUser?.exchangeId === ex.id);
+  const exch = exchange.find((ex) => 2 === ex.id);
 
   return (
     <div className="flex flex-row justify-between gap-5 px-2 mt-2">
@@ -17,10 +17,10 @@ const UserTopProgress = () => {
         >
           <img
             className="w-7 h-7"
-            src={exch?.image.toString()}
+            src={exch.image}
             width={100}
             height={100}
-            alt={`${exch?.name} icon`}
+            alt={`${exch.name} icon`}
           />
         </div>
         <div className="h-6 w-[1px] bg-slate-600"></div>
@@ -35,7 +35,7 @@ const UserTopProgress = () => {
               alt="quick coin icon"
             />
             <p className="font-bold text-[13px]">
-              + {formatNumber(mainUser?.quickPerHour)}
+              + {formatNumber(44444)}
             </p>
             <HiInformationCircle className="text-slate-400" />
           </div>

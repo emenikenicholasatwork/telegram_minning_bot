@@ -5,7 +5,7 @@ import toast, { Toaster } from "react-hot-toast";
 import { CgChevronRight } from "react-icons/cg";
 
 const Earn = () => {
-  const { changeCurrentLocation, openConfirmChangeExchange } = useGlobal();
+  const { changeCurrentLocation } = useGlobal();
   return (
     <div className="flex flex-col items-center pt-20 gap-10 pb-52">
       <Toaster />
@@ -58,7 +58,7 @@ const Earn = () => {
           >
             <Image
               className="w-8 h-8"
-              src={"/images/day.png"}
+              src={"/images/daily_reward.png"}
               width={100}
               height={100}
               alt="youtube icon"
@@ -134,7 +134,7 @@ const Earn = () => {
                 <CgChevronRight className="absolute  text-2xl right-5 text-slate-400" />
               </div>
               <div
-                onClick={openConfirmChangeExchange}
+                onClick={() => changeCurrentLocation("exchange")}
                 className="flex flex-row items-center gap-5 p-3 bg-slate-800 w-full rounded-xl relative"
               >
                 <Image
