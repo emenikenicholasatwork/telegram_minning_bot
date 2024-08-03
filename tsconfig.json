@@ -21,6 +21,6 @@
       "@/*": ["./*"]
     }
   },
-  "include": ["next-env.d.ts", "**/*.ts", "**/*.tsx", ".next/types/**/*.ts", "app/api/FetchCipher.mjs", "components/boost/Boost.jsx", "components/dashboard/Dashboard.jsx", "components/earn/Earn.js"],
+  "include": ["next-env.d.ts", "**/*.ts", "**/*.tsx", ".next/types/**/*.ts", "app/api/FetchCipher.mjs", "components/boost/Boost.jsx", "components/dashboard/Dashboard.jsx", "components/earn/Earn.js", "app/GlobalContext.jsx", "app/layout.jsx", "app/page.jsx"],
   "exclude": ["node_modules"]
 }
