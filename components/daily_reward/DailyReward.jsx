@@ -1,7 +1,7 @@
 import React from "react";
 import Image from "next/image";
-import { useGlobal } from "@/context/GlobalContext";
-import days from ".././../data/daily_reward_data.json";
+import { useGlobal } from "@/app/GlobalContext";
+import days from "../../data/daily_reward_data.json";
 import { GiCancel } from "react-icons/gi";
 import toast from "react-hot-toast";
 import { doc, updateDoc } from "firebase/firestore";

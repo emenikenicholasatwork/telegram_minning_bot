@@ -1,5 +1,5 @@
 "use client";
-import { useGlobal } from "@/context/GlobalContext";
+import { useGlobal } from "@/app/GlobalContext";
 import Image from "next/image";
 import React, { useState } from "react";
 import { GiMiner, GiTwoCoins } from "react-icons/gi";

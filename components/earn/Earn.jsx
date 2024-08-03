@@ -1,10 +1,10 @@
-import { useGlobal } from "@/context/GlobalContext";
+import { useGlobal } from "@/app/GlobalContext";
 import Image from "next/image";
 import React from "react";
 import toast, { Toaster } from "react-hot-toast";
 import { CgChevronRight } from "react-icons/cg";
 
-const Earn: React.FC = () => {
+const Earn = () => {
   const { changeCurrentLocation, openConfirmChangeExchange } = useGlobal();
   return (
     <div className="flex flex-col items-center pt-20 gap-10 pb-52">

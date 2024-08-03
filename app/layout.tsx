@@ -1,7 +1,6 @@
 "use client";
-import { TelegramProvider } from "@/context/TelegramContext";
 import "./globals.css";
-import { GlobalProvider } from "@/context/GlobalContext";
+import { GlobalProvider } from "@/app/GlobalContext";
 
 export default function RootLayout({
   children,
@@ -9,16 +8,14 @@ export default function RootLayout({
   children: React.ReactNode;
 }>) {
   return (
-    <TelegramProvider>
-      <html lang="en">
+    <html lang="en">
+      <GlobalProvider>
         <body>
-          <GlobalProvider>
-            <main>
-              {children}
-            </main>
-          </GlobalProvider>
+          <main>
+            {children}
+          </main>
         </body>
-      </html>
-    </TelegramProvider>
+      </GlobalProvider>
+    </html>
   );
 }

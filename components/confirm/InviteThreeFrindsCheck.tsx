@@ -1,4 +1,4 @@
-import { useGlobal } from "@/context/GlobalContext";
+import { useGlobal } from "@/app/GlobalContext";
 import Image from "next/image";
 import { GiCancel } from "react-icons/gi";
 

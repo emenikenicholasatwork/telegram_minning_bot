@@ -1,10 +1,10 @@
-import { useGlobal } from "@/context/GlobalContext";
+import { useGlobal } from "@/app/GlobalContext";
 import Image from "next/image";
 import React from "react";
 import { HiInformationCircle } from "react-icons/hi";
 import exchange from "../../data/exchange_data.json";
 
-const UserTopProgress: React.FC = () => {
+const UserTopProgress = () => {
   const { changeCurrentLocation, formatNumber, mainUser } = useGlobal();
   const exch = exchange.find((ex) => mainUser?.exchangeId === ex.id);
 

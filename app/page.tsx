@@ -8,7 +8,7 @@ import Earn from "@/components/earn/Earn";
 import FootNavigator from "@/components/foot_nav/FootNavigator";
 import Friends from "@/components/friends/Friends";
 import Mine from "@/components/mine/Mine";
-import { useGlobal } from "@/context/GlobalContext";
+import { useGlobal } from "@/app/GlobalContext";
 
 export default function Home() {
   const { currentLocation } = useGlobal();

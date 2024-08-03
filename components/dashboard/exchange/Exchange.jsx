@@ -2,14 +2,14 @@ import React from "react";
 import exchange from "../../../data/exchange_data.json";
 import Image from "next/image";
 import { RiArrowRightSLine } from "react-icons/ri";
-import { useGlobal } from "@/context/GlobalContext";
+import { useGlobal } from "@/app/GlobalContext";
 import { FaCheck } from "react-icons/fa6";
 import { doc, updateDoc } from "firebase/firestore";
 import { db } from "@/config/firebaseConfig";
 import toast from "react-hot-toast";
 const Exchange = () => {
   const { currentLocation, changeCurrentLocation, updateUser, mainUser } = useGlobal();
-  async function changeExchange(exchangeId: number) {
+  async function changeExchange(exchangeId) {
     try {
       const userDoc = doc(db, "users", mainUser.id);
       await updateDoc(userDoc, { exchangeId: exchangeId });

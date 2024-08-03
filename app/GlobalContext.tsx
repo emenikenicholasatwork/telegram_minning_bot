@@ -1,3 +1,4 @@
+"use client";
 import {
   createContext,
   ReactNode,
@@ -6,8 +7,7 @@ import {
   useRef,
   useState,
 } from "react";
-import { useTelegram } from "./TelegramContext";
-import { addDoc, collection, doc, getDoc, setDoc } from "firebase/firestore";
+import { doc, getDoc, setDoc } from "firebase/firestore";
 import { db } from "@/config/firebaseConfig";
 
 interface GlobalContextProps {
@@ -23,13 +23,14 @@ interface GlobalContextProps {
   isConfirmChangeExchange: boolean;
   openConfirmChangeExchange: () => void;
   closeConfirmChangeExchange: () => void;
-  mainUser: any;
+  mainUser: UserInterface | undefined;
   updateUser: () => void;
+  userData: userDataInterface;
 }
 
 interface UserInterface {
   createdAt: Date;
-  id: number;
+  id: string;
   exchangeId: number;
   quickPerHour: number;
   balance: number;
@@ -50,6 +51,11 @@ interface UserInterface {
   invitedFriends: any[];
 }
 
+interface userDataInterface {
+  id: string;
+  username: string;
+}
+
 const GlobalContext = createContext<GlobalContextProps | undefined>(undefined);
 
 interface GlobalProviderProps {
@@ -57,9 +63,7 @@ interface GlobalProviderProps {
 }
 
 export const GlobalProvider: React.FC<GlobalProviderProps> = ({ children }) => {
-  const { webApp } = useTelegram();
-  const [mainUser, setMainUser] = useState<UserInterface | undefined>(undefined);
-  const userRef = collection(db, "users");
+  const [mainUser, setMainUser] = useState<UserInterface>();
   const [currentLocation, setCurrentLocation] = useState("dashboard");
   const [currentBalance, setCurrentBalance] = useState(0);
   const [tapLimit, setTapLimit] = useState<number>(1500);
@@ -67,18 +71,23 @@ export const GlobalProvider: React.FC<GlobalProviderProps> = ({ children }) => {
   const intervalRef = useRef<number | null>(null);
   const [increasePerSecond, setIncreasePerSecond] = useState(3);
   const [isConfirmChangeExchange, setIsConfirmChangeExchange] = useState(false);
+  const [userData, setUserData] = useState<userDataInterface>({ id: "", username: "" });
 
   useEffect(() => {
-    if (webApp) {
-      checkAndCreateUser(webApp.initDataUnsafe.user.id);
+    const telegramApp = (window as any).Telegram.WebApp;
+    const userId = telegramApp.initDataUnsafe.user.id;
+    const username = telegramApp.initDataUnsafe.user.username;
+    if (userId && username) {
+      setUserData({ id: userId.toString(), username: username });
+      checkAndCreateUser(userId.toString(), username);
     }
-  }, [webApp]);
+  }, []);
 
-  async function checkAndCreateUser(id: number) {
-    const userDoc = doc(db, "users", id.toString());
+  async function checkAndCreateUser(id: string, username: string) {
+    const userDoc = doc(db, "users", id);
     const user = await getDoc(userDoc);
     if (!user.exists()) {
-      await setDoc(userDoc, {
+      const newUser: UserInterface = {
         createdAt: new Date(),
         id,
         exchangeId: 1,
@@ -99,37 +108,17 @@ export const GlobalProvider: React.FC<GlobalProviderProps> = ({ children }) => {
           time: Date.now(),
         },
         invitedFriends: [],
-      });
-      setMainUser({
-        createdAt: new Date(),
-        id,
-        exchangeId: 1,
-        quickPerHour: 0,
-        balance: 0,
-        TapLimit: 1500,
-        perTap: 2,
-        multitap: {
-          level: 1,
-          price: 25000,
-        },
-        energyLimit: {
-          level: 1,
-          price: 25000,
-        },
-        DailyReward: {
-          day: 0,
-          time: Date.now(),
-        },
-        invitedFriends: [],
-      });
+      };
+      await setDoc(userDoc, newUser);
+      setMainUser(newUser);
     } else {
       setMainUser(user.data() as UserInterface);
     }
   }
 
   async function updateUser() {
-    if (webApp) {
-      const userDoc = doc(db, "users", webApp.initDataUnsafe.user.id.toString());
+    if (userData.id) {
+      const userDoc = doc(db, "users", userData.id);
       const user = await getDoc(userDoc);
       if (user.exists()) {
         setMainUser(user.data() as UserInterface);
@@ -220,6 +209,7 @@ export const GlobalProvider: React.FC<GlobalProviderProps> = ({ children }) => {
         closeConfirmChangeExchange,
         mainUser,
         updateUser,
+        userData,
       }}
     >
       {children}

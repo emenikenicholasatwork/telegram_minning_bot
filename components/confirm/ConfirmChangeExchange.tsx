@@ -1,4 +1,4 @@
-import { useGlobal } from "@/context/GlobalContext";
+import { useGlobal } from "@/app/GlobalContext";
 import Image from "next/image";
 import { GiCancel } from "react-icons/gi";
 
@@ -6,7 +6,7 @@ import { GiCancel } from "react-icons/gi";
 const ConfirmChangeExchange = () => {
     const { isConfirmChangeExchange, closeConfirmChangeExchange, changeCurrentLocation } = useGlobal();
     return (
-        <div className={`fixed bottom-0 overflow-hidden z-10 left-0 right-0 duration-100 flex flex-col gap-3 bg-black shadow-top-green rounded-t-3xl ${isConfirmChangeExchange ? "h-[70%] pt-5" : "h-0"}`}>
+        <div className={`fixed bottom-0 overflow-hidden z-10 left-0 right-0 duration-100 flex flex-col gap-3 bg-black shadow-top-green rounded-t-3xl ${isConfirmChangeExchange ? "h-[80%] pt-5" : "h-0"}`}>
             <div className="flex w-full justify-end px-5">
                 <GiCancel className="font -bold text-xl" onClick={closeConfirmChangeExchange} />
             </div>

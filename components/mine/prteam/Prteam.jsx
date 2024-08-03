@@ -1,14 +1,15 @@
 import React from "react";
-import items from "../../../data/web3_items.json";
+import items from "../../../data/pr&team.json";
 import Image from "next/image";
-import { useGlobal } from "@/context/GlobalContext";
+import { useGlobal } from "@/app/GlobalContext";
+import { RiLock2Line } from "react-icons/ri";
 import { db } from "@/config/firebaseConfig";
 import { doc, updateDoc } from "firebase/firestore";
 import toast from "react-hot-toast";
 
-const Web3: React.FC = () => {
+const Prteam = () => {
   const { formatNumber, mainUser, updateUser } = useGlobal();
-  async function mine(itemId: number) {
+  async function mine(itemId) {
     const item = items.find((itm) => itemId === itm.id);
     if (item) {
       if (item.price > mainUser.balance) {
@@ -73,4 +74,4 @@ const Web3: React.FC = () => {
   ));
 };
 
-export default Web3;
+export default Prteam;

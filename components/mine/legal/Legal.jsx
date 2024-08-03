@@ -1,14 +1,14 @@
 import React from "react";
-import items from "../../../data/market_items.json";
+import items from "../../../data/legal_items.json";
 import Image from "next/image";
-import { useGlobal } from "@/context/GlobalContext";
-import { db } from "@/config/firebaseConfig";
-import { doc, updateDoc } from "firebase/firestore";
+import { useGlobal } from "@/app/GlobalContext";
 import toast from "react-hot-toast";
+import { doc, updateDoc } from "firebase/firestore";
+import { db } from "@/config/firebaseConfig";
 
-const Markets: React.FC = () => {
-  const { formatNumber, updateUser, mainUser } = useGlobal();
-  async function mine(itemId: number) {
+const Legal = () => {
+  const { formatNumber, mainUser, updateUser } = useGlobal();
+  async function mine(itemId) {
     const item = items.find((itm) => itemId === itm.id);
     if (item) {
       if (item.price > mainUser.balance) {
@@ -73,4 +73,4 @@ const Markets: React.FC = () => {
   ));
 };
 
-export default Markets;
+export default Legal;

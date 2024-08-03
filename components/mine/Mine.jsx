@@ -2,13 +2,13 @@
 import React, { useState } from "react";
 import UserTopProgress from "../user_progress/UserTopProgress";
 import Image from "next/image";
-import { useGlobal } from "@/context/GlobalContext";
+import { useGlobal } from "@/app/GlobalContext";
 import Legal from "./legal/Legal";
 import Prteam from "./prteam/Prteam";
 import Markets from "./markets/Markets";
 import Web3 from "./web3/Web3";
 
-const Mine: React.FC = () => {
+const Mine = () => {
   const { formattedBalance, mainUser } = useGlobal();
   const [activetab, setActivetab] = useState("prteam");
   return (

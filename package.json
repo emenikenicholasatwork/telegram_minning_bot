@@ -7,11 +7,12 @@
     "build": "next build",
     "start": "next start",
     "lint": "next lint",
-      "build:firebase": "npm run build && firebase deploy"
-
+    "build:firebase": "npm run build && firebase deploy"
   },
   "dependencies": {
     "firebase": "^10.12.4",
+    "firebase-admin": "^12.3.0",
+    "firebase-functions": "^5.0.1",
     "fs": "^0.0.1-security",
     "next": "14.2.5",
     "react": "^18",

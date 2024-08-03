@@ -1,20 +1,19 @@
 'use client';
-import { useGlobal } from '@/context/GlobalContext';
+import { useGlobal } from '@/app/GlobalContext';
 import Image from 'next/image';
 import React from 'react';
 import UserTopProgress from '../user_progress/UserTopProgress';
-import { useTelegram } from '@/context/TelegramContext';
 
-const Dashboard: React.FC = () => {
+const Dashboard = () => {
   const {
     changeCurrentLocation,
     formatNumber,
     addToCurrentBalance,
     tapLeft,
     reduceTapLeft,
-    mainUser
+    mainUser,
+    userData
   } = useGlobal();
-  const { user } = useTelegram();
   function user_clicks() {
     if (tapLeft < mainUser.perTap) {
       return;
@@ -32,7 +31,7 @@ const Dashboard: React.FC = () => {
 
   return (
     <div className="">
-      <p className="ps-2 font-bold">{user?.username} (CEO)</p>
+      <p className="ps-2 font-bold">{userData.username} (CEO)</p>
       <div className="flex flex-col gap-10">
         <UserTopProgress />
         <div className="h-full w-full rounded-t-3xl shadow-top-green pt-5">
