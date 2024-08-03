@@ -20,14 +20,24 @@ export const GlobalProvider = ({ children }) => {
   const intervalRef = useRef(null);
   const [increasePerSecond, setIncreasePerSecond] = useState(3);
   const [isConfirmChangeExchange, setIsConfirmChangeExchange] = useState(false);
-  const [userData, setUserData] = useState({ id: "", username: "" });
+  const [userData, setUserData] = useState(null);
 
   useEffect(() => {
-    const userId = window.Telegram.WebApp?.initDataUnsafe?.user?.id;
-    const username = window.Telegram.WebApp?.initDataUnsafe?.user?.username;
-    if (userId) {
-      setUserData({ id: userId.toString(), username: username });
-      checkAndCreateUser(userId.toString(), username);
+    const app = window.Telegram?.WebApp;
+    if (app) {
+      app.ready();
+    }
+  }, []);
+
+  useEffect(() => {
+    const app = window.Telegram?.WebApp;
+    if (app) {
+      const tgUser = app.initDataUnsafe?.user;
+      if (tgUser) {
+        setUser({ id: tgUser.id, username: tgUser.username });
+        setUserData({ id: tgUser.id, username: tgUser.username });
+        checkAndCreateUser(userId.toString(), username);
+      }
     }
   }, []);
 
