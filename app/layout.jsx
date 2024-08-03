@@ -9,8 +9,8 @@ export default function RootLayout({
   return (
     <html lang="en">
       <GlobalProvider>
+        <Script src="https://telegram.org/js/telegram-web-app.js" defer />
         <body>
-          <Script src="https://telegram.org/js/telegram-web-app.js" defer />
           <main>
             {children}
           </main>

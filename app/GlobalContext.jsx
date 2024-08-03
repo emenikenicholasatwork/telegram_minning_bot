@@ -23,8 +23,8 @@ export const GlobalProvider = ({ children }) => {
   const [userData, setUserData] = useState({ id: "", username: "" });
 
   useEffect(() => {
-    const userId = window.Telegram.WebApp.initDataUnsafe?.user?.id;
-    const username = window.Telegram.WebApp.initDataUnsafe.user.username;
+    const userId = window.Telegram.WebApp?.initDataUnsafe?.user?.id;
+    const username = window.Telegram.WebApp?.initDataUnsafe?.user?.username;
     if (userId) {
       setUserData({ id: userId.toString(), username: username });
       checkAndCreateUser(userId.toString(), username);
