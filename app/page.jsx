@@ -14,7 +14,6 @@ export default function Home() {
   const { currentLocation } = useGlobal();
   return (
     <main className="min-h-screen pt-3 pb-32 bg-black text-white">
-      <Script src="https://telegram.org/js/telegram-web-app.js"></Script>
       {currentLocation === "dashboard" && <Dashboard />}
       {currentLocation === "boost" && <Boost />}
       {currentLocation === "mine" && <Mine />}
