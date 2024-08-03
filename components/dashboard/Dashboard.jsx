@@ -1,7 +1,7 @@
 'use client';
 import { useGlobal } from '@/app/GlobalContext';
 import Image from 'next/image';
-import React from 'react';
+import React, { useEffect } from 'react';
 import UserTopProgress from '../user_progress/UserTopProgress';
 
 const Dashboard = () => {
@@ -14,8 +14,9 @@ const Dashboard = () => {
     mainUser,
     userData
   } = useGlobal();
+
   function user_clicks() {
-    if (tapLeft < mainUser.perTap) {
+    if (mainUser && tapLeft < mainUser.perTap) {
       return;
     } else {
       const tap_image = document.getElementById("tap_image");
@@ -28,10 +29,13 @@ const Dashboard = () => {
     }
   }
 
+  if (!mainUser) {
+    return <div>Loading...</div>;
+  }
 
   return (
     <div className="">
-      <p className="ps-2 font-bold">{userData.id} (CEO)</p>
+      <p className="ps-2 font-bold">{userData.username} (CEO)</p>
       <div className="flex flex-col gap-10">
         <UserTopProgress />
         <div className="h-full w-full rounded-t-3xl shadow-top-green pt-5">

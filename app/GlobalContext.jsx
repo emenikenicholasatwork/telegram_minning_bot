@@ -1,7 +1,6 @@
 "use client";
 import {
   createContext,
-  ReactNode,
   useContext,
   useEffect,
   useRef,
@@ -9,10 +8,12 @@ import {
 } from "react";
 import { doc, getDoc, setDoc } from "firebase/firestore";
 import { db } from "@/config/firebaseConfig";
+import toast from "react-hot-toast";
+
 const GlobalContext = createContext();
 
 export const GlobalProvider = ({ children }) => {
-  const [mainUser, setMainUser] = useState();
+  const [mainUser, setMainUser] = useState(null); // Default to null
   const [currentLocation, setCurrentLocation] = useState("dashboard");
   const [currentBalance, setCurrentBalance] = useState(0);
   const [tapLimit, setTapLimit] = useState(1500);
@@ -25,19 +26,17 @@ export const GlobalProvider = ({ children }) => {
   useEffect(() => {
     const app = window.Telegram?.WebApp;
     if (app) {
-      app.ready();
-    }
-  }, []);
-
-  useEffect(() => {
-    const app = window.Telegram?.WebApp;
-    if (app) {
       const tgUser = app.initDataUnsafe?.user;
       if (tgUser) {
-        setUser({ id: tgUser.id, username: tgUser.username });
+        console.log("Telegram user data:", tgUser);
         setUserData({ id: tgUser.id, username: tgUser.username });
-        checkAndCreateUser(id, username);
+        setMainUser(tgUser.id);
+        // checkAndCreateUser(tgUser.id, tgUser.username);
+      } else {
+        toast.error("Telegram user data is not available");
       }
+    } else {
+      toast.error("Telegram WebApp is not available");
     }
   }, []);
 

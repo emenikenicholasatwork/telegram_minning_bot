@@ -24,7 +24,7 @@
   "terminal.integrated.env.windows": {},
   "git.autofetch": true,
   "workbench.statusBar.visible": false,
-  "workbench.colorTheme": "Dark Magic Dracula",
+  "workbench.colorTheme": "Dark Magic",
   "workbench.layoutControl.enabled": false,
   "window.commandCenter": false,
   "window.zoomLevel": 1,
