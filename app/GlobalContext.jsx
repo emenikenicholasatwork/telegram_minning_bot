@@ -20,7 +20,7 @@ export const GlobalProvider = ({ children }) => {
   const intervalRef = useRef(null);
   const [increasePerSecond, setIncreasePerSecond] = useState(3);
   const [isConfirmChangeExchange, setIsConfirmChangeExchange] = useState(false);
-  const [userData, setUserData] = useState(null);
+  const [userData, setUserData] = useState({ id: "", username: "" });
 
   useEffect(() => {
     const app = window.Telegram?.WebApp;
@@ -36,7 +36,7 @@ export const GlobalProvider = ({ children }) => {
       if (tgUser) {
         setUser({ id: tgUser.id, username: tgUser.username });
         setUserData({ id: tgUser.id, username: tgUser.username });
-        checkAndCreateUser(userId.toString(), username);
+        checkAndCreateUser(id, username);
       }
     }
   }, []);
@@ -47,7 +47,7 @@ export const GlobalProvider = ({ children }) => {
     if (!user.exists()) {
       const newUser = {
         createdAt: new Date(),
-        id,
+        id: id,
         exchangeId: 1,
         quickPerHour: 0,
         balance: 0,
