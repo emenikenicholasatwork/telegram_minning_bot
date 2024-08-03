@@ -9,85 +9,33 @@ import {
 } from "react";
 import { doc, getDoc, setDoc } from "firebase/firestore";
 import { db } from "@/config/firebaseConfig";
+const GlobalContext = createContext < GlobalContextProps | undefined > (undefined);
 
-interface GlobalContextProps {
-  currentLocation: string;
-  changeCurrentLocation: (location: string) => void;
-  addToCurrentBalance: (pre: number) => void;
-  subtractFromCurrentBalance: (pre: number) => void;
-  formattedBalance: (bal: number) => string;
-  formatNumber: (num: number) => string;
-  tapLeft: number;
-  reduceTapLeft: (num: number) => void;
-  tapLimit: number;
-  isConfirmChangeExchange: boolean;
-  openConfirmChangeExchange: () => void;
-  closeConfirmChangeExchange: () => void;
-  mainUser: UserInterface | undefined;
-  updateUser: () => void;
-  userData: userDataInterface;
-}
-
-interface UserInterface {
-  createdAt: Date;
-  id: string;
-  exchangeId: number;
-  quickPerHour: number;
-  balance: number;
-  TapLimit: number;
-  perTap: number;
-  multitap: {
-    level: number;
-    price: number;
-  };
-  energyLimit: {
-    level: number;
-    price: number;
-  };
-  DailyReward: {
-    day: number;
-    time: number;
-  };
-  invitedFriends: any[];
-}
-
-interface userDataInterface {
-  id: string;
-  username: string;
-}
-
-const GlobalContext = createContext<GlobalContextProps | undefined>(undefined);
-
-interface GlobalProviderProps {
-  children: ReactNode;
-}
-
-export const GlobalProvider: React.FC<GlobalProviderProps> = ({ children }) => {
-  const [mainUser, setMainUser] = useState<UserInterface>();
+export const GlobalProvider = ({ children }) => {
+  const [mainUser, setMainUser] = useState();
   const [currentLocation, setCurrentLocation] = useState("dashboard");
   const [currentBalance, setCurrentBalance] = useState(0);
-  const [tapLimit, setTapLimit] = useState<number>(1500);
-  const [tapLeft, setTapLeft] = useState<number>(tapLimit);
-  const intervalRef = useRef<number | null>(null);
+  const [tapLimit, setTapLimit] = useState < number > (1500);
+  const [tapLeft, setTapLeft] = useState < number > (tapLimit);
+  const intervalRef = useRef < number | null > (null);
   const [increasePerSecond, setIncreasePerSecond] = useState(3);
   const [isConfirmChangeExchange, setIsConfirmChangeExchange] = useState(false);
-  const [userData, setUserData] = useState<userDataInterface>({ id: "", username: "" });
+  const [userData, setUserData] = useState < userDataInterface > ({ id: "", username: "" });
 
   useEffect(() => {
-    const telegramApp = (window as any).Telegram.WebApp;
-    const userId = telegramApp.initDataUnsafe.user.id;
-    const username = telegramApp.initDataUnsafe.user.username;
-    if (userId && username) {
+    const userId = window.Telegram.WebApp.initDataUnsafe.user.id;
+    const username = window.Telegram.WebApp.initDataUnsafe.user.username;
+    if (userId) {
       setUserData({ id: userId.toString(), username: username });
       checkAndCreateUser(userId.toString(), username);
     }
   }, []);
 
-  async function checkAndCreateUser(id: string, username: string) {
+  async function checkAndCreateUser(id, username) {
     const userDoc = doc(db, "users", id);
     const user = await getDoc(userDoc);
     if (!user.exists()) {
-      const newUser: UserInterface = {
+      const newUser = {
         createdAt: new Date(),
         id,
         exchangeId: 1,
@@ -112,7 +60,7 @@ export const GlobalProvider: React.FC<GlobalProviderProps> = ({ children }) => {
       await setDoc(userDoc, newUser);
       setMainUser(newUser);
     } else {
-      setMainUser(user.data() as UserInterface);
+      setMainUser(user.data());
     }
   }
 
@@ -121,7 +69,7 @@ export const GlobalProvider: React.FC<GlobalProviderProps> = ({ children }) => {
       const userDoc = doc(db, "users", userData.id);
       const user = await getDoc(userDoc);
       if (user.exists()) {
-        setMainUser(user.data() as UserInterface);
+        setMainUser(user.data());
       }
     }
   }
@@ -150,26 +98,26 @@ export const GlobalProvider: React.FC<GlobalProviderProps> = ({ children }) => {
     };
   }, [tapLimit, currentBalance, increasePerSecond]);
 
-  const addToCurrentBalance = (number: number) => {
+  const addToCurrentBalance = (number) => {
     setCurrentBalance((pre) => pre + number);
   };
 
-  const subtractFromCurrentBalance = (number: number) => {
+  const subtractFromCurrentBalance = (number) => {
     setCurrentBalance((pre) => pre - number);
   };
 
-  const reduceTapLeft = (num: number) => {
+  const reduceTapLeft = (num) => {
     setTapLeft((pre) => pre - num);
   };
 
-  const formattedBalance = (bal: number) =>
+  const formattedBalance = (bal) =>
     new Intl.NumberFormat("en-US", {
       style: "decimal",
       minimumFractionDigits: 0,
       maximumFractionDigits: 0,
     }).format(bal);
 
-  function formatNumber(num: number) {
+  function formatNumber(num) {
     if (num >= 1000000000) {
       return (num / 1000000000).toFixed(1) + "B";
     } else if (num >= 1000000) {
@@ -180,7 +128,7 @@ export const GlobalProvider: React.FC<GlobalProviderProps> = ({ children }) => {
     return num?.toString();
   }
 
-  const changeCurrentLocation = (location: string) => {
+  const changeCurrentLocation = (location) => {
     setCurrentLocation(location);
   };
 
@@ -217,7 +165,7 @@ export const GlobalProvider: React.FC<GlobalProviderProps> = ({ children }) => {
   );
 };
 
-export const useGlobal = (): GlobalContextProps => {
+export const useGlobal = () => {
   const context = useContext(GlobalContext);
   if (context === undefined) {
     throw new Error("useGlobal must be used within a GlobalProvider");
