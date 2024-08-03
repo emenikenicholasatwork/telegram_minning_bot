@@ -9,18 +9,18 @@ import {
 } from "react";
 import { doc, getDoc, setDoc } from "firebase/firestore";
 import { db } from "@/config/firebaseConfig";
-const GlobalContext = createContext < GlobalContextProps | undefined > (undefined);
+const GlobalContext = createContext();
 
 export const GlobalProvider = ({ children }) => {
   const [mainUser, setMainUser] = useState();
   const [currentLocation, setCurrentLocation] = useState("dashboard");
   const [currentBalance, setCurrentBalance] = useState(0);
-  const [tapLimit, setTapLimit] = useState < number > (1500);
-  const [tapLeft, setTapLeft] = useState < number > (tapLimit);
-  const intervalRef = useRef < number | null > (null);
+  const [tapLimit, setTapLimit] = useState(1500);
+  const [tapLeft, setTapLeft] = useState(tapLimit);
+  const intervalRef = useRef(null);
   const [increasePerSecond, setIncreasePerSecond] = useState(3);
   const [isConfirmChangeExchange, setIsConfirmChangeExchange] = useState(false);
-  const [userData, setUserData] = useState < userDataInterface > ({ id: "", username: "" });
+  const [userData, setUserData] = useState({ id: "", username: "" });
 
   useEffect(() => {
     const userId = window.Telegram.WebApp.initDataUnsafe.user.id;
