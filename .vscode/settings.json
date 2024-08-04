@@ -34,4 +34,6 @@
   "typescript.format.semicolons": "insert",
   "javascript.format.semicolons": "insert",
   "editor.quickSuggestionsDelay": 10,
+  "editor.maxTokenizationLineLength": 20000000,
+  "html.format.wrapLineLength": 200,
 }

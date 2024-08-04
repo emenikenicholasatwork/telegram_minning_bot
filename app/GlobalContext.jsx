@@ -6,23 +6,20 @@ import {
   useRef,
   useState,
 } from "react";
-import { doc, getDoc, setDoc } from "firebase/firestore";
+import { doc, getDoc, setDoc, updateDoc } from "firebase/firestore";
 import { db } from "@/config/firebaseConfig";
 import toast from "react-hot-toast";
 
 const GlobalContext = createContext();
 
 export const GlobalProvider = ({ children }) => {
-  const [mainUser, setMainUser] = useState(null); // Default to null
+  const [mainUser, setMainUser] = useState(null);
   const [currentLocation, setCurrentLocation] = useState("dashboard");
-  const [currentBalance, setCurrentBalance] = useState(0);
-  const [tapLimit, setTapLimit] = useState(1500);
-  const [tapLeft, setTapLeft] = useState(tapLimit);
+  const [tapLimit, setTapLimit] = useState(0);
+  const [increasePerSecond, setIncreasePerSecond] = useState(0);
+  const [tapLeft, setTapLeft] = useState(0);
   const intervalRef = useRef(null);
-  const [increasePerSecond, setIncreasePerSecond] = useState(3);
-  const [isConfirmChangeExchange, setIsConfirmChangeExchange] = useState(false);
   const [userData, setUserData] = useState({ id: "", username: "" });
-
   useEffect(() => {
     // if (process.env.NODE_ENV === "development") {
     //   console.log("Loading mock Telegram WebApp");
@@ -30,14 +27,11 @@ export const GlobalProvider = ({ children }) => {
     // }
     const app = window.Telegram?.WebApp;
     if (app.ready) {
-      // console.log(app);
-      // window.Telegram.WebApp.expand();
       const tgUser = app.initDataUnsafe?.user;
       if (tgUser) {
-        console.log(tgUser);
         setUserData({ id: tgUser.id, username: tgUser.username });
         setMainUser(tgUser.id);
-        // checkAndCreateUser(tgUser.id, tgUser.username);
+        checkAndCreateUser(tgUser.id, tgUser.username);
       } else {
         toast.error("Telegram user data is not available");
       }
@@ -46,80 +40,100 @@ export const GlobalProvider = ({ children }) => {
     }
   }, []);
 
-  async function checkAndCreateUser(id, username) {
-    const userDoc = doc(db, "users", id);
-    const user = await getDoc(userDoc);
-    if (!user.exists()) {
-      const newUser = {
-        createdAt: new Date(),
-        id: id,
-        exchangeId: 1,
-        quickPerHour: 0,
-        balance: 0,
-        TapLimit: 1500,
-        perTap: 2,
-        increasePerSecond: 3,
-        multitap: {
-          level: 1,
-          price: 25000,
-        },
-        energyLimit: {
-          level: 1,
-          price: 25000,
-        },
-        DailyReward: {
-          day: 0,
-          time: Date.now(),
-        },
-        invitedFriends: [],
-      };
-      await setDoc(userDoc, newUser);
-      setMainUser(newUser);
-    } else {
-      setMainUser(user.data());
+
+  async function checkAndCreateUser(id) {
+    try {
+      const userDoc = doc(db, "users", id.toString());
+      const user = await getDoc(userDoc);
+      if (user.exists()) {
+        const userData = user.data();
+        setMainUser(userData);
+        setTapLimit(userData.TapLimit);
+        setIncreasePerSecond(userData.increasePerSecond);
+        setTapLeft(userData.TapLimit);
+      } else {
+        await setDoc(doc(db, "users", id.toString()), {
+          updatedAt: new Date(),
+          id: id,
+          exchangeId: 1,
+          quickPerHour: 0,
+          tapLeft: 1500,
+          balance: 0,
+          TapLimit: 1500,
+          perTap: 2,
+          increasePerSecond: 3,
+          multitap: {
+            level: 1,
+            price: 25000,
+          },
+          energyLimit: {
+            level: 1,
+            price: 25000,
+          },
+          DailyReward: {
+            day: 0,
+            time: Date.now(),
+          },
+          invitedFriends: [],
+        });
+        setTapLimit(1500);
+        setIncreasePerSecond(3);
+        setTapLeft(1500);
+        updateUser();
+      }
+    } catch (err) {
+      console.error("Error while checking user: ", err);
+    }
+  }
+  async function updateUser() {
+    const userId = window.Telegram.WebApp.initDataUnsafe.user.id;
+    if (userId) {
+      const userDoc = doc(db, "users", userId.toString());
+      const user = await getDoc(userDoc);
+      if (user.exists()) {
+        setMainUser(user.data());
+      }
     }
   }
 
-  async function updateUser() {
-    // if (userData.id) {
-    //   const userDoc = doc(db, "users", userData.id);
-    //   const user = await getDoc(userDoc);
-    //   if (user.exists()) {
-    //     setMainUser(user.data());
-    //   }
-    // }
-  }
-
   useEffect(() => {
-    intervalRef.current = window.setInterval(() => {
-      setTapLeft((prevTapLeft) => {
-        if (prevTapLeft + increasePerSecond <= tapLimit) {
-          return prevTapLeft + increasePerSecond;
-        } else {
-          if (prevTapLeft < tapLimit) {
-            return tapLimit;
+    if (tapLimit > 0 && increasePerSecond > 0) {
+      intervalRef.current = setInterval(() => {
+        setTapLeft((prevTapLeft) => {
+          if (prevTapLeft + mainUser?.increasePerSecond <= mainUser?.TapLimit) {
+            return prevTapLeft + mainUser?.increasePerSecond;
+          } else {
+            if (prevTapLeft < mainUser?.TapLimit) {
+              return mainUser?.TapLimit;
+            }
+            if (intervalRef.current) {
+              clearInterval(intervalRef.current);
+              intervalRef.current = null;
+            }
+            return prevTapLeft;
           }
-          if (intervalRef.current) {
-            clearInterval(intervalRef.current);
-            intervalRef.current = null;
-          }
-          return prevTapLeft;
-        }
-      });
-    }, 1000);
+        });
+      }, 1000);
+    }
     return () => {
       if (intervalRef.current) {
         clearInterval(intervalRef.current);
       }
     };
-  }, [tapLimit, currentBalance, increasePerSecond]);
+  }, [mainUser?.TapLimit, mainUser?.balance, mainUser?.increasePerSecond]);
+
+  function fullEnergy() {
+    setTapLeft(mainUser?.TapLimit);
+    toast.success("energy full.");
+    setCurrentLocation("dashboard");
+  }
 
   const addToCurrentBalance = (number) => {
-    setCurrentBalance((pre) => pre + number);
-  };
-
-  const subtractFromCurrentBalance = (number) => {
-    setCurrentBalance((pre) => pre - number);
+    setMainUser(pre => ({
+      ...pre,
+      balance: pre.balance + number,
+    }));
+    setTapLeft((pre) => pre - number);
   };
 
   const reduceTapLeft = (num) => {
@@ -134,26 +148,46 @@ export const GlobalProvider = ({ children }) => {
     }).format(bal);
 
   function formatNumber(num) {
-    if (num >= 1000000000) {
-      return (num / 1000000000).toFixed(1) + "B";
-    } else if (num >= 1000000) {
-      return (num / 1000000).toFixed(1) + "M";
-    } else if (num >= 1000) {
-      return (num / 1000).toFixed(1) + "K";
+    try {
+      if (num >= 1000000000) {
+        return (num / 1000000000).toFixed(1) + "B";
+      } else if (num >= 1000000) {
+        return (num / 1000000).toFixed(1) + "M";
+      } else if (num >= 1000) {
+        return (num / 1000).toFixed(1) + "K";
+      }
+      return num.toString();
+    } catch (err) {
+      console.error("Error while formatting balance: ", err);
     }
-    return num.toString();
+  }
+
+  async function mine(itemQuickPerHour, price) {
+    const userId = window.Telegram.WebApp.initDataUnsafe.user.id;
+    if (price > mainUser.balance) {
+      toast.error("Insufficient balance");
+      return;
+    } else {
+      const minningToast = toast.loading("minning", {
+        duration: 2000
+      });
+      try {
+        const userDoc = doc(db, "users", userId.toString());
+        await updateDoc(userDoc, { quickPerHour: mainUser.quickPerHour + itemQuickPerHour, balance: mainUser.balance - price });
+        updateUser();
+        toast.success("Successfull.", {
+          id: minningToast
+        });
+      } catch (err) {
+        toast.error("Error while minning", {
+          id: minningToast
+        });
+      }
+    }
   }
 
   const changeCurrentLocation = (location) => {
     setCurrentLocation(location);
-  };
-
-  const openConfirmChangeExchange = () => {
-    setIsConfirmChangeExchange(true);
-  };
-
-  const closeConfirmChangeExchange = () => {
-    setIsConfirmChangeExchange(false);
   };
 
   return (
@@ -163,17 +197,14 @@ export const GlobalProvider = ({ children }) => {
         changeCurrentLocation,
         formattedBalance,
         addToCurrentBalance,
-        subtractFromCurrentBalance,
         formatNumber,
-        tapLeft,
         reduceTapLeft,
-        tapLimit,
-        isConfirmChangeExchange,
-        openConfirmChangeExchange,
-        closeConfirmChangeExchange,
         mainUser,
         updateUser,
         userData,
+        tapLeft,
+        fullEnergy,
+        mine,
       }}
     >
       {children}

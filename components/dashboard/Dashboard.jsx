@@ -1,18 +1,21 @@
 'use client';
 import { useGlobal } from '@/app/GlobalContext';
 import Image from 'next/image';
-import React, { useEffect } from 'react';
+import React, { useEffect, useRef } from 'react';
 import UserTopProgress from '../user_progress/UserTopProgress';
+import { doc, updateDoc } from 'firebase/firestore';
+import { db } from '@/config/firebaseConfig';
+
 
 const Dashboard = () => {
+  const timeoutRef = useRef(null);
   const {
     changeCurrentLocation,
     formattedBalance,
     addToCurrentBalance,
-    tapLeft,
-    reduceTapLeft,
     mainUser,
-    userData
+    userData,
+    tapLeft
   } = useGlobal();
 
   function user_clicks() {
@@ -22,16 +25,45 @@ const Dashboard = () => {
       const tap_image = document.getElementById("tap_image");
       tap_image.classList.add("scale-110");
       addToCurrentBalance(mainUser.perTap);
-      reduceTapLeft(mainUser.perTap);
       setTimeout(() => {
         tap_image?.classList.remove("scale-110");
       }, 100);
+      resetTimeout();
     }
   }
 
-  if (!mainUser) {
-    return <div>Loading...</div>;
+  // useEffect(() => {
+  //   setInterval(async () => {
+  //     if (mainUser.quickPerHour > 0) {
+  //       console.log(mainUser.quickPerHour);
+  //       const userDoc = doc(db, "users", mainUser.id.toString());
+  //       await updateDoc(userDoc, {
+  //         balance: mainUser.balance + calculatePerSecond(mainUser.quickPerHour),
+  //         updatedAt: new Date()
+  //       });
+  //     }
+  //   }, 2000);
+  // }, []);
+
+
+  function calculatePerSecond(amountPerHour) {
+    const secondsPerHour = 3600;
+    return amountPerHour / secondsPerHour;
   }
+
+
+  function resetTimeout() {
+    if (timeoutRef.current) {
+      clearTimeout(timeoutRef.current);
+    }
+    timeoutRef.current = setTimeout(async () => {
+      const userDoc = doc(db, "users", mainUser.id.toString());
+      await updateDoc(userDoc, {
+        balance: mainUser.balance,
+        updatedAt: new Date()
+      });
+    }, 3000);
+  };
 
   return (
     <div className="">
@@ -53,10 +85,10 @@ const Dashboard = () => {
                   height={100}
                   alt="quick coin icon"
                 />
-                <p className="text-2xl font-bold">{formattedBalance(80000)}</p>
+                <p className="text-2xl font-bold">{formattedBalance(mainUser.balance)}</p>
               </div>
               <div>
-                <Image id="tap_image" className={`w-64 h-64 duration-200 ${tapLeft > 1500 ? '' : 'filter saturate-50'}`}
+                <Image id="tap_image" className={`w-64 h-64 duration-200 ${tapLeft > mainUser.perTap ? '' : 'filter saturate-50'}`}
                   src={'/images/quick_coin.png'}
                   width={500}
                   height={500}
@@ -75,7 +107,7 @@ const Dashboard = () => {
                   alt="flash icon"
                 />
                 <p className="font-bold">
-                  {tapLeft} / {1500}
+                  {tapLeft} / {mainUser.TapLimit}
                 </p>
               </div>
               <div

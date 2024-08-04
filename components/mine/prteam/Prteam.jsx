@@ -2,35 +2,13 @@ import React from "react";
 import items from "../../../data/pr&team.json";
 import Image from "next/image";
 import { useGlobal } from "@/app/GlobalContext";
-import { RiLock2Line } from "react-icons/ri";
-import { db } from "@/config/firebaseConfig";
-import { doc, updateDoc } from "firebase/firestore";
-import toast from "react-hot-toast";
 
 const Prteam = () => {
-  const { formatNumber, mainUser, updateUser } = useGlobal();
-  async function mine(itemId) {
-    const item = items.find((itm) => itemId === itm.id);
-    if (item) {
-      if (item.price > mainUser.balance) {
-        toast.error("Insufficient balance");
-        return;
-      } else {
-        try {
-          const userDoc = doc(db, "users", mainUser.id);
-          await updateDoc(userDoc, { quickPerHour: mainUser.quickPerHour + item.quick_per_hour, balance: mainUser.balance - item.price });
-          updateUser();
-          toast.success("Successfully.");
-        } catch (err) {
-          toast.error("Error while minig");
-        }
-      }
-    }
-  }
+  const { formatNumber, mine } = useGlobal();
   return items.map((item) => (
     <div
       key={item.id}
-      onClick={() => mine(item.id)}
+      onClick={async () => await mine(item.quick_per_hour, item.price)}
       className="bg-slate-800 relative rounded-md flex flex-col p-1 gap-3"
     >
       <div className="flex flex-row items-center px-1 gap-1">

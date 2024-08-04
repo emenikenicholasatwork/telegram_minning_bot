@@ -26,7 +26,7 @@ const Mine = () => {
               height={500}
               alt="quick coin icon"
             />
-            <p className="text-2xl font-bold">{formattedBalance(8000000)}</p>
+            <p className="text-2xl font-bold">{formattedBalance(mainUser.balance)}</p>
           </div>
           <div className="w-full flex flex-row justify-between items-center bg-slate-800 h-16 px-1 rounded-lg">
             <div

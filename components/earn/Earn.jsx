@@ -1,14 +1,13 @@
 import { useGlobal } from "@/app/GlobalContext";
 import Image from "next/image";
 import React from "react";
-import toast, { Toaster } from "react-hot-toast";
+import toast from "react-hot-toast";
 import { CgChevronRight } from "react-icons/cg";
 
 const Earn = () => {
   const { changeCurrentLocation } = useGlobal();
   return (
     <div className="flex flex-col items-center pt-20 gap-10 pb-52">
-      <Toaster />
       <div className="flex flex-col items-center gap-40">
         <div className="p-5 rounded-full shadow-round-blue-shadow3 overflow-hidden">
           <div className="p-5 rounded-full shadow-round-blue-shadow2 overflow-hidden">

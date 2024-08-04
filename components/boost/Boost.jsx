@@ -6,9 +6,9 @@ import React from "react";
 import toast from "react-hot-toast";
 
 const Boost = () => {
-  const { formattedBalance, formatNumber, mainUser, updateUser } = useGlobal();
+  const { formattedBalance, formatNumber, mainUser, updateUser, fullEnergy, changeCurrentLocation } = useGlobal();
 
-  const userDoc = doc(db, "users", mainUser.id);
+  const userDoc = doc(db, "users", mainUser.id.toString());
 
   async function buyEnergyLimitBoost() {
     if (mainUser.energyLimit.price > mainUser.balance) {
@@ -16,16 +16,20 @@ const Boost = () => {
       return;
     } else {
       try {
+        const upgradeLimitToast = toast.loading("upgrading limit");
         await updateDoc(userDoc, {
           energyLimit: {
             level: mainUser.energyLimit.level + 1,
             price: mainUser.energyLimit.price * 2,
           },
           TapLimit: mainUser.TapLimit + 500,
-          perTap: mainUser.perTap + 1,
         });
-        toast.success("Successfully upgraded limit");
+        toast.success("Successfully upgraded limit", {
+          id: upgradeLimitToast
+        });
+        changeCurrentLocation("dashboard");
         updateUser();
+        set;
       } catch (err) {
         toast.error("Error while upgrading energy limit");
       }
@@ -38,13 +42,18 @@ const Boost = () => {
       return;
     } else {
       try {
+        const upgradeMultitapToast = toast.loading("upgrading multitap");
         await updateDoc(userDoc, {
           multitap: {
             level: mainUser.multitap.level + 1,
             price: mainUser.multitap.price * 2,
           },
+          perTap: mainUser.perTap + 1,
         });
-        toast.success("Successfully upgraded multitap");
+        toast.success("Successfully upgraded multitap", {
+          id: upgradeMultitapToast
+        });
+        changeCurrentLocation("dashboard");
         updateUser();
       } catch (err) {
         toast.error("Error while upgrading multitap");
@@ -70,7 +79,7 @@ const Boost = () => {
       <div className="flex flex-col w-full px-2 gap-4">
         <p className="font-bold text-md">Free daily boosters</p>
         <div className="flex flex-col gap-2">
-          <div className="flex flex-row items-center bg-slate-800 rounded-xl px-5 py-3 gap-3">
+          <div className="flex flex-row items-center bg-slate-800 rounded-xl px-5 py-3 gap-3" onClick={fullEnergy}>
             <Image
               className="w-10 h-10"
               src={"/images/flash.png"}
