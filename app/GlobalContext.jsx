@@ -24,14 +24,17 @@ export const GlobalProvider = ({ children }) => {
   const [userData, setUserData] = useState({ id: "", username: "" });
 
   useEffect(() => {
-    // if (process.env.NODE_ENV === "development") {
-    //   console.log("Loading mock Telegram WebApp");
-    //   require("./mockTelegram");
-    // }
+    if (process.env.NODE_ENV === "development") {
+      console.log("Loading mock Telegram WebApp");
+      require("./mockTelegram");
+    }
     const app = window.Telegram?.WebApp;
-    if (app) {
+    if (app.ready) {
+      // console.log(app);
+      // window.Telegram.WebApp.expand();
       const tgUser = app.initDataUnsafe?.user;
       if (tgUser) {
+        console.log(tgUser);
         setUserData({ id: tgUser.id, username: tgUser.username });
         setMainUser(tgUser.id);
         // checkAndCreateUser(tgUser.id, tgUser.username);

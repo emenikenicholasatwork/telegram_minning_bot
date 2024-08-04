@@ -11,8 +11,8 @@ export default function RootLayout({
       <body>
         <GlobalProvider>
           {children}
+          <Script src="https://telegram.org/js/telegram-web-app.js" strategy="beforeInteractive" />
         </GlobalProvider>
-        <Script src="https://telegram.org/js/telegram-web-app.js" strategy="beforeInteractive" />
       </body>
     </html>
   );
