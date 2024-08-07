@@ -190,7 +190,7 @@ export const GlobalProvider = ({ children }) => {
       });
       try {
         const userDoc = doc(db, "users", userId.toString());
-        await updateDoc(userDoc, { quickPerHour: mainUser.quickPerHour + itemQuickPerHour, balance: (mainUser.balance + userBalance) - price });
+        await updateDoc(userDoc, { quickPerHour: mainUser.quickPerHour + itemQuickPerHour, balance: (mainUser.balance + (userBalance - mainUser.balance)) - price });
         updateUser();
         toast.success("Successfull.", {
           id: minningToast

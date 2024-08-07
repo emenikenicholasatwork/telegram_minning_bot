@@ -22,7 +22,7 @@ const Boost = () => {
             price: mainUser.energyLimit.price * 2,
           },
           TapLimit: mainUser.TapLimit + 500,
-          balance: (mainUser.balance + userBalance) - mainUser.energyLimit.price,
+          balance: (mainUser.balance + (userBalance - mainUser.balance)) - mainUser.energyLimit.price,
         });
         toast.success("Successfully upgraded limit", {
           id: upgradeLimitToast
@@ -48,7 +48,7 @@ const Boost = () => {
             price: mainUser.multitap.price * 2,
           },
           perTap: mainUser.perTap + 1,
-          balance: (mainUser.balance + userBalance) - mainUser.multitap.price
+          balance: (mainUser.balance + (userBalance - mainUser.balance)) - mainUser.multitap.price
         });
         toast.success("Successfully upgraded multitap", {
           id: upgradeMultitapToast

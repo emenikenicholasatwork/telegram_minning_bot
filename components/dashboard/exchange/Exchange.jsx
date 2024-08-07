@@ -14,7 +14,7 @@ const Exchange = () => {
     try {
       const changingToast = toast.loading("changing...");
       const userDoc = doc(db, "users", mainUser.id.toString());
-      await updateDoc(userDoc, { exchangeId: id, balance: mainUser.balance + userBalance });
+      await updateDoc(userDoc, { exchangeId: id, balance: mainUser.balance + (userBalance - mainUser.balance) });
       updateUser();
       changeCurrentLocation("dashboard");
       toast.success("Successfully selected exchange", {
