@@ -3,8 +3,8 @@ import {
   createContext,
   useContext,
   useEffect,
-  useRef,
   useState,
+  useRef
 } from "react";
 import { doc, getDoc, setDoc, updateDoc } from "firebase/firestore";
 import { db } from "@/config/firebaseConfig";
@@ -15,23 +15,49 @@ const GlobalContext = createContext();
 export const GlobalProvider = ({ children }) => {
   const [mainUser, setMainUser] = useState(null);
   const [currentLocation, setCurrentLocation] = useState("dashboard");
-  const [tapLimit, setTapLimit] = useState(0);
-  const [increasePerSecond, setIncreasePerSecond] = useState(0);
-  const [tapLeft, setTapLeft] = useState(0);
+  const [tapLeft, setTapLeft] = useState(mainUser?.TapLimit);
   const intervalRef = useRef(null);
-  const [userData, setUserData] = useState({ id: "", username: "" });
+  const [userBalance, setUserBalance] = useState(mainUser?.balance);
+  const [userQuickPerHour, setUserQuickPerHour] = useState(mainUser?.quickPerHour);
+
+
   useEffect(() => {
-    // if (process.env.NODE_ENV === "development") {
-    //   console.log("Loading mock Telegram WebApp");
-    //   require("./mockTelegram");
-    // }
+    if (mainUser?.TapLimit > 0 && mainUser?.increasePerSecond > 0) {
+      intervalRef.current = setInterval(() => {
+        setTapLeft((prevTapLeft) => {
+          if (prevTapLeft + mainUser?.increasePerSecond <= mainUser?.TapLimit) {
+            return prevTapLeft + mainUser?.increasePerSecond;
+          } else {
+            if (prevTapLeft < mainUser?.TapLimit) {
+              return mainUser?.TapLimit;
+            }
+            if (intervalRef.current) {
+              clearInterval(intervalRef.current);
+              intervalRef.current = null;
+            }
+            return prevTapLeft;
+          }
+        });
+      }, 1000);
+    }
+    return () => {
+      if (intervalRef.current) {
+        clearInterval(intervalRef.current);
+      }
+    };
+  }, [mainUser?.TapLimit, mainUser?.balance, mainUser?.increasePerSecond]);
+
+  useEffect(() => {
+    if (process.env.NODE_ENV === "development") {
+      console.log("Loading mock Telegram WebApp");
+      require("./mockTelegram");
+    }
     const app = window.Telegram?.WebApp;
     if (app.ready) {
       const tgUser = app.initDataUnsafe?.user;
       if (tgUser) {
-        setUserData({ id: tgUser.id, username: tgUser.username });
-        setMainUser(tgUser.id);
-        checkAndCreateUser(tgUser.id, tgUser.username);
+        setMainUser(tgUser);
+        checkAndCreateUser(tgUser.id);
       } else {
         toast.error("Telegram user data is not available");
       }
@@ -48,9 +74,9 @@ export const GlobalProvider = ({ children }) => {
       if (user.exists()) {
         const userData = user.data();
         setMainUser(userData);
-        setTapLimit(userData.TapLimit);
-        setIncreasePerSecond(userData.increasePerSecond);
         setTapLeft(userData.TapLimit);
+        setUserBalance(userData.balance);
+        setUserQuickPerHour(userData.quickPerHour);
       } else {
         await setDoc(doc(db, "users", id.toString()), {
           updatedAt: new Date(),
@@ -76,9 +102,6 @@ export const GlobalProvider = ({ children }) => {
           },
           invitedFriends: [],
         });
-        setTapLimit(1500);
-        setIncreasePerSecond(3);
-        setTapLeft(1500);
         updateUser();
       }
     } catch (err) {
@@ -92,35 +115,24 @@ export const GlobalProvider = ({ children }) => {
       const user = await getDoc(userDoc);
       if (user.exists()) {
         setMainUser(user.data());
+        setTapLeft(user.data.TapLimit);
+        setUserBalance(user.data.balance);
+        setUserQuickPerHour(user.data.quickPerHour);
       }
     }
   }
 
+
+  function getQuickPerSecond() {
+    return userQuickPerHour / 3600;
+  }
+
   useEffect(() => {
-    if (tapLimit > 0 && increasePerSecond > 0) {
-      intervalRef.current = setInterval(() => {
-        setTapLeft((prevTapLeft) => {
-          if (prevTapLeft + mainUser?.increasePerSecond <= mainUser?.TapLimit) {
-            return prevTapLeft + mainUser?.increasePerSecond;
-          } else {
-            if (prevTapLeft < mainUser?.TapLimit) {
-              return mainUser?.TapLimit;
-            }
-            if (intervalRef.current) {
-              clearInterval(intervalRef.current);
-              intervalRef.current = null;
-            }
-            return prevTapLeft;
-          }
-        });
-      }, 1000);
-    }
-    return () => {
-      if (intervalRef.current) {
-        clearInterval(intervalRef.current);
-      }
-    };
-  }, [mainUser?.TapLimit, mainUser?.balance, mainUser?.increasePerSecond]);
+    if (userQuickPerHour === 0) return;
+    setInterval(() => {
+      setUserBalance(pre => pre + getQuickPerSecond);
+    }, 1000);
+  }, [userQuickPerHour]);
 
   function fullEnergy() {
     setTapLeft(mainUser?.TapLimit);
@@ -128,16 +140,15 @@ export const GlobalProvider = ({ children }) => {
     setCurrentLocation("dashboard");
   }
 
+  function reduceTapLeft() {
+    setTapLeft(pre => pre - mainUser?.perTap);
+  }
+
   const addToCurrentBalance = (number) => {
     setMainUser(pre => ({
       ...pre,
       balance: pre.balance + number,
     }));
-    setTapLeft((pre) => pre - number);
-  };
-
-  const reduceTapLeft = (num) => {
-    setTapLeft((pre) => pre - num);
   };
 
   const formattedBalance = (bal) =>
@@ -198,13 +209,13 @@ export const GlobalProvider = ({ children }) => {
         formattedBalance,
         addToCurrentBalance,
         formatNumber,
-        reduceTapLeft,
         mainUser,
         updateUser,
-        userData,
-        tapLeft,
         fullEnergy,
         mine,
+        tapLeft,
+        reduceTapLeft,
+        userBalance,
       }}
     >
       {children}

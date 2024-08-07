@@ -12,7 +12,7 @@
   "reactSnippets.settings.importReactOnTop": false,
   "editor.cursorBlinking": "expand",
   "editor.find.cursorMoveOnType": false,
-  "editor.cursorSmoothCaretAnimation": "on",
+  "editor.cursorSmoothCaretAnimation": "off",
   "emmet.includeLanguages": {
     "javascript": "javascriptreact"
   },
@@ -36,4 +36,5 @@
   "editor.quickSuggestionsDelay": 10,
   "editor.maxTokenizationLineLength": 20000000,
   "html.format.wrapLineLength": 200,
+  "editor.cursorWidth": 0,
 }

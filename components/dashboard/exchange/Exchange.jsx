@@ -9,13 +9,19 @@ import { db } from "@/config/firebaseConfig";
 import toast from "react-hot-toast";
 const Exchange = () => {
   const { currentLocation, changeCurrentLocation, updateUser, mainUser } = useGlobal();
-  async function changeExchange(exchangeId) {
+  async function changeExchange(id) {
+    if (mainUser.exchangeId === id) { changeCurrentLocation("dashboard"); return; };
     try {
-      const userDoc = doc(db, "users", mainUser.id);
-      await updateDoc(userDoc, { exchangeId: exchangeId });
+      const changingToast = toast.loading("changing...");
+      const userDoc = doc(db, "users", mainUser.id.toString());
+      await updateDoc(userDoc, { exchangeId: id });
       updateUser();
-      toast.success("Successfully selected exchange");
+      changeCurrentLocation("dashboard");
+      toast.success("Successfully selected exchange", {
+        id: changingToast
+      });
     } catch (error) {
+      console.log(error);
       toast.error("Error while changing exchange");
     }
   }
@@ -29,7 +35,7 @@ const Exchange = () => {
         {exchange.map((exch) => (
           <div
             key={exch.id}
-            onClick={() => { changeExchange(exch.id); changeCurrentLocation("dashboard"); }}
+            onClick={() => { changeExchange(exch.id); }}
             className="bg-slate-600 rounded-xl p-2 flex flex-row items-center justify-between"
           >
             <div className="flex flex-row items-center gap-5">
@@ -43,7 +49,7 @@ const Exchange = () => {
               <p className="font-bold text-xl">{exch.name}</p>
             </div>
             {
-              mainUser?.exchangedId === exch.id ?
+              mainUser?.exchangeId === exch.id ?
                 <FaCheck className="text-1xl" /> :
                 <RiArrowRightSLine className="text-3xl" />
             }

@@ -1,11 +1,10 @@
 'use client';
 import { useGlobal } from '@/app/GlobalContext';
 import Image from 'next/image';
-import React, { useEffect, useRef } from 'react';
+import React, { useEffect, useRef, useState } from 'react';
 import UserTopProgress from '../user_progress/UserTopProgress';
 import { doc, updateDoc } from 'firebase/firestore';
 import { db } from '@/config/firebaseConfig';
-
 
 const Dashboard = () => {
   const timeoutRef = useRef(null);
@@ -14,8 +13,9 @@ const Dashboard = () => {
     formattedBalance,
     addToCurrentBalance,
     mainUser,
-    userData,
-    tapLeft
+    reduceTapLeft,
+    tapLeft,
+    userBalance
   } = useGlobal();
 
   function user_clicks() {
@@ -25,32 +25,13 @@ const Dashboard = () => {
       const tap_image = document.getElementById("tap_image");
       tap_image.classList.add("scale-110");
       addToCurrentBalance(mainUser.perTap);
+      reduceTapLeft();
       setTimeout(() => {
         tap_image?.classList.remove("scale-110");
       }, 100);
       resetTimeout();
     }
   }
-
-  // useEffect(() => {
-  //   setInterval(async () => {
-  //     if (mainUser.quickPerHour > 0) {
-  //       console.log(mainUser.quickPerHour);
-  //       const userDoc = doc(db, "users", mainUser.id.toString());
-  //       await updateDoc(userDoc, {
-  //         balance: mainUser.balance + calculatePerSecond(mainUser.quickPerHour),
-  //         updatedAt: new Date()
-  //       });
-  //     }
-  //   }, 2000);
-  // }, []);
-
-
-  function calculatePerSecond(amountPerHour) {
-    const secondsPerHour = 3600;
-    return amountPerHour / secondsPerHour;
-  }
-
 
   function resetTimeout() {
     if (timeoutRef.current) {
@@ -67,7 +48,7 @@ const Dashboard = () => {
 
   return (
     <div className="">
-      <p className="ps-2 font-bold">{userData.username} (CEO)</p>
+      <p className="ps-2 font-bold">{window.Telegram.WebApp.initDataUnsafe.user.username} (CEO)</p>
       <div className="flex flex-col gap-10">
         <UserTopProgress />
         <div className="h-full w-full rounded-t-3xl shadow-top-green pt-5">
@@ -85,7 +66,7 @@ const Dashboard = () => {
                   height={100}
                   alt="quick coin icon"
                 />
-                <p className="text-2xl font-bold">{formattedBalance(mainUser.balance)}</p>
+                <p className="text-2xl font-bold">{formattedBalance(userBalance)}</p>
               </div>
               <div>
                 <Image id="tap_image" className={`w-64 h-64 duration-200 ${tapLeft > mainUser.perTap ? '' : 'filter saturate-50'}`}

@@ -7,7 +7,6 @@ const web_link = "https://mining-bot-48179.web.app";
 bot.start((ctx) => {
     const user = ctx.message.from;
     const payload = ctx.payload;
-    console.log(payload);
     const userName = user.username ? `@${user.username}` : user.first_name;
     const urlSent = `${web_link}?ref=${payload}`; // Example of using user ID for tracking
 
