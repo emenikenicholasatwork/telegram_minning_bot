@@ -17,6 +17,7 @@ export const GlobalProvider = ({ children }) => {
   const [currentLocation, setCurrentLocation] = useState("dashboard");
   const [tapLeft, setTapLeft] = useState(mainUser?.TapLimit);
   const intervalRef = useRef(null);
+  const intervalRef1 = useRef(null);
   const [userBalance, setUserBalance] = useState(mainUser?.balance);
   const [userQuickPerHour, setUserQuickPerHour] = useState(mainUser?.quickPerHour);
 
@@ -45,7 +46,7 @@ export const GlobalProvider = ({ children }) => {
         clearInterval(intervalRef.current);
       }
     };
-  }, [mainUser?.TapLimit, mainUser?.balance, mainUser?.increasePerSecond]);
+  }, [mainUser?.TapLimit, userBalance, mainUser?.increasePerSecond]);
 
   useEffect(() => {
     if (process.env.NODE_ENV === "development") {
@@ -114,10 +115,11 @@ export const GlobalProvider = ({ children }) => {
       const userDoc = doc(db, "users", userId.toString());
       const user = await getDoc(userDoc);
       if (user.exists()) {
+        const userData = user.data();
         setMainUser(user.data());
-        setTapLeft(user.data.TapLimit);
-        setUserBalance(user.data.balance);
-        setUserQuickPerHour(user.data.quickPerHour);
+        setTapLeft(userData.TapLimit);
+        setUserBalance(userData.balance);
+        setUserQuickPerHour(userData.quickPerHour);
       }
     }
   }
@@ -129,9 +131,16 @@ export const GlobalProvider = ({ children }) => {
 
   useEffect(() => {
     if (userQuickPerHour === 0) return;
-    setInterval(() => {
-      setUserBalance(pre => pre + getQuickPerSecond);
+
+    intervalRef1.current = setInterval(() => {
+      setUserBalance(prev => prev + getQuickPerSecond());
     }, 1000);
+
+    return () => {
+      if (intervalRef1.current) {
+        clearInterval(intervalRef1.current);
+      }
+    };
   }, [userQuickPerHour]);
 
   function fullEnergy() {
@@ -144,11 +153,8 @@ export const GlobalProvider = ({ children }) => {
     setTapLeft(pre => pre - mainUser?.perTap);
   }
 
-  const addToCurrentBalance = (number) => {
-    setMainUser(pre => ({
-      ...pre,
-      balance: pre.balance + number,
-    }));
+  const addToCurrentBalance = (num) => {
+    setUserBalance(pre => pre + num);
   };
 
   const formattedBalance = (bal) =>
@@ -184,7 +190,7 @@ export const GlobalProvider = ({ children }) => {
       });
       try {
         const userDoc = doc(db, "users", userId.toString());
-        await updateDoc(userDoc, { quickPerHour: mainUser.quickPerHour + itemQuickPerHour, balance: mainUser.balance - price });
+        await updateDoc(userDoc, { quickPerHour: mainUser.quickPerHour + itemQuickPerHour, balance: (mainUser.balance + userBalance) - price });
         updateUser();
         toast.success("Successfull.", {
           id: minningToast

@@ -6,7 +6,7 @@ import React from "react";
 import toast from "react-hot-toast";
 
 const Boost = () => {
-  const { formattedBalance, formatNumber, mainUser, updateUser, fullEnergy, changeCurrentLocation } = useGlobal();
+  const { formattedBalance, formatNumber, mainUser, userBalance, updateUser, fullEnergy, changeCurrentLocation } = useGlobal();
   const userDoc = doc(db, "users", mainUser.id.toString());
 
   async function buyEnergyLimitBoost() {
@@ -22,7 +22,7 @@ const Boost = () => {
             price: mainUser.energyLimit.price * 2,
           },
           TapLimit: mainUser.TapLimit + 500,
-          balance: mainUser.balance - mainUser.energyLimit.price,
+          balance: (mainUser.balance + userBalance) - mainUser.energyLimit.price,
         });
         toast.success("Successfully upgraded limit", {
           id: upgradeLimitToast
@@ -48,7 +48,7 @@ const Boost = () => {
             price: mainUser.multitap.price * 2,
           },
           perTap: mainUser.perTap + 1,
-          balance: mainUser.balance - mainUser.multitap.price
+          balance: (mainUser.balance + userBalance) - mainUser.multitap.price
         });
         toast.success("Successfully upgraded multitap", {
           id: upgradeMultitapToast

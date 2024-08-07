@@ -8,13 +8,13 @@ import { doc, updateDoc } from "firebase/firestore";
 import { db } from "@/config/firebaseConfig";
 import toast from "react-hot-toast";
 const Exchange = () => {
-  const { currentLocation, changeCurrentLocation, updateUser, mainUser } = useGlobal();
+  const { currentLocation, userBalance, changeCurrentLocation, updateUser, mainUser } = useGlobal();
   async function changeExchange(id) {
     if (mainUser.exchangeId === id) { changeCurrentLocation("dashboard"); return; };
     try {
       const changingToast = toast.loading("changing...");
       const userDoc = doc(db, "users", mainUser.id.toString());
-      await updateDoc(userDoc, { exchangeId: id });
+      await updateDoc(userDoc, { exchangeId: id, balance: mainUser.balance + userBalance });
       updateUser();
       changeCurrentLocation("dashboard");
       toast.success("Successfully selected exchange", {

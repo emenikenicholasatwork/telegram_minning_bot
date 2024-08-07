@@ -10,6 +10,7 @@ import { db } from "@/config/firebaseConfig";
 const DailyReward = () => {
   const { changeCurrentLocation, currentLocation, updateUser, mainUser } = useGlobal();
   async function claim_daily_reward() {
+
     const timeDuration = Date.now() - mainUser.DailyReward.time;
     if (timeDuration >= 86400000) {
       const dayPrice = days.find(dy => mainUser.DailyReward.day + 1 === dy.id);
@@ -61,7 +62,7 @@ const DailyReward = () => {
       </div>
       <div className="grid grid-cols-4 gap-3">
         {days.map((day) => (
-          <div key={day.id} className={`flex flex-col items-center bg-slate-800 border ${5 > day.id ? "border border-green-500" : ""} gap-2  p-3 rounded-xl`}>
+          <div key={day.id} className={`flex flex-col items-center bg-slate-800 border ${mainUser.DailyReward.day > day.id ? "border border-green-500" : ""} gap-2  p-3 rounded-xl`}>
             <p className="font-bold text-sm">{day.name}</p>
             <Image
               className="w-5 h-5"

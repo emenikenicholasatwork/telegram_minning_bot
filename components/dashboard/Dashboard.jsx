@@ -1,7 +1,7 @@
 'use client';
 import { useGlobal } from '@/app/GlobalContext';
 import Image from 'next/image';
-import React, { useEffect, useRef, useState } from 'react';
+import React, { useRef } from 'react';
 import UserTopProgress from '../user_progress/UserTopProgress';
 import { doc, updateDoc } from 'firebase/firestore';
 import { db } from '@/config/firebaseConfig';

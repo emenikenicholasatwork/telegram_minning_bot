@@ -1,6 +1,7 @@
 import { useGlobal } from "@/app/GlobalContext";
 import Image from "next/image";
 import React from "react";
+import { HiInformationCircle } from "react-icons/hi";
 import exchange from "../../data/exchange_data.json";
 
 const UserTopProgress = () => {
@@ -36,6 +37,7 @@ const UserTopProgress = () => {
             <p className="font-bold text-[13px]">
               + {formatNumber(mainUser.quickPerHour)}
             </p>
+            <HiInformationCircle className="text-slate-400" />
           </div>
         </div>
       </div>
