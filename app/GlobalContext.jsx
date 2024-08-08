@@ -21,7 +21,6 @@ export const GlobalProvider = ({ children }) => {
   const [userBalance, setUserBalance] = useState(mainUser?.balance);
   const [userQuickPerHour, setUserQuickPerHour] = useState(mainUser?.quickPerHour);
 
-
   useEffect(() => {
     if (mainUser?.TapLimit > 0 && mainUser?.increasePerSecond > 0) {
       intervalRef.current = setInterval(() => {
@@ -190,7 +189,9 @@ export const GlobalProvider = ({ children }) => {
       });
       try {
         const userDoc = doc(db, "users", userId.toString());
-        await updateDoc(userDoc, { quickPerHour: mainUser.quickPerHour + itemQuickPerHour, balance: (mainUser.balance + (userBalance - mainUser.balance)) - price });
+        const balance = userBalance - mainUser.balance;
+        const originalBalance = balance - price;
+        await updateDoc(userDoc, { quickPerHour: mainUser.quickPerHour + itemQuickPerHour, balance: originalBalance });
         updateUser();
         toast.success("Successfull.", {
           id: minningToast

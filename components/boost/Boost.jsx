@@ -16,13 +16,15 @@ const Boost = () => {
     } else {
       try {
         const upgradeLimitToast = toast.loading("upgrading limit");
+        const balance = userBalance - mainUser.balance;
+        const originalBalance = balance - price;
         await updateDoc(userDoc, {
           energyLimit: {
             level: mainUser.energyLimit.level + 1,
             price: mainUser.energyLimit.price * 2,
           },
           TapLimit: mainUser.TapLimit + 500,
-          balance: (mainUser.balance + (userBalance - mainUser.balance)) - mainUser.energyLimit.price,
+          balance: originalBalance,
         });
         toast.success("Successfully upgraded limit", {
           id: upgradeLimitToast
@@ -42,13 +44,15 @@ const Boost = () => {
     } else {
       try {
         const upgradeMultitapToast = toast.loading("upgrading multitap");
+        const balance = userBalance - mainUser.balance;
+        const originalBalance = balance - price;
         await updateDoc(userDoc, {
           multitap: {
             level: mainUser.multitap.level + 1,
             price: mainUser.multitap.price * 2,
           },
           perTap: mainUser.perTap + 1,
-          balance: (mainUser.balance + (userBalance - mainUser.balance)) - mainUser.multitap.price
+          balance: originalBalance
         });
         toast.success("Successfully upgraded multitap", {
           id: upgradeMultitapToast
