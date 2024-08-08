@@ -39,11 +39,11 @@ body {
   }
   100% {
     opacity: 0;
-    transform: translateY(-50px);
+    transform: translateY(-350px);
   }
 }
 
-.animation-move {
+.move-up {
   position: absolute;
   animation: moveToCoin 1.3s forwards;
 }

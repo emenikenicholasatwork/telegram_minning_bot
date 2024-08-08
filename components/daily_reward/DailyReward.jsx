@@ -17,12 +17,15 @@ const DailyReward = () => {
         const claimingRewardToast = toast.loading("claiming reward");
         const userDoc = doc(db, "users", mainUser.id.toString());
         const balance = userBalance - mainUser?.balance;
-        const originalBalance = balance + dayPrice + userBalance;
-        if (mainUser.DailyReward.day = 10) {
-          await updateDoc(userDoc, { DailyReward: { day: 1, time: Date.now() }, balance: originalBalance });
-        } else {
-          await updateDoc(userDoc, { DailyReward: { day: mainUser.DailyReward.day + 1, time: Date.now() }, balance: originalBalance });
-        }
+        const originalBalance = balance + dayPrice.reward + userBalance;
+        const newDay = mainUser.DailyReward.day === 10 ? 1 : mainUser.DailyReward.day + 1;
+        await updateDoc(userDoc, {
+          DailyReward: {
+            day: newDay,
+            time: Date.now()
+          },
+          balance: originalBalance
+        });
         updateUser();
         toast.success("Successfully claimed reward.", {
           id: claimingRewardToast

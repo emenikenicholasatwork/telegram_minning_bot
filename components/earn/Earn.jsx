@@ -145,16 +145,6 @@ const Earn = () => {
                 />
                 <div className="flex flex-col items-start justify-center">
                   <p className="font-bold text-md">Choose your exchange</p>
-                  <div className="flex flex-row items-center gap-2">
-                    <Image
-                      className="w-5 h-5"
-                      src={"/images/quick_coin.png"}
-                      width={100}
-                      height={100}
-                      alt="quick coin icon"
-                    />
-                    <p className="font-bold text-sm">+200,000</p>
-                  </div>
                 </div>
                 <CgChevronRight className="absolute  text-2xl right-5 text-slate-400" />
               </div>

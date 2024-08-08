@@ -57,9 +57,9 @@ export const GlobalProvider = ({ children }) => {
       const tgUser = app.initDataUnsafe?.user;
       if (tgUser) {
         setMainUser(tgUser);
-        setUserBalance(tgUser.balance);
-        setTapLeft(tgUser.TapLimit);
-        setUserQuickPerHour(tgUser.quickPerHour);
+        // setUserBalance(tgUser.balance);
+        // setTapLeft(tgUser.TapLimit);
+        // setUserQuickPerHour(tgUser.quickPerHour);
         checkAndCreateUser(tgUser.id);
       } else {
         toast.error("Telegram user data is not available");

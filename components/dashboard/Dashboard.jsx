@@ -18,10 +18,11 @@ const Dashboard = () => {
     userBalance
   } = useGlobal();
 
-  function user_clicks() {
+  function user_clicks(event) {
     if (mainUser && tapLeft < mainUser.perTap) {
       return;
     } else {
+      animateClick(event, mainUser.perTap);
       const tap_image = document.getElementById("tap_image");
       tap_image.classList.add("scale-110");
       addToCurrentBalance(mainUser.perTap);
@@ -32,6 +33,32 @@ const Dashboard = () => {
       resetTimeout();
     }
   }
+
+  function animateClick(event, pertap) {
+    const { pageX, pageY } = event;
+    // Create the element to display the text
+    const element = document.createElement("p");
+    element.textContent = `+${pertap}`;
+    element.className = "absolute text-3xl font-bold text-white move-up";
+
+    // Append the element to the body
+    document.body.appendChild(element);
+
+    // Set the position of the element based on the click position
+    element.style.left = `${pageX}px`;
+    element.style.top = `${pageY}px`;
+
+    // Apply the transformation for the upward movement
+    element.style.transform = 'translate(-50%, -50%)'; // Centers the element on the click
+
+    // Remove the element once the animation ends
+    element.addEventListener("animationend", () => {
+      element.remove();
+    });
+  }
+
+
+
 
   function resetTimeout() {
     if (timeoutRef.current) {
@@ -74,7 +101,7 @@ const Dashboard = () => {
                   width={500}
                   height={500}
                   alt="quick coin icon"
-                  onClick={user_clicks}
+                  onClick={(e) => user_clicks(e)}
                 />
               </div>
             </div>
