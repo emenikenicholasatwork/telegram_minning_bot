@@ -191,7 +191,7 @@ export const GlobalProvider = ({ children }) => {
       try {
         const userDoc = doc(db, "users", userId.toString());
         const balance = userBalance - mainUser.balance;
-        const originalBalance = balance - price;
+        const originalBalance = balance - price + mainUser.balance;
         await updateDoc(userDoc, { quickPerHour: mainUser.quickPerHour + itemQuickPerHour, balance: originalBalance });
         updateUser();
         toast.success("Successfull.", {

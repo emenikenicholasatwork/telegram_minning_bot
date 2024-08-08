@@ -39,7 +39,7 @@ const Dashboard = () => {
     // Create the element to display the text
     const element = document.createElement("p");
     element.textContent = `+${pertap}`;
-    element.className = "absolute text-3xl font-bold text-white move-up";
+    element.className = "absolute text-3xl m-0 p-0 w-fit font-bold text-white move-up";
 
     // Append the element to the body
     document.body.appendChild(element);
@@ -67,7 +67,7 @@ const Dashboard = () => {
     timeoutRef.current = setTimeout(async () => {
       const userDoc = doc(db, "users", mainUser.id.toString());
       await updateDoc(userDoc, {
-        balance: mainUser.balance,
+        balance: userBalance,
         updatedAt: new Date()
       });
     }, 3000);

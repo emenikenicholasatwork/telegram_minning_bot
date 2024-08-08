@@ -1,7 +1,8 @@
 import React, { useState } from "react";
 import Image from "next/image";
-import { BiCopyAlt, BiUserCircle } from "react-icons/bi";
+import { BiUserCircle } from "react-icons/bi";
 import { FaArrowsRotate } from "react-icons/fa6";
+import toast from "react-hot-toast";
 
 const Friends = () => {
   const [refreshFriends, setRefreshFriends] = useState(false);
@@ -11,6 +12,18 @@ const Friends = () => {
       setRefreshFriends(false);
     }, 2000);
   };
+
+  function copyRefLink() {
+    const userId = window.Telegram.WebApp.initDataUnsafe.user.id;
+    const ref = `https://t.me/nky16_bot?start=${userId}`;
+    navigator.clipboard.writeText(ref).then(() => {
+      toast.success("copied.");
+    }).catch((err) => {
+      toast.error("failed to copy.");
+    });
+
+  }
+
   return (
     <div className="w-full h-full flex flex-col items-center overflow-auto pb-20 pt-10 gap-5">
       <p className="font-bold text-2xl">Invite friends!</p>
@@ -85,7 +98,7 @@ const Friends = () => {
           </div>
         </div>
       </div>
-      <div className="flex flex-row fixed bottom-20 items-center bg-indigo-600 w-[95%] p-5 rounded-2xl justify-center breathing-button gap-2 font-bold text-xl">
+      <div className="flex flex-row fixed bottom-20 items-center bg-indigo-600 w-[95%] p-5 rounded-2xl justify-center breathing-button gap-2 font-bold text-xl" onClick={copyRefLink}>
         <p>Invite a friend</p>
         <BiUserCircle />
       </div>
