@@ -15,7 +15,7 @@ export default function Home() {
   const { currentLocation, mainUser } = useGlobal();
 
   if (!mainUser?.exchangeId && !mainUser?.TapLimit) {
-    return <div className='fixed flex bottom-0 left-0 right-0 top-0 items-center justify-center'>
+    return <div className='fixed flex bottom-0 left-0 right-0 top-0 items-center justify-center bg-black'>
       <Image className={`w-64 h-64 duration-200 spin`}
         src={'/images/quick_coin.png'}
         width={500}

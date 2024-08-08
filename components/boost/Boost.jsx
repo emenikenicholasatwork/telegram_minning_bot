@@ -10,30 +10,31 @@ const Boost = () => {
   const userDoc = doc(db, "users", mainUser.id.toString());
 
   async function buyEnergyLimitBoost() {
-    if (mainUser.energyLimit.price > mainUser.balance) {
+    if (mainUser.energyLimit.price > userBalance) {
       toast.error("Insufficient balance");
       return;
-    } else {
-      try {
-        const upgradeLimitToast = toast.loading("upgrading limit");
-        const balance = userBalance - mainUser.balance;
-        const originalBalance = balance - price;
-        await updateDoc(userDoc, {
-          energyLimit: {
-            level: mainUser.energyLimit.level + 1,
-            price: mainUser.energyLimit.price * 2,
-          },
-          TapLimit: mainUser.TapLimit + 500,
-          balance: originalBalance,
-        });
-        toast.success("Successfully upgraded limit", {
-          id: upgradeLimitToast
-        });
-        changeCurrentLocation("dashboard");
-        updateUser();
-      } catch (err) {
-        toast.error("Error while upgrading energy limit");
-      }
+    }
+    let balance = userBalance - mainUser?.balance;
+    let balance2 = balance - mainUser?.energyLimit.price;
+    let originalBalance = balance2 + mainUser?.balance;
+    try {
+      const upgradeLimitToast = toast.loading("upgrading limit");
+      await updateDoc(userDoc, {
+        energyLimit: {
+          level: mainUser.energyLimit.level + 1,
+          price: mainUser.energyLimit.price * 2,
+        },
+        TapLimit: mainUser.TapLimit + 500,
+        balance: originalBalance,
+      });
+      toast.success("Successfully upgraded limit", {
+        id: upgradeLimitToast
+      });
+      updateUser();
+      changeCurrentLocation("dashboard");
+    } catch (err) {
+      toast.dismiss();
+      toast.error("Error while upgrading energy limit");
     }
   }
 
@@ -41,27 +42,28 @@ const Boost = () => {
     if (mainUser.multitap.price > mainUser.balance) {
       toast.error("Insufficient balance");
       return;
-    } else {
-      try {
-        const upgradeMultitapToast = toast.loading("upgrading multitap");
-        const balance = userBalance - mainUser.balance;
-        const originalBalance = balance - price;
-        await updateDoc(userDoc, {
-          multitap: {
-            level: mainUser.multitap.level + 1,
-            price: mainUser.multitap.price * 2,
-          },
-          perTap: mainUser.perTap + 1,
-          balance: originalBalance
-        });
-        toast.success("Successfully upgraded multitap", {
-          id: upgradeMultitapToast
-        });
-        changeCurrentLocation("dashboard");
-        updateUser();
-      } catch (err) {
-        toast.error("Error while upgrading multitap",);
-      }
+    }
+    const upgradeMultitapToast = toast.loading("upgrading multitap");
+    try {
+      const balance = userBalance - mainUser?.balance;
+      const balance2 = balance - mainUser?.multitap.price;
+      const originalBalance = balance2 + mainUser?.balance;
+      await updateDoc(userDoc, {
+        multitap: {
+          level: mainUser.multitap.level + 1,
+          price: mainUser.multitap.price * 2,
+        },
+        perTap: mainUser.perTap + 1,
+        balance: originalBalance
+      });
+      toast.success("Successfully upgraded multitap", {
+        id: upgradeMultitapToast
+      });
+      changeCurrentLocation("dashboard");
+      updateUser();
+    } catch (err) {
+      toast.remove(upgradeMultitapToast);
+      toast.error("Error while upgrading multitap");
     }
   }
 

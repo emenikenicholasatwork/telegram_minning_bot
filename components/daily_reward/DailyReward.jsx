@@ -8,22 +8,28 @@ import { doc, updateDoc } from "firebase/firestore";
 import { db } from "@/config/firebaseConfig";
 
 const DailyReward = () => {
-  const { changeCurrentLocation, currentLocation, updateUser, mainUser } = useGlobal();
+  const { changeCurrentLocation, currentLocation, updateUser, mainUser, userBalance } = useGlobal();
   async function claim_daily_reward() {
-
     const timeDuration = Date.now() - mainUser.DailyReward.time;
     if (timeDuration >= 86400000) {
       const dayPrice = days.find(dy => mainUser.DailyReward.day + 1 === dy.id);
       try {
-        const userDoc = doc(db, "users", mainUser.id);
+        const claimingRewardToast = toast.loading("claiming reward");
+        const userDoc = doc(db, "users", mainUser.id.toString());
+        const balance = userBalance - mainUser?.balance;
+        const originalBalance = balance + dayPrice + userBalance;
         if (mainUser.DailyReward.day = 10) {
-          await updateDoc(userDoc, { DailyReward: { day: 0, time: Date.now() }, balance: mainUser.balance + dayPrice });
+          await updateDoc(userDoc, { DailyReward: { day: 1, time: Date.now() }, balance: originalBalance });
         } else {
-          await updateDoc(userDoc, { DailyReward: { day: mainUser.DailyReward.day + 1, time: Date.now() }, balance: mainUser.balance + dayPrice });
+          await updateDoc(userDoc, { DailyReward: { day: mainUser.DailyReward.day + 1, time: Date.now() }, balance: originalBalance });
         }
         updateUser();
-        toast.success("Successfully claimed reward.");
+        toast.success("Successfully claimed reward.", {
+          id: claimingRewardToast
+        });
+        changeCurrentLocation("earn");
       } catch (error) {
+        toast.remove();
         toast.error("Error while claiming reward");
       }
     } else {
@@ -31,7 +37,7 @@ const DailyReward = () => {
       const hoursLeft = Math.floor(timeLeft / (60 * 60 * 1000));
       const minutesLeft = Math.floor((timeLeft % (60 * 60 * 1000)) / (60 * 1000));
       const secondsLeft = Math.floor((timeLeft % (60 * 1000)) / 1000);
-      toast.error(`come back in the next ${hoursLeft} : ${minutesLeft} : ${secondsLeft}`);
+      toast.error(`come back in the next ${hoursLeft}:${minutesLeft}:${secondsLeft}`);
     }
   }
   return (
@@ -62,7 +68,7 @@ const DailyReward = () => {
       </div>
       <div className="grid grid-cols-4 gap-3">
         {days.map((day) => (
-          <div key={day.id} className={`flex flex-col items-center bg-slate-800 border ${mainUser.DailyReward.day > day.id ? "border border-green-500" : ""} gap-2  p-3 rounded-xl`}>
+          <div key={day.id} className={`flex flex-col items-center bg-slate-800 border ${mainUser?.DailyReward.day >= day.id ? "border border-green-500" : ""} gap-2  p-3 rounded-xl`}>
             <p className="font-bold text-sm">{day.name}</p>
             <Image
               className="w-5 h-5"
@@ -75,7 +81,7 @@ const DailyReward = () => {
           </div>
         ))}
       </div>
-      <button className="p-5 bg-blue-600 text-lg w-full rounded-xl font-bold">
+      <button onClick={claim_daily_reward} className="p-5 bg-blue-600 text-lg w-full rounded-xl font-bold">
         Claim
       </button>
     </div>

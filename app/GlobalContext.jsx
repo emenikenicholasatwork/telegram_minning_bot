@@ -45,7 +45,7 @@ export const GlobalProvider = ({ children }) => {
         clearInterval(intervalRef.current);
       }
     };
-  }, [mainUser?.TapLimit, userBalance, mainUser?.increasePerSecond]);
+  }, [mainUser?.TapLimit, tapLeft, mainUser?.increasePerSecond]);
 
   useEffect(() => {
     if (process.env.NODE_ENV === "development") {
@@ -57,6 +57,9 @@ export const GlobalProvider = ({ children }) => {
       const tgUser = app.initDataUnsafe?.user;
       if (tgUser) {
         setMainUser(tgUser);
+        setUserBalance(tgUser.balance);
+        setTapLeft(tgUser.TapLimit);
+        setUserQuickPerHour(tgUser.quickPerHour);
         checkAndCreateUser(tgUser.id);
       } else {
         toast.error("Telegram user data is not available");
@@ -184,9 +187,7 @@ export const GlobalProvider = ({ children }) => {
       toast.error("Insufficient balance");
       return;
     } else {
-      const minningToast = toast.loading("minning", {
-        duration: 2000
-      });
+      const minningToast = toast.loading("minning");
       try {
         const userDoc = doc(db, "users", userId.toString());
         const balance = userBalance - mainUser.balance;
