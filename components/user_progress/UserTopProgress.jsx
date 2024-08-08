@@ -3,9 +3,10 @@ import Image from "next/image";
 import React from "react";
 import { HiInformationCircle } from "react-icons/hi";
 import exchange from "../../data/exchange_data.json";
+import { Tooltip } from "react-tooltip";
 
 const UserTopProgress = () => {
-  const { changeCurrentLocation, formatNumber, mainUser, defaultExchangeId } = useGlobal();
+  const { changeCurrentLocation, formatNumber, mainUser } = useGlobal();
   const exch = exchange.find((ex) => mainUser.exchangeId === ex.id);
 
   return (
@@ -24,7 +25,8 @@ const UserTopProgress = () => {
           />
         </div>
         <div className="h-6 w-[1px] bg-slate-600"></div>
-        <div className="flex flex-[2] items-center flex-col">
+        <div className="flex flex-[2] items-center flex-col" data-tooltip-id="info-tip" data-tooltip-content="Gain profit only when only!">
+          <Tooltip id="info-tip" />
           <p className="text-[10px]">Quick per hour</p>
           <div className="flex flex-row items-center gap-2">
             <Image
