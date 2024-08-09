@@ -65,10 +65,10 @@ const Dashboard = () => {
       clearTimeout(timeoutRef.current);
     }
     timeoutRef.current = setTimeout(async () => {
-      const userDoc = doc(db, "users", mainUser.id.toString());
+      const userId = window.Telegram.WebApp.initDataUnsafe.user.id;
+      const userDoc = doc(db, "users", userId.toString());
       await updateDoc(userDoc, {
         balance: userBalance,
-        updatedAt: new Date()
       });
     }, 3000);
   };

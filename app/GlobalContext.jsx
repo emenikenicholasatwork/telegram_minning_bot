@@ -20,6 +20,7 @@ export const GlobalProvider = ({ children }) => {
   const intervalRef1 = useRef(null);
   const [userBalance, setUserBalance] = useState(mainUser?.balance);
   const [userQuickPerHour, setUserQuickPerHour] = useState(mainUser?.quickPerHour);
+  const [changeBalance, setChangeBalance] = useState(0);
 
   useEffect(() => {
     if (mainUser?.TapLimit > 0 && mainUser?.increasePerSecond > 0) {
@@ -68,6 +69,22 @@ export const GlobalProvider = ({ children }) => {
       toast.error("Telegram WebApp is not available");
     }
   }, []);
+
+  useEffect(() => {
+    const updateUserBalance = async () => {
+      const userId = window.Telegram.WebApp.initDataUnsafe.user.id;
+      const userDoc = doc(db, "users", userId.toString());
+      await updateDoc(userDoc, {
+        balance: userBalance,
+      });
+    };
+    if (changeBalance >= 10) {
+      setChangeBalance(0);
+      updateUserBalance();
+    } else {
+      setChangeBalance(pre => pre + 1);
+    }
+  }, [userBalance]);
 
 
   async function checkAndCreateUser(id) {

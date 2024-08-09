@@ -17,6 +17,7 @@ const Friends = () => {
     const userId = window.Telegram.WebApp.initDataUnsafe.user.id;
     const ref = `https://t.me/nky16_bot?start=${userId}`;
     navigator.clipboard.writeText(ref).then(() => {
+      window.Telegram.WebApp.openTelegramLink(`https://t.me/share/url?url=${encodeURIComponent(text)}`);
       toast.success("copied.");
     }).catch((err) => {
       toast.error("failed to copy.");

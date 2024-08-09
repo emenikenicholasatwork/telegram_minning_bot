@@ -25,9 +25,9 @@ const UserTopProgress = () => {
           />
         </div>
         <div className="h-6 w-[1px] bg-slate-600"></div>
-        <div className="flex flex-[2] items-center flex-col" data-tooltip-id="info-tip" data-tooltip-content="Gain profit only when only!">
-          <Tooltip id="info-tip" />
-          <p className="text-[10px]">Quick per hour</p>
+        <Tooltip id="profit-info" />
+        <div className="flex flex-[2] items-center flex-col" data-tooltip-id="profit-info" data-tooltip-content="only gain profit when online">
+          <p className="text-[10px]" >Quick per hour</p>
           <div className="flex flex-row items-center gap-2">
             <Image
               className="w-4 h-4"
