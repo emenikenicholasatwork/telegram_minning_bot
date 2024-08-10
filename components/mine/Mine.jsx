@@ -9,7 +9,7 @@ import Markets from "./markets/Markets";
 import Web3 from "./web3/Web3";
 
 const Mine = () => {
-  const { formattedBalance, mainUser, userBalance } = useGlobal();
+  const { formattedBalance, userBalance } = useGlobal();
   const [activetab, setActivetab] = useState("prteam");
   return (
     <div className="flex flex-col gap-10 pb-20">

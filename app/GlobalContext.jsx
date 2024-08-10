@@ -200,15 +200,14 @@ export const GlobalProvider = ({ children }) => {
 
   async function mine(itemQuickPerHour, price) {
     const userId = window.Telegram.WebApp.initDataUnsafe.user.id;
-    if (price > mainUser.balance) {
+    if (price > userBalance) {
       toast.error("Insufficient balance");
       return;
     } else {
       const minningToast = toast.loading("minning");
       try {
         const userDoc = doc(db, "users", userId.toString());
-        const balance = userBalance - mainUser.balance;
-        const originalBalance = balance - price + mainUser.balance;
+        const originalBalance = userBalance - price;
         await updateDoc(userDoc, { quickPerHour: mainUser.quickPerHour + itemQuickPerHour, balance: originalBalance });
         updateUser();
         toast.success("Successfull.", {
