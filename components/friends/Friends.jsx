@@ -13,16 +13,10 @@ const Friends = () => {
     }, 2000);
   };
 
-  function copyRefLink() {
+  function inviteFriend() {
     const userId = window.Telegram.WebApp.initDataUnsafe.user.id;
     const ref = `https://t.me/nky16_bot?start=${userId}`;
-    navigator.clipboard.writeText(ref).then(() => {
-      window.Telegram.WebApp.openTelegramLink(`https://t.me/share/url?url=${encodeURIComponent(text)}`);
-      toast.success("copied.");
-    }).catch((err) => {
-      toast.error("failed to copy.");
-    });
-
+    window.Telegram.WebApp.openTelegramLink(`https://t.me/share/url?url=${encodeURIComponent(ref)}`);
   }
 
   return (
@@ -99,7 +93,7 @@ const Friends = () => {
           </div>
         </div>
       </div>
-      <div className="flex flex-row fixed bottom-20 items-center bg-indigo-600 w-[95%] p-5 rounded-2xl justify-center breathing-button gap-2 font-bold text-xl" onClick={copyRefLink}>
+      <div className="flex flex-row fixed bottom-20 items-center bg-indigo-600 w-[95%] p-5 rounded-2xl justify-center breathing-button gap-2 font-bold text-xl" onClick={inviteFriend}>
         <p>Invite a friend</p>
         <BiUserCircle />
       </div>
