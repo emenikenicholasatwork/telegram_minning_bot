@@ -17,26 +17,31 @@ const Dashboard = () => {
     userBalance
   } = useGlobal();
 
-  function handleClick(e) {
+  function handleTouchStart(e) {
+    e.preventDefault();
+
     if (mainUser && tapLeft < mainUser.perTap) {
       return;
     } else {
-      // Get the bounding box of the element where the tap happens
-      const container = e.currentTarget.getBoundingClientRect();
+      // Loop over all touch points (multi-finger taps)
+      for (let i = 0; i < e.touches.length; i++) {
+        const touch = e.touches[i];
 
-      // Adjust the click coordinates to be relative to the container
-      const clientX = e.clientX - container.left;
-      const clientY = e.clientY - container.top;
+        // Get the bounding box of the container
+        const container = e.currentTarget.getBoundingClientRect();
+        const clientX = touch.clientX - container.left;
+        const clientY = touch.clientY - container.top;
 
-      const newText = { id: nextId, clientX, clientY };
-      setFloatingText((pre) => [...pre, newText]);
-      setNextId((pre) => pre + 1);
-      reduceTapLeft();
-      addToCurrentBalance(mainUser.perTap);
+        const newText = { id: nextId, clientX, clientY };
+        setFloatingText((pre) => [...pre, newText]);
+        setNextId((pre) => pre + 1);
+        reduceTapLeft();
+        addToCurrentBalance(mainUser.perTap);
 
-      setTimeout(() => {
-        setFloatingText((pre) => pre.filter((text) => text.id !== newText.id));
-      }, 2000);
+        setTimeout(() => {
+          setFloatingText((pre) => pre.filter((text) => text.id !== newText.id));
+        }, 2000);
+      }
     }
   }
 
@@ -66,7 +71,7 @@ const Dashboard = () => {
               width={500}
               height={500}
               alt="quick coin icon"
-              onClick={(e) => handleClick(e)}
+              onTouchStart={(e) => handleTouchStart(e)} // Handle multi-finger touches
             />
           </div>
           <div className="flex flex-row w-full justify-between px-2">
@@ -100,7 +105,7 @@ const Dashboard = () => {
             <span
               key={text.id}
               className="absolute text-3xl font-bold text-white move-up"
-              style={{ top: `${text.clientY}px`, left: `${text.clientX}px` }} // Adjusted click position
+              style={{ top: `${text.clientY}px`, left: `${text.clientX}px` }}
             >
               +{mainUser.perTap}
             </span>
