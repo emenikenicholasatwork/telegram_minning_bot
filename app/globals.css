@@ -32,20 +32,21 @@ body {
   }
 }
 
-@keyframes moveToCoin {
+@keyframes floatUp {
   0% {
     opacity: 1;
     transform: translateY(0);
   }
   100% {
     opacity: 0;
-    transform: translateY(-350px);
+    transform: translateY(-100px);
   }
 }
 
 .move-up {
   position: absolute;
-  animation: moveToCoin 1.3s forwards;
+  animation: floatUp 1.3s forwards;
+  pointer-events: none;
 }
 
 @keyframes breathe {

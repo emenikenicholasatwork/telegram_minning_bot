@@ -24,7 +24,7 @@
   "terminal.integrated.env.windows": {},
   "git.autofetch": true,
   "workbench.statusBar.visible": false,
-  "workbench.colorTheme": "Dark Magic Frankenstein",
+  "workbench.colorTheme": "Visual Studio Dark",
   "workbench.layoutControl.enabled": false,
   "window.commandCenter": false,
   "window.zoomLevel": 1,
